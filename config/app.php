@@ -169,7 +169,9 @@ return [
         Hootlex\Friendships\FriendshipsServiceProvider::class,
         Laravel\Passport\PassportServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
+        Laravel\Scout\ScoutServiceProvider::class,
         Laravel\Tinker\TinkerServiceProvider::class,
+        ScoutEngines\Elasticsearch\ElasticsearchProvider::class,
 
 
         /*

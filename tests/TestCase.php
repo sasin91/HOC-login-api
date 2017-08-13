@@ -1,12 +1,13 @@
 <?php
 
 namespace Tests;
+include 'helpers.php';
 
 use App\Exceptions\Handler;
+use App\User;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
-use Illuminate\Foundation\Testing\TestResponse;
-use PHPUnit\Framework\Assert as PHPUnit;
+use Laravel\Passport\Passport;
 
 abstract class TestCase extends BaseTestCase
 {
@@ -17,19 +18,13 @@ abstract class TestCase extends BaseTestCase
         parent::setUp();
 
         $this->seed(\PermissionsTableSeeder::class);
+    }
 
-        TestResponse::macro('assertCount', function ($excepted) {
-            PHPUnit::assertCount($excepted, $this->decodeResponseJson());
+    protected function signIn($user = null)
+    {
+        Passport::actingAs($user ?? factory(User::class)->create());
 
-            return $this;
-        });
-
-        TestResponse::macro('assertValidationError', function ($field) {
-            $this->assertStatus(422);
-            PHPUnit::assertArrayHasKey($field, $this->decodeResponseJson());
-
-            return $this;
-        });
+        return $this;
     }
 
     protected function disableExceptionHandling()

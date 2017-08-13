@@ -2,8 +2,8 @@
 
 namespace App\Providers;
 
-use App\{Player, Server};
-use App\Policies\{ServerPolicy, PlayerPolicy};
+use App\{Player, Server, Thread, Reply, User};
+use App\Policies\{ServerPolicy, PlayerPolicy, ThreadPolicy, ReplyPolicy, UserPolicy};
 
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
@@ -18,7 +18,10 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         Player::class => PlayerPolicy::class,
-        Server::class => ServerPolicy::class
+        Server::class => ServerPolicy::class,
+        Thread::class => ThreadPolicy::class,
+        Reply::class  => ReplyPolicy::class,
+        User::class   => UserPolicy::class
     ];
 
     /**

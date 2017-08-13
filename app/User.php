@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Jobs\ScrapOldPhoto;
 use App\Server;
 use Hootlex\Friendships\Traits\Friendable;
 use Illuminate\Database\Eloquent\Builder;
@@ -9,6 +10,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Collection;
 use Laravel\Passport\HasApiTokens;
+use Laravel\Scout\Searchable;
 use Spatie\Permission\Traits\HasRoles;
 
 /**
@@ -19,7 +21,7 @@ use Spatie\Permission\Traits\HasRoles;
  */
 class User extends Authenticatable
 {
-    use HasRoles, HasApiTokens, Notifiable, Friendable;
+    use HasRoles, HasApiTokens, Notifiable, Friendable, Searchable;
 
     /**
      * The attributes that are mass assignable.
@@ -30,7 +32,7 @@ class User extends Authenticatable
         'name',
         'email',
         'online',
-        'photo_url'
+        'photo_path'
     ];
 
     /**
@@ -50,21 +52,26 @@ class User extends Authenticatable
         static::created(function ($user) {
             $user->assignRole('User');
         });
+
+        static::saving(function ($user) {
+            if ($user->isDirty('photo_path')) {
+                ScrapOldPhoto::dispatch($user);
+            }
+        });
     }
 
     /**
      * Get the profile photo URL attribute.
      *
-     * @param  string|null  $value
-     * @return string|null
+     * @return string
      */
-    public function getPhotoUrlAttribute($value)
+    public function getPhotoUrlAttribute()
     {
-        if (empty($value)) {
-            return url('avatars/Random_Normal.png');
+        if ($value = $this->photo_path) {
+            return url("{$value}");
         }
 
-        return url("avatars/{$value}");
+        return url('avatars/Random_Normal.png');
     }
 
     public function players()
@@ -75,5 +82,35 @@ class User extends Authenticatable
     public function servers()
     {
         return $this->belongsToMany(Server::class, 'players');
+    }
+
+    /**
+     * Fetch all threads that were created by the user.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function threads()
+    {
+        return $this->hasMany(Thread::class)->latest();
+    }
+
+    /**
+     * Fetch the last published reply for the user.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function lastReply()
+    {
+        return $this->hasOne(Reply::class)->latest();
+    }
+
+    /**
+     * Get all activity for the user.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function activity()
+    {
+        return $this->hasMany(Activity::class);
     }
 }

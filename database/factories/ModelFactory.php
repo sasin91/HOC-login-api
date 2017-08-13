@@ -1,5 +1,9 @@
 <?php
 
+use App\Channel;
+use App\Thread;
+use App\User;
+
 /*
 |--------------------------------------------------------------------------
 | Model Factories
@@ -38,6 +42,45 @@ $factory->define(App\Player::class, function (Faker\Generator $faker) {
     return [
         'server_id' => 	factory(App\Server::class)->lazy(),
         'user_id' 	=> 	factory(App\User::class)->lazy(),
+    ];
+});
+
+$factory->define(App\Thread::class, function ($faker) {
+    return [
+        'user_id' => factory(User::class)->lazy(),
+        'channel_id' => factory(Channel::class)->lazy(),
+        'title' => $faker->sentence,
+        'body'  => $faker->paragraph
+    ];
+});
+
+$factory->define(App\Channel::class, function ($faker) {
+    $name = $faker->word;
+
+    return [
+        'name' => $name,
+        'slug' => $name
+    ];
+});
+
+
+$factory->define(App\Reply::class, function ($faker) {
+    return [
+        'thread_id' => factory(Thread::class)->lazy(),
+        'user_id' => factory(User::class)->lazy(),
+        'body'  => $faker->paragraph
+    ];
+});
+
+$factory->define(\Illuminate\Notifications\DatabaseNotification::class, function ($faker) {
+    return [
+        'id' => \Ramsey\Uuid\Uuid::uuid4()->toString(),
+        'type' => 'App\Notifications\ThreadWasUpdated',
+        'notifiable_id' => function () {
+            return auth()->id() ?: factory('App\User')->create()->id;
+        },
+        'notifiable_type' => 'App\User',
+        'data' => ['foo' => 'bar']
     ];
 });
 
