@@ -1,0 +1,9 @@
+Payment gateway testing
+
+integration of BrainTree / Paypal
+
+Shop: { Controllers, ...Purchasable_models }
+
+Player: { ExperienceBoost(s) }
+
+implement Characters and relation to items(gear, consumable etc. [Subject to change])
