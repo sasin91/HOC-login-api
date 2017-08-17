@@ -6,6 +6,7 @@ use App\Billing\PaymentGateway;
 use App\Billing\PaymentGatewayManager;
 use Illuminate\Foundation\Testing\TestResponse;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
 use PHPUnit\Framework\Assert as PHPUnit;
@@ -19,6 +20,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Schema::defaultStringLength(191);
+
         Validator::extend('spamfree', 'App\Rules\SpamFree@passes');
     }
 
