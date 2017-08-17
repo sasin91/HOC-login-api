@@ -172,7 +172,7 @@ return [
         Laravel\Scout\ScoutServiceProvider::class,
         Laravel\Tinker\TinkerServiceProvider::class,
         ScoutEngines\Elasticsearch\ElasticsearchProvider::class,
-
+        Barryvdh\Cors\ServiceProvider::class,
 
         /*
          * Application Service Providers...
