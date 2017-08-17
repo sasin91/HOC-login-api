@@ -6,10 +6,11 @@ use App\Events\ThreadReceivedNewReply;
 use App\Filters\ThreadFilters;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Scout\Searchable;
 
 class Thread extends Model
 {
-    use RecordsActivity;
+    use RecordsActivity, Searchable;
 
     /**
      * Don't auto-apply mass assignment protection.
@@ -30,7 +31,7 @@ class Thread extends Model
      *
      * @var array
      */
-    protected $appends = ['isSubscribedTo'];
+    protected $appends = ['isSubscribedTo', 'links'];
 
     /**
      * Boot the model.
@@ -44,6 +45,18 @@ class Thread extends Model
         });
     }
 
+    public function getLinksAttribute()
+    {
+        return [
+            'self' => $this->path(),
+            'creator' => route('profile', $this->creator),
+            'channel' => route('channel.show', $this->channel),
+            'replies' => route('thread.replies.index', [$this->channel, $this]),
+            'subscribe' => route('thread.subscriptions.store', [$this->channel, $this]),
+            'unsubscribe' => route('thread.subscriptions.destroy', [$this->channel, $this])
+        ];
+    }
+
     /**
      * Get a string path for the thread.
      *
@@ -51,7 +64,9 @@ class Thread extends Model
      */
     public function path()
     {
-        return "/api/threads/{$this->channel->id}/{$this->id}";
+        return route('threads.show', [$this->channel, $this]);
+
+        //return "/api/threads/{$this->channel->id}/{$this->id}";
     }
 
     /**

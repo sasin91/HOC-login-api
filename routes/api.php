@@ -45,17 +45,17 @@ Route::name('threads.show')->get('threads/{channel}/{thread}', 'ThreadsControlle
 Route::name('threads.destroy')->delete('threads/{channel}/{thread}', 'ThreadsController@destroy');
 
 Route::name('channel.show')->get('threads/{channel}', 'ThreadsController@index');
-Route::get('/threads/{channel}/{thread}/replies', 'RepliesController@index');
-Route::post('/threads/{channel}/{thread}/replies', 'RepliesController@store');
-Route::match(['PUT','PATCH'],'/replies/{reply}', 'RepliesController@update');
-Route::delete('/replies/{reply}', 'RepliesController@destroy');
+Route::name('thread.replies.index')->get('/threads/{channel}/{thread}/replies', 'RepliesController@index');
+Route::name('thread.replies.store')->post('/threads/{channel}/{thread}/replies', 'RepliesController@store');
+Route::name('replies.update')->match(['PUT','PATCH'],'/replies/{reply}', 'RepliesController@update');
+Route::name('replies.destroy')->delete('/replies/{reply}', 'RepliesController@destroy');
 
-Route::post('/threads/{channel}/{thread}/subscriptions', 'ThreadSubscriptionsController@store')->middleware('auth');
-Route::delete('/threads/{channel}/{thread}/subscriptions', 'ThreadSubscriptionsController@destroy')->middleware('auth');
+Route::name('thread.subscriptions.store')->post('/threads/{channel}/{thread}/subscriptions', 'ThreadSubscriptionsController@store')->middleware('auth');
+Route::name('thread.subscriptions.destroy')->delete('/threads/{channel}/{thread}/subscriptions', 'ThreadSubscriptionsController@destroy')->middleware('auth');
 
-Route::post('/replies/{reply}/favorites', 'FavoritesController@store');
-Route::delete('/replies/{reply}/favorites', 'FavoritesController@destroy');
+Route::name('reply.favorites.store')->post('/replies/{reply}/favorites', 'FavoritesController@store');
+Route::name('reply.favorites.destroy')->delete('/replies/{reply}/favorites', 'FavoritesController@destroy');
 
-Route::get('/profiles/{user}', 'ProfilesController@show')->name('profile');
-Route::get('/profiles/{user}/notifications', 'UserNotificationsController@index');
-Route::delete('/profiles/{user}/notifications/{notification}', 'UserNotificationsController@destroy');
+Route::name('profile')->get('/profiles/{user}', 'ProfilesController@show');
+Route::name('profile.notifications.index')->get('/profiles/{user}/notifications', 'UserNotificationsController@index');
+Route::name('profile.notifications.destroy')->delete('/profiles/{user}/notifications/{notification}', 'UserNotificationsController@destroy');
