@@ -18,7 +18,7 @@ if (!function_exists('is_email')) {
 if (!function_exists('liveDebug')) {
     function liveDebug($object = null)
     {
-        $object = $object ?? $this;
+        $object = $object ? $object : $this;
 
         return eval('extract(\Psy\debug(get_defined_vars(), isset($object) ? $object : null));');
     }

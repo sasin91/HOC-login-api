@@ -21,7 +21,7 @@ Route::name('users.search')->get('users-search', 'UserSearchController@show');
 
 Route::apiResource('servers', 'ServersController');
 
-Route::namespace('Server')->prefix('server/{server}')->group(function () {
+Route::prefix('server/{server}')->namespace('Server')->group(function () {
 	Route::name('server.players')->get('players', 'PlayersController@index');
 	Route::name('server.join')->post('join', 'JoinServerController@store');
 	Route::name('server.leave')->post('leave', 'LeaveServerController@store');

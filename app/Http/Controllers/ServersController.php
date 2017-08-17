@@ -3,9 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Formatters\DataStringFormatter;
-use App\Http\Requests\Server\{StoreServerRequest, UpdateServerRequest};
-use App\Repositories\ServerRepository;
-use App\Repositories\ServerRepositoryContract;
 use App\Server;
 use Illuminate\Http\Request;
 

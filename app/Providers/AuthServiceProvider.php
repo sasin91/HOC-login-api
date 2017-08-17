@@ -2,8 +2,17 @@
 
 namespace App\Providers;
 
-use App\{Player, Server, Thread, Reply, User};
-use App\Policies\{ServerPolicy, PlayerPolicy, ThreadPolicy, ReplyPolicy, UserPolicy};
+use App\Player;
+use App\Server;
+use App\Thread;
+use App\Reply;
+use App\User;
+
+use App\Policies\ServerPolicy;
+use App\Policies\PlayerPolicy;
+use App\Policies\ThreadPolicy;
+use App\Policies\ReplyPolicy;
+use App\Policies\UserPolicy;
 
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
