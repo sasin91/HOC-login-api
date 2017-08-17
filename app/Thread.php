@@ -10,7 +10,7 @@ use Laravel\Scout\Searchable;
 
 class Thread extends Model
 {
-    use RecordsActivity, Searchable;
+    use RecordsActivity;
 
     /**
      * Don't auto-apply mass assignment protection.
