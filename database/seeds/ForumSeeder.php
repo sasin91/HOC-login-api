@@ -1,5 +1,7 @@
 <?php
 
+use App\Reply;
+use App\Thread;
 use Illuminate\Database\Seeder;
 
 class ForumSeeder extends Seeder
@@ -11,6 +13,9 @@ class ForumSeeder extends Seeder
      */
     public function run()
     {
-        //
+        $threads = factory(Thread::class)->times(10)->create();
+        $threads->each(function ($thread) {
+        	$thread->replies()->saveMany(factory(Reply::class)->times(range(3,5))->make());
+        });
     }
 }
