@@ -28,6 +28,14 @@ abstract class TestCase extends BaseTestCase
         return $this;
     }
 
+    protected function signInAsAdmin($user = null)
+    {
+        $user = $user ? $user : factory(User::class)->create();
+        $user->assignRole('Admin');
+
+        return $this->signIn($user);
+    }
+
     protected function disableExceptionHandling()
     {
         $this->app->instance(ExceptionHandler::class, new Tests\ExceptionHandler);
