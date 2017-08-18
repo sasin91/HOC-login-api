@@ -3,15 +3,26 @@
 namespace Tests\Feature;
 
 use App\Channel;
+use App\Jobs\ScrapOldPhoto;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Bus;
 use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
 class ChannelCoverTest extends TestCase
 {
+	protected function setUp()
+	{
+		parent::setUp();
+
+		Storage::fake('public');
+
+		Bus::fake();
+	}
+
 	/** @test */
 	function admin_can_upload_a_channel_conver() 
 	{
@@ -19,9 +30,7 @@ class ChannelCoverTest extends TestCase
 
 		$this->signInAsAdmin();
 
-		Storage::fake('public');
-
-		$this->post(route('channel.cover.store'), ['photo' => $file = UploadedFile::fake()->image('photo.jpg')])
+		$this->post(route('channel.cover.store', $channel), ['photo' => $file = UploadedFile::fake()->image('photo.jpg')])
 			 ->assertSuccessful();	
 
 		$this->assertWasUploaded($file, $channel);
@@ -34,36 +43,85 @@ class ChannelCoverTest extends TestCase
 
 		$this->signIn($channel->creator);
 
-		Storage::fake('public');
-
-		$this->post(route('channel.cover.store'), ['photo' => $file = UploadedFile::fake()->image('photo.jpg')])
-			 ->assertSuccessful();	
+		$this->post(
+			route('channel.cover.store', $channel), 
+			['photo' => $file = UploadedFile::fake()->image('photo.jpg')]
+		)->assertSuccessful();	
 
 		$this->assertWasUploaded($file, $channel);
 	}
 
 	/** @test */
-	function creator_can_update_channel_cover() 
+	function it_scraps_the_old_when_a_new_is_uploaded() 
 	{
-		$this->fail('TODO');
-	} 
+		$channel = factory(Channel::class)->create(['photo_path' => 'fake-photo.png']);
 
-	/** @test */
-	function admin_can_update_channel_cover() 
-	{
-		$this->fail('TODO');
-	} 
+		$this->signIn($channel->creator);
 
-	/** @test */
-	function visitor_cannot_upload_a_channel_photo() 
-	{
-		$this->fail('TODO');
+		$this->post(
+			route('channel.cover.store', $channel), 
+			['photo' => $file = UploadedFile::fake()->image('photo.jpg')]
+		)->assertSuccessful();
+
+		$this->assertWasUploaded($file, $channel);
+
+		Bus::assertDispatched(ScrapOldPhoto::class, function ($job) use($channel) {
+			$job->handle();
+
+			return true;
+		});
+
+		Storage::disk('public')->assertMissing('channels/' . $channel->getOriginal('photo_path'));
 	} 
 
 	/** @test */
 	function it_reverts_to_default_when_deleted() 
 	{
-		$this->fail('TODO');
+		$channel = factory(Channel::class)->create(['photo_path' => 'fake-photo.png']);
+
+		$this->signIn($channel->creator);
+
+		$this->delete(route('channel.cover.destroy', $channel))->assertSuccessful();
+
+		Bus::assertDispatched(ScrapOldPhoto::class);
+
+		$this->assertEquals($channel->defaultPhotoUrl(), $channel->fresh()->photo_url);
+	} 
+
+	/** @test */
+	function a_visitor_cannot_change_a_cover_photo() 
+	{
+		$channel = factory(Channel::class)->create();
+
+		$this->post(route('channel.cover.store', $channel))->assertRedirect('/login');
+	} 
+
+	/** @test */
+	function a_visitor_cannot_remove_a_cover_photo() 
+	{
+		$channel = factory(Channel::class)->create();
+
+		$this->delete(route('channel.cover.destroy', $channel))->assertRedirect('/login');
+	} 
+
+	/** @test */
+	function a_random_user_cannot_change_a_cover_photo() 
+	{
+		$channel = factory(Channel::class)->create();
+
+		$this->signIn();
+
+		$this->post(route('channel.cover.store', $channel))->assertStatus(403);
+	} 
+
+	/** @test */
+	function a_random_user_cannot_remove_a_cover_photo() 
+	{
+		$channel = factory(Channel::class)->create();
+
+		$this->signIn();
+
+		$this->delete(route('channel.cover.store', $channel))->assertStatus(403);
 	} 
 
 	private function assertWasUploaded($file, $channel)

@@ -9,6 +9,7 @@ use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Laravel\Passport\Passport;
+use Tests\NullExceptionHandler;
 
 abstract class TestCase extends BaseTestCase
 {
@@ -38,6 +39,6 @@ abstract class TestCase extends BaseTestCase
 
     protected function disableExceptionHandling()
     {
-        $this->app->instance(ExceptionHandler::class, new Tests\ExceptionHandler);
+        $this->app->instance(ExceptionHandler::class, new NullExceptionHandler);
     }
 }

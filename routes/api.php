@@ -50,6 +50,9 @@ Route::name('thread.replies.store')->post('/threads/{channel}/{thread}/replies',
 Route::name('replies.update')->match(['PUT','PATCH'],'/replies/{reply}', 'RepliesController@update');
 Route::name('replies.destroy')->delete('/replies/{reply}', 'RepliesController@destroy');
 
+Route::name('channel.cover.store')->post('channel/{channel}/cover', 'ChannelCoverController@store');
+Route::name('channel.cover.destroy')->delete('channel/{channel}/cover', 'ChannelCoverController@destroy');
+
 Route::name('thread.subscriptions.store')->post('/threads/{channel}/{thread}/subscriptions', 'ThreadSubscriptionsController@store')->middleware('auth');
 Route::name('thread.subscriptions.destroy')->delete('/threads/{channel}/{thread}/subscriptions', 'ThreadSubscriptionsController@destroy')->middleware('auth');
 

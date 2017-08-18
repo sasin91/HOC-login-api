@@ -10,6 +10,6 @@ trait BypassedByAdmins
 			return true;
 		}
 
-		return false;
+		return null;
 	}
 }

@@ -55,7 +55,7 @@ class User extends Authenticatable
 
         static::saving(function ($user) {
             if ($user->isDirty('photo_path')) {
-                ScrapOldPhoto::dispatch($user);
+                ScrapOldPhoto::dispatch($user, 'avatars');
             }
         });
     }

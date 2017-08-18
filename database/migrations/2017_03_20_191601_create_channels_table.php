@@ -15,6 +15,13 @@ class CreateChannelsTable extends Migration
     {
         Schema::create('channels', function (Blueprint $table) {
             $table->increments('id');
+            
+            $table->unsignedInteger('creator_id')->nullable();
+            $table->foreign('creator_id')
+                  ->references('id')
+                  ->on('users')
+                  ->onUpdate('cascade');
+
             $table->string('name', 50);
             $table->string('slug', 50);
             $table->text('photo_path')->nullable();

@@ -9,19 +9,23 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Storage;
 
-class ScrapOldAvatar implements ShouldQueue
+class ScrapOldPhoto implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public $user;
+    public $model;
+    public $disk;
+    public $attribute;
 
-    public function __construct($user)
+    public function __construct($model, $disk, $attribute = 'photo_path')
     {
-        $this->user = $user;
+        $this->model = $model;
+        $this->disk = $disk;
+        $this->attribute = $attribute;
     }
 
     public function handle()
     {
-        Storage::disk('avatars')->delete($this->user->getOriginal('photo_path'));
+        Storage::disk($this->disk)->delete($this->model->getOriginal($this->attribute));
     }
 }

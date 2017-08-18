@@ -4,7 +4,7 @@ namespace Tests;
 
 use App\Exceptions\Handler;
 
-class ExceptionHandler extends Handler
+class NullExceptionHandler extends Handler
 {
     public function __construct()
     {

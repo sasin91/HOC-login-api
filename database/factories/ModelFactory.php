@@ -58,6 +58,7 @@ $factory->define(App\Channel::class, function ($faker) {
     $name = $faker->word;
 
     return [
+        'creator_id' => factory(User::class)->lazy(),
         'name' => $name,
         'slug' => $name
     ];

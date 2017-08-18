@@ -6,12 +6,14 @@ use App\Player;
 use App\Server;
 use App\Thread;
 use App\Reply;
+use App\Channel;
 use App\User;
 
 use App\Policies\ServerPolicy;
 use App\Policies\PlayerPolicy;
 use App\Policies\ThreadPolicy;
 use App\Policies\ReplyPolicy;
+use App\Policies\ChannelPolicy;
 use App\Policies\UserPolicy;
 
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
@@ -26,11 +28,12 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        Player::class => PlayerPolicy::class,
-        Server::class => ServerPolicy::class,
-        Thread::class => ThreadPolicy::class,
-        Reply::class  => ReplyPolicy::class,
-        User::class   => UserPolicy::class
+        Player::class  => PlayerPolicy::class,
+        Server::class  => ServerPolicy::class,
+        Thread::class  => ThreadPolicy::class,
+        Reply::class   => ReplyPolicy::class,
+        User::class    => UserPolicy::class,
+        Channel::class => ChannelPolicy::class
     ];
 
     /**
@@ -41,6 +44,10 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
+
+        Gate::define('upload channel cover', function ($user, $channel) {
+            return $user->hasRole('Admin') || $channel->creator->is($user);
+        });
 
         Gate::define('list players on server', function ($user, $server) {
             return $user->hasRole('Admin')
