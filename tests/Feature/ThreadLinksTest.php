@@ -16,8 +16,8 @@ class ThreadLinksTest extends TestCase
 	/** @test */
 	function a_serialized_thread_contains_links_to_self_and_related() 
 	{
-		User::disableSearchSyncing();
-		Thread::disableSearchSyncing();
+		//User::disableSearchSyncing();
+		//Thread::disableSearchSyncing();
 
 		$thread = factory(Thread::class)->create();
 

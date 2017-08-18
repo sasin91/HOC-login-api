@@ -45,11 +45,11 @@ class MentionUsersTest extends TestCase
             create('App\User', ['name' => 'janedoe'])
         ]);
 
-        $users->each->searchable();
+        //$users->each->searchable();
         
         $this->json('GET', route('users.search'), ['query' => 'john'])
         ->assertCount(2);
 
-        $users->each->unsearchable();
+        //$users->each->unsearchable();
     }
 }
