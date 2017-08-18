@@ -2,13 +2,14 @@
 
 namespace App\Policies;
 
+use App\Policies\Concerns\BypassedByAdmins;
 use App\Reply;
 use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class ReplyPolicy
 {
-    use HandlesAuthorization;
+    use HandlesAuthorization, BypassedByAdmins;
 
     /**
      * Determine if the authenticated user has permission to update a reply.
@@ -20,7 +21,7 @@ class ReplyPolicy
     public function update(User $user, Reply $reply)
     {
         return $reply->owner->is($user)
-        || $user->hasRole(['Moderator', 'Admin']);
+        || $user->hasRole(['Moderator']);
     }
 
     /**
@@ -48,6 +49,6 @@ class ReplyPolicy
     public function destroy(User $user, Reply $reply)
     {
         return $reply->owner->is($user)
-        || $user->hasRole(['Moderator', 'Admin']);
+        || $user->hasRole(['Moderator']);
     }
 }

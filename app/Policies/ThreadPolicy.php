@@ -2,13 +2,14 @@
 
 namespace App\Policies;
 
+use App\Policies\Concerns\BypassedByAdmins;
 use App\Thread;
 use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class ThreadPolicy
 {
-    use HandlesAuthorization;
+    use HandlesAuthorization, BypassedByAdmins;
 
     /**
      * Determine whether the user can update the thread.

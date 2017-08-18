@@ -2,13 +2,14 @@
 
 namespace App\Policies;
 
-use App\User;
 use App\Player;
+use App\Policies\Concerns\BypassedByAdmins;
+use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class PlayerPolicy
 {
-    use HandlesAuthorization;
+    use HandlesAuthorization, BypassedByAdmins;
 
     /**
      * Determine whether the user can view the player.
@@ -20,7 +21,7 @@ class PlayerPolicy
     public function view(User $user, Player $player)
     {
         return $player->user->is($user)
-        || $user->hasRole(['Moderator', 'Admin'])
+        || $user->hasRole(['Moderator'])
         || $user->isFriendWith($player->user)
         || $user->servers->contains($player->server);
     }
@@ -45,8 +46,7 @@ class PlayerPolicy
      */
     public function update(User $user, Player $player)
     {
-        return $player->user->is($user)
-        || $user->hasRole(['Admin']);
+        return $player->user->is($user);
     }
 
     /**
@@ -58,7 +58,6 @@ class PlayerPolicy
      */
     public function delete(User $user, Player $player)
     {
-        return $player->user->is($user)
-        || $user->hasRole(['Admin']);
+        return $player->user->is($user);
     }
 }
