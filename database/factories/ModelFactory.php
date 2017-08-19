@@ -1,4 +1,4 @@
-<?php
+c<?php
 
 use App\Board;
 use App\Channel;
@@ -61,7 +61,8 @@ $factory->define(App\Channel::class, function ($faker) {
         'board_id' => factory(Board::class)->lazy(),
         'creator_id' => factory(User::class)->lazy(),
         'name' => $name,
-        'slug' => $name
+        'slug' => $name,
+        'description' => $faker->bs
     ];
 });
 

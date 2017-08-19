@@ -30,6 +30,7 @@ class CreateChannelsTable extends Migration
 
             $table->string('name', 50);
             $table->string('slug', 50);
+            $table->string('description');
             $table->text('photo_path')->nullable();
             $table->timestamps();
         });
