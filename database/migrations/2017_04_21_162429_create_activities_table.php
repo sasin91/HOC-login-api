@@ -16,6 +16,7 @@ class CreateActivitiesTable extends Migration
         Schema::create('activities', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('user_id')->index();
+            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
             $table->unsignedInteger('subject_id')->index();
             $table->string('subject_type', 50);
             $table->string('type', 50);
