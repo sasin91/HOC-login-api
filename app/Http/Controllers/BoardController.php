@@ -20,7 +20,7 @@ class BoardController extends Controller
      */
     public function index()
     {
-        return Board::paginate(
+        return Board::with('channels')->paginate(
             request('perPage'),
             request('columns'),
             request('pageName'),

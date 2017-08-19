@@ -10,7 +10,7 @@ class Board extends Model
     	'creator_id', 'topic', 'description'
     ];
 
-    protected $appends = ['links'];
+    protected $appends = [];
     
     public function getLinksAttribute()
     {

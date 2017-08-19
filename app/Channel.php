@@ -11,7 +11,7 @@ class Channel extends Model
         'name', 'slug', 'photo_path'
     ];
 
-    protected $appends = ['photo_url', 'links'];
+    protected $appends = ['photo_url'];
 
     protected static function boot()
     {
