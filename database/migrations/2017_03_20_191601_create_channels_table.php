@@ -22,6 +22,12 @@ class CreateChannelsTable extends Migration
                   ->on('users')
                   ->onUpdate('cascade');
 
+            $table->unsignedInteger('board_id')->nullable();
+            $table->foreign('board_id')
+                  ->references('id')
+                  ->on('boards')
+                  ->onUpdate('cascade');
+
             $table->string('name', 50);
             $table->string('slug', 50);
             $table->text('photo_path')->nullable();

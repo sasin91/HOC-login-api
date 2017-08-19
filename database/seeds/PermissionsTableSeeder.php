@@ -7,11 +7,19 @@ use Spatie\Permission\Contracts\Role;
 
 class PermissionsTableSeeder extends Seeder
 {
-	protected $permissions = [
-		'Admin'			=>	['create servers', 'edit servers', 'delete servers'],
-		'Moderator'		=>	['list inactive players', 'list offline players', 'list online players', 'list newbie players'],
-		'User'			=>	['list servers', 'join server', 'leave server']
-	];
+    protected $admin = ['create servers', 'edit servers', 'delete servers'];
+
+    protected $moderator = [
+        'list inactive players', 'list offline players', 'list online players', 'list newbie players',
+        'create boards', 'edit boards', 'delete boards',
+        'edit channels', 'delete channels'
+    ];
+
+    protected $user = [
+        'list servers', 'join server', 'leave server',
+        'create channel'
+    ];
+
 
     /**
      * Run the database seeds.
@@ -22,8 +30,8 @@ class PermissionsTableSeeder extends Seeder
     {
         Cache::forget('spatie.permission.cache');
 
-        collect($this->permissions)
-        	->map(function ($permissions) use($permission_model) {
+        $this->permissions()
+        	 ->map(function ($permissions) use($permission_model) {
        			return collect(array_fill_keys($permissions, 'name'))
 	       			->chunk(1)
 	       			->map(function ($chunk) use($permission_model) {
@@ -39,5 +47,14 @@ class PermissionsTableSeeder extends Seeder
         			$role->givePermissionTo($permissions);
         		});
         	});
+    }
+
+    protected function permissions()
+    {
+        return collect([
+            'Admin' => $this->admin,
+            'Moderator' => $this->moderator,
+            'User' => $this->user
+        ]);
     }
 }

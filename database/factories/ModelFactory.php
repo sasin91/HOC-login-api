@@ -1,5 +1,6 @@
 <?php
 
+use App\Board;
 use App\Channel;
 use App\Thread;
 use App\User;
@@ -45,12 +46,11 @@ $factory->define(App\Player::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(App\Thread::class, function ($faker) {
+$factory->define(App\Board::class, function ($faker) {
     return [
-        'user_id' => factory(User::class)->lazy(),
-        'channel_id' => factory(Channel::class)->lazy(),
-        'title' => $faker->sentence,
-        'body'  => $faker->paragraph
+        'creator_id' => factory(User::class)->lazy(),
+        'topic' => $faker->sentence,
+        'description' => $faker->bs
     ];
 });
 
@@ -58,9 +58,19 @@ $factory->define(App\Channel::class, function ($faker) {
     $name = $faker->word;
 
     return [
+        'board_id' => factory(Board::class)->lazy(),
         'creator_id' => factory(User::class)->lazy(),
         'name' => $name,
         'slug' => $name
+    ];
+});
+
+$factory->define(App\Thread::class, function ($faker) {
+    return [
+        'user_id' => factory(User::class)->lazy(),
+        'channel_id' => factory(Channel::class)->lazy(),
+        'title' => $faker->sentence,
+        'body'  => $faker->paragraph
     ];
 });
 

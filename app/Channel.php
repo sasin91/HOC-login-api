@@ -11,13 +11,17 @@ class Channel extends Model
         'name', 'slug', 'photo_path'
     ];
 
-    protected $appends = ['photo_url'];
+    protected $appends = ['photo_url', 'links'];
 
     protected static function boot()
     {
         parent::boot();
 
         static::saving(function ($channel) {
+            if (! isset($channel->slug)) {
+                $channel->slug = str_slug($channel->name);
+            }
+
             if ($channel->isDirty('photo_path')) {
                 ScrapOldPhoto::dispatch($channel, 'channels');
             }
@@ -27,6 +31,27 @@ class Channel extends Model
             ScrapOldPhoto::dispatch($channel, 'channels');
         });
     }
+
+    public function getLinksAttribute()
+    {
+        return [
+            'self' => $this->path(),
+            'threads' => route('channel.threads.index', [$this]),
+            'creator' => route('profile', [$this->creator]),
+            'board' => route('board.show', [$this->board])
+        ];
+    }
+
+    /**
+     * Get a string path for the thread.
+     *
+     * @return string
+     */
+    public function path()
+    {
+        return route('channel.show', [$this]);
+    }
+
 
     /**
      * Get the profile photo URL attribute.
@@ -55,6 +80,16 @@ class Channel extends Model
     public function getRouteKeyName()
     {
         return 'slug';
+    }
+
+    /**
+     * A Channel belongs on a board.
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function board() 
+    {
+        return $this->belongsTo(Board::class);
     }
 
     /**

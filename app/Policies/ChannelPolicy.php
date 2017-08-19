@@ -12,7 +12,7 @@ class ChannelPolicy
 
     public function create($user)
     {
-        return true;
+        return $user->exists;
     }
 
     public function view($user, $channel)
@@ -22,11 +22,13 @@ class ChannelPolicy
 
     public function update($user, $channel)
     {
-        return $channel->creator->is($user);
+        return $user->hasPermissionTo('edit channels')
+        || $channel->creator->is($user);
     }
 
     public function destroy($user, $channel)
     {
-        return $channel->creator->is($user);
+        return $user->hasPermissionTo('delete channels')
+        || $channel->creator->is($user);
     }
 }

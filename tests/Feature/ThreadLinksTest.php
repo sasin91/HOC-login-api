@@ -11,7 +11,7 @@ use Tests\TestCase;
 
 class ThreadLinksTest extends TestCase
 {
-	use DatabaseMigrations;
+	use DatabaseMigrations, AssertsModelLink;
 
 	/** @test */
 	function a_serialized_thread_contains_links_to_self_and_related() 
@@ -29,15 +29,5 @@ class ThreadLinksTest extends TestCase
 		$this->assertValidLink('replies', $thread);
 		$this->assertValidLink('subscribe', $thread);
 		$this->assertValidLink('unsubscribe', $thread);
-	}
-
-	protected function assertValidLink($link, $thread)
-	{
-		$thread = is_array($thread) ? $thread : $thread->toArray();
-
-		$this->assertArrayHasKey($link, $thread['links'], "Thread did not contain link [{$link}].");
-		$this->assertNotEmpty($thread['links'][$link], "Thread did contain link [{$link}], but it has no url value.");
-
-		$this->assertNotFalse(filter_var($thread['links'][$link], FILTER_VALIDATE_URL), "[{$thread['links'][$link]}] is not a valid URL.");
 	}
 }

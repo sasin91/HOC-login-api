@@ -7,6 +7,7 @@ use App\Server;
 use App\Thread;
 use App\Reply;
 use App\Channel;
+use App\Board;
 use App\User;
 
 use App\Policies\ServerPolicy;
@@ -14,6 +15,7 @@ use App\Policies\PlayerPolicy;
 use App\Policies\ThreadPolicy;
 use App\Policies\ReplyPolicy;
 use App\Policies\ChannelPolicy;
+use App\Policies\BoardPolicy;
 use App\Policies\UserPolicy;
 
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
@@ -33,7 +35,8 @@ class AuthServiceProvider extends ServiceProvider
         Thread::class  => ThreadPolicy::class,
         Reply::class   => ReplyPolicy::class,
         User::class    => UserPolicy::class,
-        Channel::class => ChannelPolicy::class
+        Channel::class => ChannelPolicy::class,
+        Board::class   => BoardPolicy::class,
     ];
 
     /**

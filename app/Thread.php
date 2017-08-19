@@ -65,8 +65,6 @@ class Thread extends Model
     public function path()
     {
         return route('threads.show', [$this->channel, $this]);
-
-        //return "/api/threads/{$this->channel->id}/{$this->id}";
     }
 
     /**

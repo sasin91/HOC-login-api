@@ -38,13 +38,21 @@ Route::name('players.offline')->get('offline-players', 'Players\OfflineControlle
 Route::name('players.online')->get('online-players', 'Players\OnlineController@index');
 Route::name('players.newbies')->get('newbie-players', 'Players\NewbiesController@index');
 
+Route::apiResource('board', 'BoardController');
+
+Route::name('board.channels.index')->get('board/{board}/channels', 'BoardChannelsController@index');
+Route::name('channel.store')->post('channel', 'ChannelController@store');
+Route::name('channel.show')->get('channel/{channel}', 'ChannelController@show');
+Route::name('channel.update')->patch('channel/{channel}', 'ChannelController@update');
+Route::name('channel.destroy')->delete('channel/{channel}', 'ChannelController@destroy');
+
 Route::name('threads.index')->get('threads', 'ThreadsController@index');
 Route::name('threads.store')->post('threads', 'ThreadsController@store');
 
 Route::name('threads.show')->get('threads/{channel}/{thread}', 'ThreadsController@show');
 Route::name('threads.destroy')->delete('threads/{channel}/{thread}', 'ThreadsController@destroy');
 
-Route::name('channel.show')->get('threads/{channel}', 'ThreadsController@index');
+Route::name('channel.threads.index')->get('threads/{channel}', 'ThreadsController@index');
 Route::name('thread.replies.index')->get('/threads/{channel}/{thread}/replies', 'RepliesController@index');
 Route::name('thread.replies.store')->post('/threads/{channel}/{thread}/replies', 'RepliesController@store');
 Route::name('replies.update')->match(['PUT','PATCH'],'/replies/{reply}', 'RepliesController@update');
