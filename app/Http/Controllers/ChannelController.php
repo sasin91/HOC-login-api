@@ -32,13 +32,15 @@ class ChannelController extends Controller
             'board_id' => 'required|exists:boards,id',
             'name' => 'required|string|max:50|min:3|spamfree',
             'slug' => 'string|max:50|min:3|spamfree',
+            'description' => 'string|max:255|spamfree'
         ]);
 
         return Channel::create([
             'creator_id'  =>  request()->user()->id, 
             'board_id'    =>  request('board_id'),
             'name'        =>  request('name'),
-            'slug'        =>  request('slug')
+            'slug'        =>  request('slug'),
+            'description' =>  request('description')
         ]);
     }
 
@@ -54,11 +56,11 @@ class ChannelController extends Controller
         $this->authorize('update', $channel);
 
         $this->validate(request(), [
-            'title'         =>  'string|max:255|spamfree',
-            'body'   =>  'string|max:255|spamfree',
+            'name' => 'required|string|max:50|min:3|spamfree',
+            'description' => 'string|max:255|spamfree'
         ]);
 
-        return tap($channel)->update(request('title', 'body'));
+        return tap($channel)->update(request('name', 'description'));
     }
 
     /**
