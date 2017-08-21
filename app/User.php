@@ -46,6 +46,8 @@ class User extends Authenticatable
         'remember_token'
     ];
 
+    protected $appends = ['token'];
+
     protected static function boot()
     {
         parent::boot();
@@ -73,6 +75,11 @@ class User extends Authenticatable
         }
 
         return url('avatars/Random_Normal.png');
+    }
+
+    public function getTokenAttribute()
+    {
+        return $this->token();
     }
 
     public function players()

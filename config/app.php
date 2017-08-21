@@ -173,6 +173,7 @@ return [
         Laravel\Tinker\TinkerServiceProvider::class,
         ScoutEngines\Elasticsearch\ElasticsearchProvider::class,
         Barryvdh\Cors\ServiceProvider::class,
+        Mpociot\ApiDoc\ApiDocGeneratorServiceProvider::class,
 
         /*
          * Application Service Providers...
