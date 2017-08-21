@@ -13,6 +13,10 @@ use Illuminate\Http\Request;
 |
 */
 
+Route::name('login')->post('login', 'LoginController@store');
+Route::name('logout')->post('logout', 'LogoutController@store');
+Route::name('register')->post('register', 'RegisterController@store');
+
 Route::name('me')->get('me', 'MeController@show');
 Route::name('me.photo')->post('photo', 'Me\PhotoController@store');
 Route::name('user.photo')->post('users/{user}/photo', 'User\PhotoController@store');
