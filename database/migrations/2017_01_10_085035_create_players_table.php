@@ -20,6 +20,10 @@ class CreatePlayersTable extends Migration
             $table->integer('user_id')->unsigned()->index();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
+            $table->decimal('chevron')->nullable();
+            $table->integer('experience_rate')->default(100);
+	        $table->integer('experience')->nullable();
+
             $table->timestamp('online_at')->nullable();
             $table->timestamp('last_seen_at')->nullable();
             $table->timestamps();

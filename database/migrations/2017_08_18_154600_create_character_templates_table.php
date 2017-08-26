@@ -14,6 +14,7 @@ class CreateCharacterTemplatesTable extends Migration
     {
         Schema::create('character_templates', function (Blueprint $table) {
             $table->increments('id');
+            $table->decimal('cost')->nullable();
             $table->string('name');
             $table->integer('health');
             $table->string('resource_type');

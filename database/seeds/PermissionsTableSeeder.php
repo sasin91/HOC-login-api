@@ -35,7 +35,7 @@ class PermissionsTableSeeder extends Seeder
        			return collect(array_fill_keys($permissions, 'name'))
 	       			->chunk(1)
 	       			->map(function ($chunk) use($permission_model) {
-	       				return $permission_model->create(
+	       				return $permission_model->firstOrCreate(
 	       					$chunk
 		       					->flip()
 		       					->toArray()
@@ -43,8 +43,8 @@ class PermissionsTableSeeder extends Seeder
 	       			});
         	})
         	->each(function ($permissions, $role) use($role_model) {
-        		$role = tap($role_model->create(['name' => $role]), function ($role) use($permissions) {
-        			$role->givePermissionTo($permissions);
+        		tap($role_model->firstOrCreate(['name' => $role]), function ($role) use($permissions) {
+        			$role->syncPermissions($permissions);
         		});
         	});
     }

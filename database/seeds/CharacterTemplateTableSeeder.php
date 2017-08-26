@@ -148,7 +148,8 @@ class CharacterTemplateTableSeeder extends Seeder
         return [
             'health' => 100,
             'resource' => 100,
-            'stamina' => 100
+            'stamina' => 100,
+	        'cost' => 100
         ];
     }
 }
