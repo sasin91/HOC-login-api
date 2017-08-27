@@ -17,5 +17,6 @@ class DatabaseSeeder extends Seeder
         $this->call(ForumSeeder::class);
         $this->call(RepliesTableSeeder::class);
         $this->call(CharacterTemplateTableSeeder::class);
+	    $this->call(ProductsTableSeeder::class);
     }
 }
