@@ -1,1 +1,822 @@
-{"variables":[],"info":{"name":"","_postman_id":"1c955460-c5bc-43d9-91bd-1a5499cad290","description":"","schema":"https:\/\/schema.getpostman.com\/json\/collection\/v2.0.0\/collection.json"},"item":[{"name":"Servers","description":"","item":[{"name":"Display a listing of the resource.","request":{"url":"http:\/\/localhost\/api\/servers","method":"GET","body":{"mode":"formdata","formdata":[]},"description":"","response":[]}},{"name":"Store a newly created resource in storage.","request":{"url":"http:\/\/localhost\/api\/servers","method":"POST","body":{"mode":"formdata","formdata":[]},"description":"","response":[]}},{"name":"Display the specified resource.","request":{"url":"http:\/\/localhost\/api\/servers\/{server}","method":"GET","body":{"mode":"formdata","formdata":[]},"description":"","response":[]}},{"name":"Update the specified resource in storage.","request":{"url":"http:\/\/localhost\/api\/servers\/{server}","method":"PUT","body":{"mode":"formdata","formdata":[]},"description":"","response":[]}},{"name":"Remove the specified resource from storage.","request":{"url":"http:\/\/localhost\/api\/servers\/{server}","method":"DELETE","body":{"mode":"formdata","formdata":[]},"description":"","response":[]}}]},{"name":"general","description":"","item":[{"name":"http:\/\/localhost\/api\/login","request":{"url":"http:\/\/localhost\/api\/login","method":"POST","body":{"mode":"formdata","formdata":[{"key":"email","value":"repellat","type":"text","enabled":true},{"key":"password","value":"repellat","type":"text","enabled":true}]},"description":"","response":[]}},{"name":"http:\/\/localhost\/api\/logout","request":{"url":"http:\/\/localhost\/api\/logout","method":"POST","body":{"mode":"formdata","formdata":[]},"description":"","response":[]}},{"name":"http:\/\/localhost\/api\/register","request":{"url":"http:\/\/localhost\/api\/register","method":"POST","body":{"mode":"formdata","formdata":[]},"description":"","response":[]}},{"name":"http:\/\/localhost\/api\/me","request":{"url":"http:\/\/localhost\/api\/me","method":"GET","body":{"mode":"formdata","formdata":[]},"description":"","response":[]}},{"name":"http:\/\/localhost\/api\/photo","request":{"url":"http:\/\/localhost\/api\/photo","method":"POST","body":{"mode":"formdata","formdata":[]},"description":"","response":[]}},{"name":"http:\/\/localhost\/api\/users\/{user}\/photo","request":{"url":"http:\/\/localhost\/api\/users\/{user}\/photo","method":"POST","body":{"mode":"formdata","formdata":[]},"description":"","response":[]}},{"name":"http:\/\/localhost\/api\/users-search","request":{"url":"http:\/\/localhost\/api\/users-search","method":"GET","body":{"mode":"formdata","formdata":[]},"description":"","response":[]}},{"name":"http:\/\/localhost\/api\/server\/{server}\/players","request":{"url":"http:\/\/localhost\/api\/server\/{server}\/players","method":"GET","body":{"mode":"formdata","formdata":[]},"description":"","response":[]}},{"name":"http:\/\/localhost\/api\/server\/{server}\/join","request":{"url":"http:\/\/localhost\/api\/server\/{server}\/join","method":"POST","body":{"mode":"formdata","formdata":[]},"description":"","response":[]}},{"name":"http:\/\/localhost\/api\/server\/{server}\/leave","request":{"url":"http:\/\/localhost\/api\/server\/{server}\/leave","method":"POST","body":{"mode":"formdata","formdata":[]},"description":"","response":[]}},{"name":"http:\/\/localhost\/api\/player\/{player}","request":{"url":"http:\/\/localhost\/api\/player\/{player}","method":"GET","body":{"mode":"formdata","formdata":[]},"description":"","response":[]}},{"name":"http:\/\/localhost\/api\/player\/{player}","request":{"url":"http:\/\/localhost\/api\/player\/{player}","method":"DELETE","body":{"mode":"formdata","formdata":[]},"description":"","response":[]}},{"name":"http:\/\/localhost\/api\/player\/{player}","request":{"url":"http:\/\/localhost\/api\/player\/{player}","method":"PUT","body":{"mode":"formdata","formdata":[]},"description":"","response":[]}},{"name":"http:\/\/localhost\/api\/inactive-players","request":{"url":"http:\/\/localhost\/api\/inactive-players","method":"GET","body":{"mode":"formdata","formdata":[]},"description":"","response":[]}},{"name":"http:\/\/localhost\/api\/offline-players","request":{"url":"http:\/\/localhost\/api\/offline-players","method":"GET","body":{"mode":"formdata","formdata":[]},"description":"","response":[]}},{"name":"http:\/\/localhost\/api\/online-players","request":{"url":"http:\/\/localhost\/api\/online-players","method":"GET","body":{"mode":"formdata","formdata":[]},"description":"","response":[]}},{"name":"http:\/\/localhost\/api\/newbie-players","request":{"url":"http:\/\/localhost\/api\/newbie-players","method":"GET","body":{"mode":"formdata","formdata":[]},"description":"","response":[]}},{"name":"Display a listing of the resource.","request":{"url":"http:\/\/localhost\/api\/board","method":"GET","body":{"mode":"formdata","formdata":[]},"description":"","response":[]}},{"name":"Store a newly created resource in storage.","request":{"url":"http:\/\/localhost\/api\/board","method":"POST","body":{"mode":"formdata","formdata":[]},"description":"","response":[]}},{"name":"Display the specified resource.","request":{"url":"http:\/\/localhost\/api\/board\/{board}","method":"GET","body":{"mode":"formdata","formdata":[]},"description":"","response":[]}},{"name":"Update the specified resource in storage.","request":{"url":"http:\/\/localhost\/api\/board\/{board}","method":"PUT","body":{"mode":"formdata","formdata":[]},"description":"","response":[]}},{"name":"Remove the specified resource from storage.","request":{"url":"http:\/\/localhost\/api\/board\/{board}","method":"DELETE","body":{"mode":"formdata","formdata":[]},"description":"","response":[]}},{"name":"Display a listing of the resource.","request":{"url":"http:\/\/localhost\/api\/board\/{board}\/channels","method":"GET","body":{"mode":"formdata","formdata":[]},"description":"","response":[]}},{"name":"Store a newly created resource in storage.","request":{"url":"http:\/\/localhost\/api\/channel","method":"POST","body":{"mode":"formdata","formdata":[]},"description":"","response":[]}},{"name":"http:\/\/localhost\/api\/channel\/{channel}","request":{"url":"http:\/\/localhost\/api\/channel\/{channel}","method":"GET","body":{"mode":"formdata","formdata":[]},"description":"","response":[]}},{"name":"Update the specified resource in storage.","request":{"url":"http:\/\/localhost\/api\/channel\/{channel}","method":"PATCH","body":{"mode":"formdata","formdata":[]},"description":"","response":[]}},{"name":"Remove the specified resource from storage.","request":{"url":"http:\/\/localhost\/api\/channel\/{channel}","method":"DELETE","body":{"mode":"formdata","formdata":[]},"description":"","response":[]}},{"name":"Display a listing of the resource.","request":{"url":"http:\/\/localhost\/api\/threads","method":"GET","body":{"mode":"formdata","formdata":[]},"description":"","response":[]}},{"name":"Store a newly created resource in storage.","request":{"url":"http:\/\/localhost\/api\/threads","method":"POST","body":{"mode":"formdata","formdata":[]},"description":"","response":[]}},{"name":"Display the specified resource.","request":{"url":"http:\/\/localhost\/api\/threads\/{channel}\/{thread}","method":"GET","body":{"mode":"formdata","formdata":[]},"description":"","response":[]}},{"name":"Delete the given thread.","request":{"url":"http:\/\/localhost\/api\/threads\/{channel}\/{thread}","method":"DELETE","body":{"mode":"formdata","formdata":[]},"description":"","response":[]}},{"name":"Display a listing of the resource.","request":{"url":"http:\/\/localhost\/api\/threads\/{channel}","method":"GET","body":{"mode":"formdata","formdata":[]},"description":"","response":[]}},{"name":"http:\/\/localhost\/api\/threads\/{channel}\/{thread}\/replies","request":{"url":"http:\/\/localhost\/api\/threads\/{channel}\/{thread}\/replies","method":"GET","body":{"mode":"formdata","formdata":[]},"description":"","response":[]}},{"name":"http:\/\/localhost\/api\/threads\/{channel}\/{thread}\/replies","request":{"url":"http:\/\/localhost\/api\/threads\/{channel}\/{thread}\/replies","method":"POST","body":{"mode":"formdata","formdata":[]},"description":"","response":[]}},{"name":"http:\/\/localhost\/api\/replies\/{reply}","request":{"url":"http:\/\/localhost\/api\/replies\/{reply}","method":"PUT","body":{"mode":"formdata","formdata":[]},"description":"","response":[]}},{"name":"http:\/\/localhost\/api\/replies\/{reply}","request":{"url":"http:\/\/localhost\/api\/replies\/{reply}","method":"DELETE","body":{"mode":"formdata","formdata":[]},"description":"","response":[]}},{"name":"Store a newly created resource in storage.","request":{"url":"http:\/\/localhost\/api\/channel\/{channel}\/cover","method":"POST","body":{"mode":"formdata","formdata":[]},"description":"","response":[]}},{"name":"Remove the specified resource from storage.","request":{"url":"http:\/\/localhost\/api\/channel\/{channel}\/cover","method":"DELETE","body":{"mode":"formdata","formdata":[]},"description":"","response":[]}},{"name":"http:\/\/localhost\/api\/threads\/{channel}\/{thread}\/subscriptions","request":{"url":"http:\/\/localhost\/api\/threads\/{channel}\/{thread}\/subscriptions","method":"POST","body":{"mode":"formdata","formdata":[]},"description":"","response":[]}},{"name":"http:\/\/localhost\/api\/threads\/{channel}\/{thread}\/subscriptions","request":{"url":"http:\/\/localhost\/api\/threads\/{channel}\/{thread}\/subscriptions","method":"DELETE","body":{"mode":"formdata","formdata":[]},"description":"","response":[]}},{"name":"http:\/\/localhost\/api\/replies\/{reply}\/favorites","request":{"url":"http:\/\/localhost\/api\/replies\/{reply}\/favorites","method":"POST","body":{"mode":"formdata","formdata":[]},"description":"","response":[]}},{"name":"http:\/\/localhost\/api\/replies\/{reply}\/favorites","request":{"url":"http:\/\/localhost\/api\/replies\/{reply}\/favorites","method":"DELETE","body":{"mode":"formdata","formdata":[]},"description":"","response":[]}},{"name":"http:\/\/localhost\/api\/profiles\/{user}","request":{"url":"http:\/\/localhost\/api\/profiles\/{user}","method":"GET","body":{"mode":"formdata","formdata":[]},"description":"","response":[]}},{"name":"http:\/\/localhost\/api\/profiles\/{user}\/notifications","request":{"url":"http:\/\/localhost\/api\/profiles\/{user}\/notifications","method":"GET","body":{"mode":"formdata","formdata":[]},"description":"","response":[]}},{"name":"Mark a specific notification as read.","request":{"url":"http:\/\/localhost\/api\/profiles\/{user}\/notifications\/{notification}","method":"DELETE","body":{"mode":"formdata","formdata":[]},"description":"","response":[]}}]}]}
+{
+  "variables": [],
+  "info": {
+    "name": "",
+    "_postman_id": "60a21618-fd20-4d4e-9a62-d3dc75e81979",
+    "description": "",
+    "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.0.0\/collection.json"
+  },
+  "item": [
+    {
+      "name": "Servers",
+      "description": "",
+      "item": [
+        {
+          "name": "Display a listing of the resource.",
+          "request": {
+            "url": "http:\/\/localhost\/api\/servers",
+            "method": "GET",
+            "body": {
+              "mode": "formdata",
+              "formdata": []
+            },
+            "description": "",
+            "response": []
+          }
+        },
+        {
+          "name": "Store a newly created resource in storage.",
+          "request": {
+            "url": "http:\/\/localhost\/api\/servers",
+            "method": "POST",
+            "body": {
+              "mode": "formdata",
+              "formdata": []
+            },
+            "description": "",
+            "response": []
+          }
+        },
+        {
+          "name": "Display the specified resource.",
+          "request": {
+            "url": "http:\/\/localhost\/api\/servers\/{server}",
+            "method": "GET",
+            "body": {
+              "mode": "formdata",
+              "formdata": []
+            },
+            "description": "",
+            "response": []
+          }
+        },
+        {
+          "name": "Update the specified resource in storage.",
+          "request": {
+            "url": "http:\/\/localhost\/api\/servers\/{server}",
+            "method": "PUT",
+            "body": {
+              "mode": "formdata",
+              "formdata": []
+            },
+            "description": "",
+            "response": []
+          }
+        },
+        {
+          "name": "Remove the specified resource from storage.",
+          "request": {
+            "url": "http:\/\/localhost\/api\/servers\/{server}",
+            "method": "DELETE",
+            "body": {
+              "mode": "formdata",
+              "formdata": []
+            },
+            "description": "",
+            "response": []
+          }
+        }
+      ]
+    },
+    {
+      "name": "general",
+      "description": "",
+      "item": [
+        {
+          "name": "http:\/\/localhost\/api\/product\/{product}\/purchase",
+          "request": {
+            "url": "http:\/\/localhost\/api\/product\/{product}\/purchase",
+            "method": "POST",
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "player_id",
+                  "value": "qui",
+                  "type": "text",
+                  "enabled": true
+                }
+              ]
+            },
+            "description": "",
+            "response": []
+          }
+        },
+        {
+          "name": "Display a listing of the resource.",
+          "request": {
+            "url": "http:\/\/localhost\/api\/product",
+            "method": "GET",
+            "body": {
+              "mode": "formdata",
+              "formdata": []
+            },
+            "description": "",
+            "response": []
+          }
+        },
+        {
+          "name": "Store a newly created resource in storage.",
+          "request": {
+            "url": "http:\/\/localhost\/api\/product",
+            "method": "POST",
+            "body": {
+              "mode": "formdata",
+              "formdata": []
+            },
+            "description": "",
+            "response": []
+          }
+        },
+        {
+          "name": "Display the specified resource.",
+          "request": {
+            "url": "http:\/\/localhost\/api\/product\/{product}",
+            "method": "GET",
+            "body": {
+              "mode": "formdata",
+              "formdata": []
+            },
+            "description": "",
+            "response": []
+          }
+        },
+        {
+          "name": "Update the specified resource in storage.",
+          "request": {
+            "url": "http:\/\/localhost\/api\/product\/{product}",
+            "method": "PUT",
+            "body": {
+              "mode": "formdata",
+              "formdata": []
+            },
+            "description": "",
+            "response": []
+          }
+        },
+        {
+          "name": "Remove the specified resource from storage.",
+          "request": {
+            "url": "http:\/\/localhost\/api\/product\/{product}",
+            "method": "DELETE",
+            "body": {
+              "mode": "formdata",
+              "formdata": []
+            },
+            "description": "",
+            "response": []
+          }
+        },
+        {
+          "name": "http:\/\/localhost\/api\/publish-product",
+          "request": {
+            "url": "http:\/\/localhost\/api\/publish-product",
+            "method": "PUT",
+            "body": {
+              "mode": "formdata",
+              "formdata": []
+            },
+            "description": "",
+            "response": []
+          }
+        },
+        {
+          "name": "http:\/\/localhost\/api\/unlock-character",
+          "request": {
+            "url": "http:\/\/localhost\/api\/unlock-character",
+            "method": "POST",
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "gateway",
+                  "value": "provident",
+                  "type": "text",
+                  "enabled": true
+                },
+                {
+                  "key": "player_id",
+                  "value": "provident",
+                  "type": "text",
+                  "enabled": true
+                },
+                {
+                  "key": "id",
+                  "value": "provident",
+                  "type": "text",
+                  "enabled": true
+                },
+                {
+                  "key": "name",
+                  "value": "provident",
+                  "type": "text",
+                  "enabled": true
+                }
+              ]
+            },
+            "description": "",
+            "response": []
+          }
+        },
+        {
+          "name": "http:\/\/localhost\/api\/login",
+          "request": {
+            "url": "http:\/\/localhost\/api\/login",
+            "method": "POST",
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "email",
+                  "value": "repellat",
+                  "type": "text",
+                  "enabled": true
+                },
+                {
+                  "key": "password",
+                  "value": "repellat",
+                  "type": "text",
+                  "enabled": true
+                }
+              ]
+            },
+            "description": "",
+            "response": []
+          }
+        },
+        {
+          "name": "http:\/\/localhost\/api\/logout",
+          "request": {
+            "url": "http:\/\/localhost\/api\/logout",
+            "method": "POST",
+            "body": {
+              "mode": "formdata",
+              "formdata": []
+            },
+            "description": "",
+            "response": []
+          }
+        },
+        {
+          "name": "http:\/\/localhost\/api\/register",
+          "request": {
+            "url": "http:\/\/localhost\/api\/register",
+            "method": "POST",
+            "body": {
+              "mode": "formdata",
+              "formdata": []
+            },
+            "description": "",
+            "response": []
+          }
+        },
+        {
+          "name": "http:\/\/localhost\/api\/me",
+          "request": {
+            "url": "http:\/\/localhost\/api\/me",
+            "method": "GET",
+            "body": {
+              "mode": "formdata",
+              "formdata": []
+            },
+            "description": "",
+            "response": []
+          }
+        },
+        {
+          "name": "http:\/\/localhost\/api\/photo",
+          "request": {
+            "url": "http:\/\/localhost\/api\/photo",
+            "method": "POST",
+            "body": {
+              "mode": "formdata",
+              "formdata": []
+            },
+            "description": "",
+            "response": []
+          }
+        },
+        {
+          "name": "http:\/\/localhost\/api\/users\/{user}\/photo",
+          "request": {
+            "url": "http:\/\/localhost\/api\/users\/{user}\/photo",
+            "method": "POST",
+            "body": {
+              "mode": "formdata",
+              "formdata": []
+            },
+            "description": "",
+            "response": []
+          }
+        },
+        {
+          "name": "http:\/\/localhost\/api\/users-search",
+          "request": {
+            "url": "http:\/\/localhost\/api\/users-search",
+            "method": "GET",
+            "body": {
+              "mode": "formdata",
+              "formdata": []
+            },
+            "description": "",
+            "response": []
+          }
+        },
+        {
+          "name": "http:\/\/localhost\/api\/server\/{server}\/players",
+          "request": {
+            "url": "http:\/\/localhost\/api\/server\/{server}\/players",
+            "method": "GET",
+            "body": {
+              "mode": "formdata",
+              "formdata": []
+            },
+            "description": "",
+            "response": []
+          }
+        },
+        {
+          "name": "http:\/\/localhost\/api\/server\/{server}\/join",
+          "request": {
+            "url": "http:\/\/localhost\/api\/server\/{server}\/join",
+            "method": "POST",
+            "body": {
+              "mode": "formdata",
+              "formdata": []
+            },
+            "description": "",
+            "response": []
+          }
+        },
+        {
+          "name": "http:\/\/localhost\/api\/server\/{server}\/leave",
+          "request": {
+            "url": "http:\/\/localhost\/api\/server\/{server}\/leave",
+            "method": "POST",
+            "body": {
+              "mode": "formdata",
+              "formdata": []
+            },
+            "description": "",
+            "response": []
+          }
+        },
+        {
+          "name": "http:\/\/localhost\/api\/player\/{player}",
+          "request": {
+            "url": "http:\/\/localhost\/api\/player\/{player}",
+            "method": "GET",
+            "body": {
+              "mode": "formdata",
+              "formdata": []
+            },
+            "description": "",
+            "response": []
+          }
+        },
+        {
+          "name": "http:\/\/localhost\/api\/player\/{player}",
+          "request": {
+            "url": "http:\/\/localhost\/api\/player\/{player}",
+            "method": "DELETE",
+            "body": {
+              "mode": "formdata",
+              "formdata": []
+            },
+            "description": "",
+            "response": []
+          }
+        },
+        {
+          "name": "http:\/\/localhost\/api\/player\/{player}",
+          "request": {
+            "url": "http:\/\/localhost\/api\/player\/{player}",
+            "method": "PUT",
+            "body": {
+              "mode": "formdata",
+              "formdata": []
+            },
+            "description": "",
+            "response": []
+          }
+        },
+        {
+          "name": "http:\/\/localhost\/api\/inactive-players",
+          "request": {
+            "url": "http:\/\/localhost\/api\/inactive-players",
+            "method": "GET",
+            "body": {
+              "mode": "formdata",
+              "formdata": []
+            },
+            "description": "",
+            "response": []
+          }
+        },
+        {
+          "name": "http:\/\/localhost\/api\/offline-players",
+          "request": {
+            "url": "http:\/\/localhost\/api\/offline-players",
+            "method": "GET",
+            "body": {
+              "mode": "formdata",
+              "formdata": []
+            },
+            "description": "",
+            "response": []
+          }
+        },
+        {
+          "name": "http:\/\/localhost\/api\/online-players",
+          "request": {
+            "url": "http:\/\/localhost\/api\/online-players",
+            "method": "GET",
+            "body": {
+              "mode": "formdata",
+              "formdata": []
+            },
+            "description": "",
+            "response": []
+          }
+        },
+        {
+          "name": "http:\/\/localhost\/api\/newbie-players",
+          "request": {
+            "url": "http:\/\/localhost\/api\/newbie-players",
+            "method": "GET",
+            "body": {
+              "mode": "formdata",
+              "formdata": []
+            },
+            "description": "",
+            "response": []
+          }
+        },
+        {
+          "name": "Display a listing of the resource.",
+          "request": {
+            "url": "http:\/\/localhost\/api\/board",
+            "method": "GET",
+            "body": {
+              "mode": "formdata",
+              "formdata": []
+            },
+            "description": "",
+            "response": []
+          }
+        },
+        {
+          "name": "Store a newly created resource in storage.",
+          "request": {
+            "url": "http:\/\/localhost\/api\/board",
+            "method": "POST",
+            "body": {
+              "mode": "formdata",
+              "formdata": []
+            },
+            "description": "",
+            "response": []
+          }
+        },
+        {
+          "name": "Display the specified resource.",
+          "request": {
+            "url": "http:\/\/localhost\/api\/board\/{board}",
+            "method": "GET",
+            "body": {
+              "mode": "formdata",
+              "formdata": []
+            },
+            "description": "",
+            "response": []
+          }
+        },
+        {
+          "name": "Update the specified resource in storage.",
+          "request": {
+            "url": "http:\/\/localhost\/api\/board\/{board}",
+            "method": "PUT",
+            "body": {
+              "mode": "formdata",
+              "formdata": []
+            },
+            "description": "",
+            "response": []
+          }
+        },
+        {
+          "name": "Remove the specified resource from storage.",
+          "request": {
+            "url": "http:\/\/localhost\/api\/board\/{board}",
+            "method": "DELETE",
+            "body": {
+              "mode": "formdata",
+              "formdata": []
+            },
+            "description": "",
+            "response": []
+          }
+        },
+        {
+          "name": "Display a listing of the resource.",
+          "request": {
+            "url": "http:\/\/localhost\/api\/board\/{board}\/channels",
+            "method": "GET",
+            "body": {
+              "mode": "formdata",
+              "formdata": []
+            },
+            "description": "",
+            "response": []
+          }
+        },
+        {
+          "name": "Store a newly created resource in storage.",
+          "request": {
+            "url": "http:\/\/localhost\/api\/channel",
+            "method": "POST",
+            "body": {
+              "mode": "formdata",
+              "formdata": []
+            },
+            "description": "",
+            "response": []
+          }
+        },
+        {
+          "name": "http:\/\/localhost\/api\/channel\/{channel}",
+          "request": {
+            "url": "http:\/\/localhost\/api\/channel\/{channel}",
+            "method": "GET",
+            "body": {
+              "mode": "formdata",
+              "formdata": []
+            },
+            "description": "",
+            "response": []
+          }
+        },
+        {
+          "name": "Update the specified resource in storage.",
+          "request": {
+            "url": "http:\/\/localhost\/api\/channel\/{channel}",
+            "method": "PATCH",
+            "body": {
+              "mode": "formdata",
+              "formdata": []
+            },
+            "description": "",
+            "response": []
+          }
+        },
+        {
+          "name": "Remove the specified resource from storage.",
+          "request": {
+            "url": "http:\/\/localhost\/api\/channel\/{channel}",
+            "method": "DELETE",
+            "body": {
+              "mode": "formdata",
+              "formdata": []
+            },
+            "description": "",
+            "response": []
+          }
+        },
+        {
+          "name": "Display a listing of the resource.",
+          "request": {
+            "url": "http:\/\/localhost\/api\/threads",
+            "method": "GET",
+            "body": {
+              "mode": "formdata",
+              "formdata": []
+            },
+            "description": "",
+            "response": []
+          }
+        },
+        {
+          "name": "Store a newly created resource in storage.",
+          "request": {
+            "url": "http:\/\/localhost\/api\/threads",
+            "method": "POST",
+            "body": {
+              "mode": "formdata",
+              "formdata": []
+            },
+            "description": "",
+            "response": []
+          }
+        },
+        {
+          "name": "Display the specified resource.",
+          "request": {
+            "url": "http:\/\/localhost\/api\/threads\/{channel}\/{thread}",
+            "method": "GET",
+            "body": {
+              "mode": "formdata",
+              "formdata": []
+            },
+            "description": "",
+            "response": []
+          }
+        },
+        {
+          "name": "Delete the given thread.",
+          "request": {
+            "url": "http:\/\/localhost\/api\/threads\/{channel}\/{thread}",
+            "method": "DELETE",
+            "body": {
+              "mode": "formdata",
+              "formdata": []
+            },
+            "description": "",
+            "response": []
+          }
+        },
+        {
+          "name": "Display a listing of the resource.",
+          "request": {
+            "url": "http:\/\/localhost\/api\/threads\/{channel}",
+            "method": "GET",
+            "body": {
+              "mode": "formdata",
+              "formdata": []
+            },
+            "description": "",
+            "response": []
+          }
+        },
+        {
+          "name": "http:\/\/localhost\/api\/threads\/{channel}\/{thread}\/replies",
+          "request": {
+            "url": "http:\/\/localhost\/api\/threads\/{channel}\/{thread}\/replies",
+            "method": "GET",
+            "body": {
+              "mode": "formdata",
+              "formdata": []
+            },
+            "description": "",
+            "response": []
+          }
+        },
+        {
+          "name": "http:\/\/localhost\/api\/threads\/{channel}\/{thread}\/replies",
+          "request": {
+            "url": "http:\/\/localhost\/api\/threads\/{channel}\/{thread}\/replies",
+            "method": "POST",
+            "body": {
+              "mode": "formdata",
+              "formdata": []
+            },
+            "description": "",
+            "response": []
+          }
+        },
+        {
+          "name": "http:\/\/localhost\/api\/replies\/{reply}",
+          "request": {
+            "url": "http:\/\/localhost\/api\/replies\/{reply}",
+            "method": "PUT",
+            "body": {
+              "mode": "formdata",
+              "formdata": []
+            },
+            "description": "",
+            "response": []
+          }
+        },
+        {
+          "name": "http:\/\/localhost\/api\/replies\/{reply}",
+          "request": {
+            "url": "http:\/\/localhost\/api\/replies\/{reply}",
+            "method": "DELETE",
+            "body": {
+              "mode": "formdata",
+              "formdata": []
+            },
+            "description": "",
+            "response": []
+          }
+        },
+        {
+          "name": "Store a newly created resource in storage.",
+          "request": {
+            "url": "http:\/\/localhost\/api\/channel\/{channel}\/cover",
+            "method": "POST",
+            "body": {
+              "mode": "formdata",
+              "formdata": []
+            },
+            "description": "",
+            "response": []
+          }
+        },
+        {
+          "name": "Remove the specified resource from storage.",
+          "request": {
+            "url": "http:\/\/localhost\/api\/channel\/{channel}\/cover",
+            "method": "DELETE",
+            "body": {
+              "mode": "formdata",
+              "formdata": []
+            },
+            "description": "",
+            "response": []
+          }
+        },
+        {
+          "name": "http:\/\/localhost\/api\/threads\/{channel}\/{thread}\/subscriptions",
+          "request": {
+            "url": "http:\/\/localhost\/api\/threads\/{channel}\/{thread}\/subscriptions",
+            "method": "POST",
+            "body": {
+              "mode": "formdata",
+              "formdata": []
+            },
+            "description": "",
+            "response": []
+          }
+        },
+        {
+          "name": "http:\/\/localhost\/api\/threads\/{channel}\/{thread}\/subscriptions",
+          "request": {
+            "url": "http:\/\/localhost\/api\/threads\/{channel}\/{thread}\/subscriptions",
+            "method": "DELETE",
+            "body": {
+              "mode": "formdata",
+              "formdata": []
+            },
+            "description": "",
+            "response": []
+          }
+        },
+        {
+          "name": "http:\/\/localhost\/api\/replies\/{reply}\/favorites",
+          "request": {
+            "url": "http:\/\/localhost\/api\/replies\/{reply}\/favorites",
+            "method": "POST",
+            "body": {
+              "mode": "formdata",
+              "formdata": []
+            },
+            "description": "",
+            "response": []
+          }
+        },
+        {
+          "name": "http:\/\/localhost\/api\/replies\/{reply}\/favorites",
+          "request": {
+            "url": "http:\/\/localhost\/api\/replies\/{reply}\/favorites",
+            "method": "DELETE",
+            "body": {
+              "mode": "formdata",
+              "formdata": []
+            },
+            "description": "",
+            "response": []
+          }
+        },
+        {
+          "name": "http:\/\/localhost\/api\/profiles\/{user}",
+          "request": {
+            "url": "http:\/\/localhost\/api\/profiles\/{user}",
+            "method": "GET",
+            "body": {
+              "mode": "formdata",
+              "formdata": []
+            },
+            "description": "",
+            "response": []
+          }
+        },
+        {
+          "name": "http:\/\/localhost\/api\/profiles\/{user}\/notifications",
+          "request": {
+            "url": "http:\/\/localhost\/api\/profiles\/{user}\/notifications",
+            "method": "GET",
+            "body": {
+              "mode": "formdata",
+              "formdata": []
+            },
+            "description": "",
+            "response": []
+          }
+        },
+        {
+          "name": "Mark a specific notification as read.",
+          "request": {
+            "url": "http:\/\/localhost\/api\/profiles\/{user}\/notifications\/{notification}",
+            "method": "DELETE",
+            "body": {
+              "mode": "formdata",
+              "formdata": []
+            },
+            "description": "",
+            "response": []
+          }
+        }
+      ]
+    }
+  ]
+}
