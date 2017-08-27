@@ -8,9 +8,8 @@ use App\Billing\PaymentFailedException;
 use App\Player;
 use App\Purchase;
 use App\Transaction;
-use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Tests\TestCase;
 
 class ChevronGatewayTest extends TestCase
 {
@@ -34,7 +33,7 @@ class ChevronGatewayTest extends TestCase
 	{
 		$player = factory(Player::class)->create(['chevron' => 1000]);
 
-		$transaction = $this->gateway->player($player)->charge(500);
+		$transaction = $this->gateway->user($player)->charge(500);
 
 		$this->assertEquals(500, $transaction->amount);
 		$this->assertEquals(500, $player->fresh()->chevron);
@@ -45,7 +44,7 @@ class ChevronGatewayTest extends TestCase
 	public function it_refunds_a_players_chevrons()
 	{
 		$player = factory(Player::class)->create(['chevron' => 1000]);
-		$transaction = $this->gateway->player($player)->charge(500);
+		$transaction = $this->gateway->user($player)->charge(500);
 		$this->completeTransaction($transaction);
 
 		$this->gateway->refund($transaction->provider_id);
@@ -63,7 +62,7 @@ class ChevronGatewayTest extends TestCase
 	public function it_can_partially_refund_a_transaction()
 	{
 		$player = factory(Player::class)->create(['chevron' => 1000]);
-		$transaction = $this->gateway->player($player)->charge(500);
+		$transaction = $this->gateway->user($player)->charge(500);
 		$this->completeTransaction($transaction);
 
 		$this->gateway->refund($transaction->provider_id, 200);
@@ -85,7 +84,7 @@ class ChevronGatewayTest extends TestCase
 		$this->disableExceptionHandling();
 
 		try {
-			$this->gateway->player($player)->refund('fake-provider-id', 10000);
+			$this->gateway->user($player)->refund('fake-provider-id', 10000);
 		} catch (PaymentFailedException $e) {
 			$this->assertEquals("Invalid token [fake-provider-id].", $e->getMessage());
 		}
@@ -99,13 +98,13 @@ class ChevronGatewayTest extends TestCase
 		$this->disableExceptionHandling();
 
 		try {
-			$this->gateway->player($player)->charge(-100);
+			$this->gateway->user($player)->charge(-100);
 		} catch (GatewayException $e) {
 			$this->assertEquals("Invalid amount [-100].", $e->getMessage());
 		}
 
 		try {
-			$this->gateway->player($player)->charge(0);
+			$this->gateway->user($player)->charge(0);
 		} catch (GatewayException $e) {
 			$this->assertEquals("Invalid amount [0].", $e->getMessage());
 		}
@@ -141,16 +140,16 @@ class ChevronGatewayTest extends TestCase
 		$player = factory(Player::class)->create(['chevron' => 100]);
 
 		$this->disableExceptionHandling();
-		$id = $this->gateway->player($player)->charge(100)->provider_id;
+		$id = $this->gateway->user($player)->charge(100)->provider_id;
 
 		try {
-			$this->gateway->player($player)->refund($id, -100);
+			$this->gateway->user($player)->refund($id, -100);
 		} catch (GatewayException $e) {
 			$this->assertEquals("Invalid amount [-100].", $e->getMessage());
 		}
 
 		try {
-			$this->gateway->player($player)->refund($id, 0);
+			$this->gateway->user($player)->refund($id, 0);
 		} catch (GatewayException $e) {
 			$this->assertEquals("Invalid amount [0].", $e->getMessage());
 		}

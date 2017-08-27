@@ -9,6 +9,8 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
+use Laracasts\Generators\GeneratorsServiceProvider;
+use Mpociot\LaravelTestFactoryHelper\TestFactoryHelperServiceProvider;
 use PHPUnit\Framework\Assert as PHPUnit;
 
 class AppServiceProvider extends ServiceProvider
@@ -23,6 +25,7 @@ class AppServiceProvider extends ServiceProvider
         Schema::defaultStringLength(191);
 
         Validator::extend('spamfree', 'App\Rules\SpamFree@passes');
+	    Validator::extend('gateway', 'App\Rules\ValidPaymentGateway@passes');
     }
 
     /**
@@ -33,12 +36,10 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         if ($this->app->environment(['testing', 'development', 'local'])) {
-            $this->app->register(\Laracasts\Generators\GeneratorsServiceProvider::class);
-            $this->app->register(\Mpociot\LaravelTestFactoryHelper\TestFactoryHelperServiceProvider::class);
-        }
+	        $this->app->register(GeneratorsServiceProvider::class);
+	        $this->app->register(TestFactoryHelperServiceProvider::class);
 
-        if ($this->app->environment('testing')) {
-            $this->registerTestingMacros();
+	        $this->registerTestingMacros();
         }
 
         $this->registerPaymentGateway();
@@ -51,7 +52,14 @@ class AppServiceProvider extends ServiceProvider
         });
 
         TestResponse::macro('assertCount', function ($excepted) {
-            PHPUnit::assertCount($excepted, $this->decodeResponseJson(), "Response.data count did not match expected [{$excepted}].");
+	        $response = $this->decodeResponseJson();
+
+	        if (\array_key_exists('data', $response)) {
+		        PHPUnit::assertCount($excepted, $response['data'],
+			        "Response.data count did not match expected [{$excepted}].");
+	        } else {
+		        PHPUnit::assertCount($excepted, $response, "Response.data count did not match expected [{$excepted}].");
+	        }
 
             return $this;
         });
@@ -66,6 +74,12 @@ class AppServiceProvider extends ServiceProvider
 
     protected function registerPaymentGateway()
     {
-        $this->app->singleton(PaymentGateway::class, PaymentGatewayManager::class);
+	    $this->app->singleton(PaymentGatewayManager::class, function ($app) {
+		    return new PaymentGatewayManager($app);
+	    });
+
+	    $this->app->singleton(PaymentGateway::class, function ($app) {
+		    return $app[PaymentGatewayManager::class]->driver();
+	    });
     }
 }

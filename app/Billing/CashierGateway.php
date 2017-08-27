@@ -4,10 +4,11 @@ namespace App\Billing;
 
 use App\Billing\Data\Charge;
 use App\Billing\Data\Refund;
+use App\Transaction;
 
 class CashierGateway implements PaymentGateway
 {
-    use CanDispatchEvents, HasUser, HasLocalReceipts;
+	use CanDispatchEvents, HasUser;
 
 	/**
 	 * The current resource ID.
@@ -53,7 +54,7 @@ class CashierGateway implements PaymentGateway
      */
     public function totalRefunds()
     {
-        return collect($this->refunds)->sum('amounts');
+	    return collect($this->refunds)->sum('refunded_amount');
     }
 
     /**
@@ -64,7 +65,7 @@ class CashierGateway implements PaymentGateway
      */
     public function __call($method, array $parameters = [])
     {
-        return call_user_func_array([$this, $method], $parameters);
+	    return call_user_func_array([$this->user(), $method], $parameters);
     }
 
     /**
@@ -77,21 +78,25 @@ class CashierGateway implements PaymentGateway
         return true;
     }
 
-    /**
-     * Make a "one off" charge on the customer for the given amount.
-     *
-     * @param  int   $amount
-     * @param  array $options
-     *
-     * @return \App\Billing\Data\Charge
-     *
-     * @throws \Exception
-     */
+	/**
+	 * @inheritdoc
+	 */
     public function charge($amount, array $options = [])
     {
 	    $this->fireGatewayEvent('charging');
 	    try {
 		    $charge = $this->user()->charge($amount, $options);
+
+		    $id = $this->provider_id = $charge->id;
+
+		    return $this->charges[$id] = new Transaction([
+			    'user_id' => $this->user->id,
+			    'gateway' => static::class,
+			    'provider_id' => $id,
+			    'amount' => $amount,
+			    'currency' => 'chevron',
+			    'payment_type' => 'ingame'
+		    ]);
 
 		    return $this->charges[] = new Charge([
 			    'amount' => $amount,
@@ -115,15 +120,9 @@ class CashierGateway implements PaymentGateway
 	    }
     }
 
-    /**
-     * Refund a customer for a charge.
-     *
-     * @param  string $amount
-     * @param  string $charge_id
-     *
-     * @throws \Exception*
-     * @return \App\Billing\Data\Refund
-     */
+	/**
+	 * @inheritdoc
+	 */
 	public function refund($amount, $charge_id = null)
     {
 	    $this->fireGatewayEvent('refunding', $amount);

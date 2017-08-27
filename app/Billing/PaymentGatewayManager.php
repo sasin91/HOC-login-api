@@ -13,15 +13,15 @@ class PaymentGatewayManager extends Manager
      */
 	public function getDefaultDriver()
 	{
-		return ChevronGateway::class;
+		return 'chevron';
 	}
 
-    protected function getChevronDriver()
+	protected function createChevronDriver()
     {
         return $this->app->make(ChevronGateway::class);
     }
 
-    protected function getCashierDriver()
+	protected function createCashierDriver()
     {
         return $this->app->make(CashierGateway::class);
     }

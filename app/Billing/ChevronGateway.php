@@ -7,7 +7,7 @@ use App\Transaction;
 class ChevronGateway implements PaymentGateway
 {
     /**
-     * The player being charged.
+     * The user being charged.
      * 
      * @var \App\Player
      */
@@ -23,18 +23,20 @@ class ChevronGateway implements PaymentGateway
      */
     protected $refunds = [];
 
-    /**
-     * Set the player to be charged.
-     *     
-     * @param  \App\Player $player 
-     * @return $this
-     */
-    public function player($player)
+	/**
+	 * @inheritdoc
+	 */
+	public function user($user)
     {
-        $this->player = $player;
+	    $this->player = $user;
 
         return $this;
     }
+
+	public function player()
+	{
+		return $this->player;
+	}
 
 	/**
 	 * @inheritdoc
@@ -43,6 +45,14 @@ class ChevronGateway implements PaymentGateway
     {
         return 'ingame_chevron_'.str_random();
     }
+
+	/**
+	 * @inheritdoc
+	 */
+	public function currency()
+	{
+		return 'chevron';
+	}
 
 	/**
 	 * @inheritdoc
@@ -76,18 +86,18 @@ class ChevronGateway implements PaymentGateway
 	    $this->verifyPlayer();
     	$this->verifyAmount($amount);
 
-        $chevron = $this->player->chevron;
+	    $chevron = $this->player()->chevron;
 
         if ($amount > $chevron) {
-            throw PaymentFailedException::insufficientFunds($amount, $this->player->chevron);
+	        throw PaymentFailedException::insufficientFunds($amount, $this->player()->chevron);
         }
 
-        $this->player->forceFill(['chevron' => $chevron - $amount])->saveOrFail();
+	    $this->player()->forceFill(['chevron' => $chevron - $amount])->saveOrFail();
 
 	    $id = $this->providerId();
 
 	    return $this->charges[$id] = new Transaction([
-	    	'user_id' => $this->player->user->id,
+		    'user_id' => $this->player()->user->id,
 	    	'gateway' => static::class,
 			'provider_id' => $id,
 			'amount' => $amount,
@@ -117,7 +127,7 @@ class ChevronGateway implements PaymentGateway
 
 	    $amount = $amount ?: $transaction->amount;
 
-	    $this->player->forceFill(['chevron' => $this->player->chevron + $amount])->saveOrFail();
+	    $this->player()->forceFill(['chevron' => $this->player()->chevron + $amount])->saveOrFail();
 
 	    return $this->refunds[$provider_id] = $transaction->refund($amount);
     }
@@ -172,7 +182,7 @@ class ChevronGateway implements PaymentGateway
 
 	private function verifyPlayer()
 	{
-		if (is_null($this->player)) {
+		if (is_null($this->player())) {
 			throw GatewayException::missingUser();
 		}
 	}

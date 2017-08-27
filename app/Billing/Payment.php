@@ -9,7 +9,9 @@ use Illuminate\Support\Facades\Facade;
  * Class Payment
  * @package App\Billing
  *
+ * @method static PaymentGateway user($user)
  * @method static boolean requiresToken()
+ * @method static string currency()
  * @method static string providerId()
  * @method static int totalCharges()
  * @method static int totalRefunds()
@@ -26,6 +28,17 @@ class Payment extends Facade
 	public static function fake()
 	{
 		static::swap(new FakePaymentGateway);
+	}
+
+	/**
+	 * Get a payment gateway instance
+	 *
+	 * @param string $driver
+	 * @return PaymentGateway
+	 */
+	public static function gateway($driver)
+	{
+		return resolve(PaymentGatewayManager::class)->driver($driver);
 	}
 
 	/**

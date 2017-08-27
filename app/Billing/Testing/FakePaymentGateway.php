@@ -4,10 +4,9 @@ namespace App\Billing\Testing;
 
 use App\Billing\Data\Charge;
 use App\Billing\Data\Refund;
-use App\Billing\GatewayException;
-use App\Billing\HasUser;
 use App\Billing\PaymentFailedException;
 use App\Billing\PaymentGateway;
+use App\Transaction;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
@@ -15,8 +14,6 @@ use PHPUnit\Framework\Assert as PHPUnit;
 
 class FakePaymentGateway implements PaymentGateway
 {
-	use HasUser;
-
 	public static $chargingCallback;
 	public static $chargedCallback;
 
@@ -92,18 +89,37 @@ class FakePaymentGateway implements PaymentGateway
 	}
 
 	/**
-	 * The payment provider ID.
-	 *
-	 * @return string
+	 * @inheritdoc
 	 */
 	public function providerId()
 	{
-		return $this->provider_id ?? $this->provider_id = 'fake_' . Str::random();
+		return $this->provider_id ?: $this->provider_id = 'fake_' . Str::random();
 	}
 
+	/**
+	 * @inheritdoc
+	 */
 	public function requiresToken()
 	{
 		return true;
+	}
+
+	/**
+	 * @inheritdoc
+	 */
+	public function user($user)
+	{
+		$this->user = $user;
+
+		return $this;
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function currency()
+	{
+		return 'fake-currency';
 	}
 
 	public function totalCharges()
@@ -117,13 +133,7 @@ class FakePaymentGateway implements PaymentGateway
 	}
 
 	/**
-	 * Make a "one off" charge on the customer for the given amount.
-	 *
-	 * @param  int   $amount
-	 * @param  array $options
-	 * @return object
-	 *
-	 * @throws \Exception
+	 * @inheritdoc
 	 */
 	public function charge($amount, array $options = [])
 	{
@@ -142,15 +152,15 @@ class FakePaymentGateway implements PaymentGateway
 		}
 
 		$id = Arr::get($options, 'id', $this->providerId());
-		return Charge::make([
-			'id' => $id,
-			'country' => null,
+
+		return $this->charges[$id] = new Transaction([
+			'user_id' => $this->user->id,
+			'gateway' => static::class,
+			'provider_id' => $id,
 			'amount' => $amount,
-			'provider' => static::class,
-			'invoices' => []
-		])->tap(function ($charge) use ($id) {
-			$this->charges->put($id, $charge);
-		});
+			'currency' => $this->currency(),
+			'payment_type' => 'fake'
+		]);
 	}
 
 	protected function tokenIsValid($token)
@@ -166,34 +176,28 @@ class FakePaymentGateway implements PaymentGateway
 	}
 
 	/**
-	 * Refund a customer for a charge.
-	 *
-	 * @param  string $amount
-	 * @param  array  $options
-	 * @return object
-	 *
-	 * @throws \Exception
+	 * @inheritdoc
 	 */
-	public function refund($amount, $charge_id = null)
+	public function refund($provider_id, $amount = null)
 	{
-		if (!$this->charges->has($charge_id)) {
-			throw new GatewayException("Cannot refund an non-existing charge.", 422);
+		$transaction = null;
+		if ($cached = $this->charges->pull($provider_id)) {
+			$transaction = $cached;
+		} else {
+			$transaction = Transaction::where('provider_id', $provider_id)->first();
 		}
 
-		return Refund::make([
-			'id' => $this->providerId(),
-			'charge_id' => $charge_id,
-			'amount' => $amount
-		])->tap(function ($refund) {
-			$this->refunds->put($this->providerId(), $refund);
-		});
+		if (is_null($transaction)) {
+			throw PaymentFailedException::invalidToken($provider_id);
+		}
+
+		$amount = $amount ?: $transaction->amount;
+
+		return $this->refunds[$provider_id] = $transaction->refund($amount);
 	}
 
 	/**
-	 * Find an invoice by ID.
-	 *
-	 * @param  string $id
-	 * @return object|null
+	 * @inheritdoc
 	 */
 	public function findInvoice($id)
 	{
@@ -203,43 +207,23 @@ class FakePaymentGateway implements PaymentGateway
 	}
 
 	/**
-	 * Get a collection of the entity's invoices.
-	 *
-	 * @param  bool  $includePending
-	 * @param  array $parameters
-	 * @return \Illuminate\Support\Collection
+	 * @inheritdoc
 	 */
 	public function invoices($includePending = false, $parameters = [])
 	{
 		return $this->invoices;
 	}
 
-	public function findReceipt($id)
-	{
-		return $this->receipts()->find($id);
-	}
-
-	public function receipts($parameters = [])
-	{
-		return $this->receipts;
-	}
-
 	/**
-	 * Begin creating a new subscription.
-	 *
-	 * @param  string      $subscription
-	 * @param  string|null $plan
-	 * @return object
+	 * @inheritdoc
 	 */
 	public function subscribeTo($subscription, $plan = null)
 	{
-		return $this->subscriptions()->put("$subscription.subscribers", $this->user());
+		return $this->subscriptions()->put("$subscription.subscribers", $this->user);
 	}
 
 	/**
-	 * Get all of the subscriptions.
-	 *
-	 * @return \Illuminate\Support\Collection
+	 * @inheritdoc
 	 */
 	public function subscriptions()
 	{
@@ -247,22 +231,15 @@ class FakePaymentGateway implements PaymentGateway
 	}
 
 	/**
-	 * Determine if there is a given subscription.
-	 *
-	 * @param  string      $subscription
-	 * @param  string|null $plan
-	 * @return bool
+	 * @inheritdoc
 	 */
 	public function subscribed($subscription = 'default', $plan = null)
 	{
-		return $this->subscription($subscription)->contains('subscribers', $this->user());
+		return $this->subscription($subscription)->contains('subscribers', $this->user);
 	}
 
 	/**
-	 * Get a subscription instance by name.
-	 *
-	 * @param  string $id
-	 * @return object|null
+	 * @inheritdoc
 	 */
 	public function subscription($id = 'default')
 	{
