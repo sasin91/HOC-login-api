@@ -2,6 +2,7 @@
 
 use App\Board;
 use App\Channel;
+use App\Thread;
 use App\User;
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
