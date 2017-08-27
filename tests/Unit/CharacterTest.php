@@ -13,7 +13,7 @@ class CharacterTest extends TestCase
 	{
 		$template = factory(CharacterTemplate::class)->create();
 
-		$character = (new Character)->scaffold($template);
+		$character = Character::scaffold($template);
 
 		$this->assertEquals($template->health, $character->health);
 		$this->assertEquals($template->name, $character->name);
@@ -30,7 +30,7 @@ class CharacterTest extends TestCase
 	{
 		$template = factory(CharacterTemplate::class)->create();
 
-		$character = (new Character(['name' => 'John Doe']))->scaffold($template);
+		$character = (new Character(['name' => 'John Doe']))->inheritTemplateAttributes($template);
 
 		$this->assertEquals('John Doe', $character->name);
 	}
