@@ -38,16 +38,7 @@ class Character extends Model
    	{
    		$template = $template ?: $this->template;
 
-   		$shared_keys = array_intersect($this->getFillable(), $template->getFillable());
-
-   		$empty_keys = array_diff($shared_keys, array_keys($this->getAttributes()));
-
-   		$attributes = [];
-	    foreach ($empty_keys as $key) {
-		    $attributes[$key] = $template->$key;
-   		}
-
-   		return $this->forceFill($attributes);
+	    return $this->fill(array_merge($template->getAttributes(), $this->attributes));
    	}
 
     public function player() 

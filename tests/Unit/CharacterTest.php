@@ -5,8 +5,6 @@ namespace Tests\Unit;
 use App\Character;
 use App\CharacterTemplate;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class CharacterTest extends TestCase
 {
@@ -25,5 +23,15 @@ class CharacterTest extends TestCase
 		$this->assertEquals($template->melee, $character->melee);
 		$this->assertEquals($template->ranged, $character->ranged);
 		$this->assertEquals($template->role, $character->role);
-	} 
+	}
+
+	/** @test */
+	public function scaffolding_only_overrides_empty_attributes()
+	{
+		$template = factory(CharacterTemplate::class)->create();
+
+		$character = (new Character(['name' => 'John Doe']))->scaffold($template);
+
+		$this->assertEquals('John Doe', $character->name);
+	}
 }
