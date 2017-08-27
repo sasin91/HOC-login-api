@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Character extends Model
 {
     protected $fillable = [
-    	'health', 'resource', 'resource_type', 'stamina', 'role'
-    	'melee', 'ranged', 'range', 'template_id', 'player_id'
+    	'health', 'resource', 'resource_type', 'stamina', 'role',
+    	'melee', 'ranged', 'range', 'template_id', 'player_id', 'name'
     ];
 
     protected $casts = [
@@ -16,27 +16,38 @@ class Character extends Model
     	'ranged' => 'boolean',
     ];
 
+	/**
+	 * Dynamically set the template id and eagerly scaffold the character from it.
+	 *
+	 * @param $id
+	 */
     public function setTemplateIdAttribute($id)
     {
-    	$this->scaffold($id);
+	    $this->attributes['template_id'] = $id;
+
+    	$this->scaffold();
     }
 
+	/**
+	 * Scaffold a character from the given template.
+	 *
+	 * @param \App\CharacterTemplate $template
+	 * @return $this
+	 */
    	public function scaffold($template = null)
    	{
-   		if ($template) {
-   			$this->template()->associate($template);
+   		$template = $template ?: $this->template;
+
+   		$shared_keys = array_intersect($this->getFillable(), $template->getFillable());
+
+   		$empty_keys = array_diff($shared_keys, array_keys($this->getAttributes()));
+
+   		$attributes = [];
+	    foreach ($empty_keys as $key) {
+		    $attributes[$key] = $template->$key;
    		}
 
-   		return $this->forceFill([
-   			'health' => $this->template->health,
-   			'resource' => $this->template->resource,
-   			'resource_type' => $this->template->resource_type,
-   			'stamina' => $this->template->stamina,
-   			'role' => $this->template->role,
-   			'melee' => $this->template->melee,
-   			'ranged' => $this->template->ranged,
-   			'range' => $this->template->range,
-   		]);
+   		return $this->forceFill($attributes);
    	}
 
     public function player() 

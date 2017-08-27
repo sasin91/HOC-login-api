@@ -8,7 +8,7 @@ class CharacterTemplate extends Model
 {
     protected $fillable = [
     	'health', 'resource', 'resource_type', 'stamina', 'role',
-    	'melee', 'ranged', 'range'
+    	'melee', 'ranged', 'range', 'name'
     ];
 
     protected $casts = [
