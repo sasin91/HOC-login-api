@@ -17,7 +17,7 @@ class CreateProductsTable extends Migration
 			$table->boolean('reusable')->default(true);
 			$table->boolean('is_virtual')->default(false);
 			$table->string('name');
-			$table->string('type');
+			$table->string('type')->index();
 			$table->string('command');
 			$table->string('value');
 			$table->string('currency');
