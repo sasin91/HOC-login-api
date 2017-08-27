@@ -3,12 +3,9 @@
 namespace App\Billing;
 
 use App\Transaction;
-use Illuminate\Support\Traits\Macroable;
 
 class ChevronGateway implements PaymentGateway
 {
-    use CanDispatchEvents, Macroable;
-
     /**
      * The player being charged.
      * 
@@ -39,41 +36,33 @@ class ChevronGateway implements PaymentGateway
         return $this;
     }
 
-    /**
-     * Provider id for invoices & transactions..
-     *
-     * @return string
-     */
+	/**
+	 * @inheritdoc
+	 */
     public function providerId()
     {
         return 'ingame_chevron_'.str_random();
     }
 
-    /**
-     * Whether the gateway requires a token to process the payment.
-     *
-     * @return boolean
-     */
+	/**
+	 * @inheritdoc
+	 */
     public function requiresToken()
     {
         return false;
     }
 
-    /**
-     * Get the total amount of charges
-     *
-     * @return integer
-     */
+	/**
+	 * @inheritdoc
+	 */
     public function totalCharges()
     {
         return collect($this->charges)->sum('amount');
     }
 
-    /**
-     * Get the total amount of refunds
-     *
-     * @return integer
-     */
+	/**
+	 * @inheritdoc
+	 */
     public function totalRefunds()
     {
         return collect($this->refunds)->sum('refunded_amount');
@@ -133,49 +122,33 @@ class ChevronGateway implements PaymentGateway
 	    return $this->refunds[$provider_id] = $transaction->refund($amount);
     }
 
-    /**
-     * Get all of the subscriptions.
-     *
-     * @return \Illuminate\Database\Eloquent\Collection
-     */
+	/**
+	 * @inheritdoc
+	 */
     public function subscriptions()
     {
         throw new \Exception('Method not supported.');
     }
 
-    /**
-     * Get a subscription instance by name.
-     *
-     * @param  string $subscription
-     *
-     * @return object|null
-     */
+	/**
+	 * @inheritdoc
+	 */
     public function subscription($subscription = 'default')
     {
         throw new \Exception('Method not supported.');
     }
 
-    /**
-     * Begin creating a new subscription.
-     *
-     * @param  string      $subscription
-     * @param  string|null $plan
-     *
-     * @return object
-     */
+	/**
+	 * @inheritdoc
+	 */
     public function subscribeTo($subscription, $plan = null)
     {
         throw new \Exception('Method not supported.');
     }
 
-    /**
-     * Determine if there is a given subscription.
-     *
-     * @param  string      $subscription
-     * @param  string|null $plan
-     *
-     * @return bool
-     */
+	/**
+	 * @inheritdoc
+	 */
     public function subscribed($subscription = 'default', $plan = null)
     {
         throw new \Exception('Method not supported.');
