@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class CreateCharacterTemplatesTable extends Migration
 {
@@ -14,7 +14,7 @@ class CreateCharacterTemplatesTable extends Migration
     {
         Schema::create('character_templates', function (Blueprint $table) {
             $table->increments('id');
-            $table->decimal('cost')->nullable();
+	        $table->decimal('cost');
             $table->string('name');
             $table->integer('health');
             $table->string('resource_type');

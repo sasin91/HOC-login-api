@@ -3,14 +3,12 @@
 namespace App;
 
 use App\Jobs\ScrapOldPhoto;
-use App\Server;
 use Hootlex\Friendships\Traits\Friendable;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Collection;
+use Laravel\Cashier\Billable;
 use Laravel\Passport\HasApiTokens;
-use Laravel\Scout\Searchable;
 use Spatie\Permission\Traits\HasRoles;
 
 /**
@@ -21,7 +19,7 @@ use Spatie\Permission\Traits\HasRoles;
  */
 class User extends Authenticatable
 {
-    use HasRoles, HasApiTokens, Notifiable, Friendable;
+	use HasPurchases, HasRoles, HasApiTokens, Notifiable, Friendable, Billable;
 
     /**
      * The attributes that are mass assignable.

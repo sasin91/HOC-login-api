@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -12,6 +10,11 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+Route::name('product.purchase')->post('product/{product}/purchase', 'PurchaseProductController@store');
+Route::apiResource('product', 'ProductController');
+Route::name('product.publish')->put('publish-product', 'PublishProductController@update');
+Route::name('character.unlock')->post('unlock-character', 'UnlockCharacterController@store');
+
 
 Route::name('login')->post('login', 'LoginController@store');
 Route::name('logout')->post('logout', 'LogoutController@store');

@@ -2,22 +2,22 @@
 
 namespace App\Providers;
 
+use App\Board;
+use App\Channel;
 use App\Player;
+use App\Policies\BoardPolicy;
+use App\Policies\ChannelPolicy;
+use App\Policies\PlayerPolicy;
+use App\Policies\ProductPolicy;
+use App\Policies\ReplyPolicy;
+use App\Policies\ServerPolicy;
+use App\Policies\ThreadPolicy;
+use App\Policies\UserPolicy;
+use App\Product;
+use App\Reply;
 use App\Server;
 use App\Thread;
-use App\Reply;
-use App\Channel;
-use App\Board;
 use App\User;
-
-use App\Policies\ServerPolicy;
-use App\Policies\PlayerPolicy;
-use App\Policies\ThreadPolicy;
-use App\Policies\ReplyPolicy;
-use App\Policies\ChannelPolicy;
-use App\Policies\BoardPolicy;
-use App\Policies\UserPolicy;
-
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 use Laravel\Passport\Passport;
@@ -37,6 +37,7 @@ class AuthServiceProvider extends ServiceProvider
         User::class    => UserPolicy::class,
         Channel::class => ChannelPolicy::class,
         Board::class   => BoardPolicy::class,
+	    Product::class => ProductPolicy::class
     ];
 
     /**

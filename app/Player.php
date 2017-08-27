@@ -6,13 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class Player extends Model
 {
+	use HasPurchases;
+
     const INACTIVE_AFTER_DAYS = 30;
 
     protected $fillable = [
         'user_id',
         'server_id',
         'online_at',
-        'last_seen_at'
+	    'last_seen_at',
+	    'experience_rate',
+	    'experience'
     ];
 
     protected $dates = ['online_at', 'last_seen_at'];
@@ -28,7 +32,7 @@ class Player extends Model
         });
     }
 
-    /**
+	/**
      * Scope only offline Players.
      *
      *
@@ -72,15 +76,35 @@ class Player extends Model
     public function scopeNewbies($query) 
     {
         return $query->whereNull('last_seen_at');
-    } 
+    }
 
+	/**
+	 * The server the player is on.
+	 *
+	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+	 */
     public function server()
     {
         return $this->belongsTo(Server::class);
     }
 
+	/**
+	 * The authenticatable user the player belongs to.
+	 *
+	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+	 */
     public function user()
     {
         return $this->belongsTo(User::class);
     }
+
+	/**
+	 * A player have many characters.
+	 *
+	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
+	 */
+	public function characters()
+	{
+		return $this->hasMany(Character::class);
+	}
 }

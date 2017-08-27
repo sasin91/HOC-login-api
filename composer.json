@@ -8,6 +8,7 @@
         "php": ">=5.6.4",
         "barryvdh/laravel-cors": "^0.9.2",
         "hootlex/laravel-friendships": "^1.0",
+      "laravel/cashier-braintree": "~2.0",
         "laravel/framework": "5.4.*",
         "laravel/passport": "^3.0",
         "laravel/scout": "^3.0",
