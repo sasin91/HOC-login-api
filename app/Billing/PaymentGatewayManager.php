@@ -6,16 +6,6 @@ use Illuminate\Support\Manager;
 
 class PaymentGatewayManager extends Manager
 {
-    /**
-     * The array of created "drivers".
-     *
-     * @var array
-     */
-    protected $drivers = [
-    	CashierGateway::class,
-    	ChevronGateway::class
-    ];
-
 	/**
      * Get the default driver name.
      *
@@ -26,14 +16,13 @@ class PaymentGatewayManager extends Manager
 		return ChevronGateway::class;
 	}
 
-    /**
-     * Get a driver instance.
-     *
-     * @param  string  $driver
-     * @return PaymentGateway
-     */
-    public function driver($driver = null)
+    protected function getChevronDriver()
     {
-        return parent::driver($driver);
+        return $this->app->make(ChevronGateway::class);
+    }
+
+    protected function getCashierDriver()
+    {
+        return $this->app->make(CashierGateway::class);
     }
 }

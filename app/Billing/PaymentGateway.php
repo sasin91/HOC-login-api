@@ -38,7 +38,7 @@ interface PaymentGateway
      * @param  int  $amount
      * @param  array  $options
      *
-     * @return \App\Billing\Data\Charge
+     * @return \App\Transaction
      *
      * @throws \Exception
      */
@@ -47,32 +47,14 @@ interface PaymentGateway
     /**
      * Refund a customer for a charge.
      *
-     * @param  string      $amount
-     * @param  string|null $charge_id
+     * @param  string      $id
+     * @param  int|null    $amount
      *
-     * @return \App\Billing\Data\Refund
+     * @return \App\Transaction
      *
      * @throws \Exception
      */
-	public function refund($amount, $charge_id = null);
-
-    /**
-     * Get a collection of the entity's receipts.
-     *
-     * @param array $parameters
-     *
-     * @return mixed
-     */
-    public function receipts($parameters = []);
-
-    /**
-     * Find a receipt by ID.
-     *
-     * @param string $id
-     *
-     * @return mixed
-     */
-    public function findReceipt($id);
+	public function refund($id, $amount = null);
 
     /**
      * Get a collection of the entity's invoices.
@@ -88,7 +70,7 @@ interface PaymentGateway
      *
      * @param  string $id
      *
-     * @return \App\Billing\Data\Charge|null
+     * @return \App\Transaction|null
      */
     public function findInvoice($id);
 
@@ -104,7 +86,7 @@ interface PaymentGateway
      *
      * @param  string $subscription
      *
-     * @return \App\Billing\Data\Charge|null
+     * @return \App\Transaction|null
      */
     public function subscription($subscription = 'default');
 
@@ -114,7 +96,7 @@ interface PaymentGateway
      * @param  string      $subscription
      * @param  string|null $plan
      *
-     * @return \App\Billing\Data\Charge
+     * @return \App\Transaction
      */
     public function subscribeTo($subscription, $plan = null);
 

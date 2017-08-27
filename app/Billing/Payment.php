@@ -5,6 +5,17 @@ namespace App\Billing;
 use App\Billing\Testing\FakePaymentGateway;
 use Illuminate\Support\Facades\Facade;
 
+/**
+ * Class Payment
+ * @package App\Billing
+ *
+ * @method static boolean requiresToken()
+ * @method static string providerId()
+ * @method static int totalCharges()
+ * @method static int totalRefunds()
+ * @method static \App\Transaction charge($amount, array $options = [])
+ * @method static \App\Transaction refund($amount, $charge_id)
+ */
 class Payment extends Facade
 {	
 	/**

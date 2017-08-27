@@ -2,12 +2,19 @@
 
 namespace App\Billing;
 
-use App\Billing\Data\Charge;
-use App\Billing\Data\Refund;
+use App\Transaction;
+use Illuminate\Support\Traits\Macroable;
 
 class ChevronGateway implements PaymentGateway
 {
-    use CanDispatchEvents, HasUser, HasLocalInvoices, HasLocalReceipts;
+    use CanDispatchEvents, Macroable;
+
+    /**
+     * The player being charged.
+     * 
+     * @var \App\Player
+     */
+    protected $player;
 
     /**
      * @var array
@@ -20,13 +27,26 @@ class ChevronGateway implements PaymentGateway
     protected $refunds = [];
 
     /**
-     * Provider id for invoices & receipts.
+     * Set the player to be charged.
+     *     
+     * @param  \App\Player $player 
+     * @return $this
+     */
+    public function player($player)
+    {
+        $this->player = $player;
+
+        return $this;
+    }
+
+    /**
+     * Provider id for invoices & transactions..
      *
      * @return string
      */
     public function providerId()
     {
-        return 'ingame_chevron_';
+        return 'ingame_chevron_'.str_random();
     }
 
     /**
@@ -56,85 +76,61 @@ class ChevronGateway implements PaymentGateway
      */
     public function totalRefunds()
     {
-        return collect($this->refunds)->sum('amounts');
+        return collect($this->refunds)->sum('refunded_amount');
     }
 
-    /**
-     * Make a "one off" charge on the customer for the given amount.
-     *
-     * @param  int   $amount
-     * @param  array $options
-     *
-     * @return \App\Billing\Data\Charge
-     *
-     * @throws \Exception
-     */
+	/**
+	 * @inheritdoc
+	 */
     public function charge($amount, array $options = [])
     {
-        $this->verifyUser();
+	    $this->verifyPlayer();
+    	$this->verifyAmount($amount);
 
-        $negativeAmount = -1 * abs($amount);
-        if ($negativeAmount > $this->user()->points) {
-            throw PaymentFailedException::insufficientFunds($amount, $this->user()->chevron);
+        $chevron = $this->player->chevron;
+
+        if ($amount > $chevron) {
+            throw PaymentFailedException::insufficientFunds($amount, $this->player->chevron);
         }
 
-	    $chevron = $this->user()->chevrons()->create(['amount' => $negativeAmount]);
+        $this->player->forceFill(['chevron' => $chevron - $amount])->saveOrFail();
 
-	    return tap(new Charge, function (Charge $charge) use ($amount, $chevron) {
-            $charge->fill([
-	            'id' => $chevron->getKey(),
-                'amount' => $amount,
-                'currency' => 'chevron',
-                'status' => 'closed',
-                'invoices' => [],
-                'payment' => [
-                    'type' => 'Point transfer',
-                    'card' => [
-                        'type' => null,
-                        'holder' => $this->user()->name,
-                        'last_four' => null,
-                    ]
-                ],
-            ]);
+	    $id = $this->providerId();
 
-		    $this->charges[$chevron->getKey()] = $charge;
-        });
-    }
-
-    protected function verifyUser()
-    {
-        if (!$this->user()) {
-            throw PaymentFailedException::userMissing();
-        }
+	    return $this->charges[$id] = new Transaction([
+	    	'user_id' => $this->player->user->id,
+	    	'gateway' => static::class,
+			'provider_id' => $id,
+			'amount' => $amount,
+		    'currency' => 'chevron',
+		    'payment_type' => 'ingame'
+	    ]);
     }
 
     /**
-     * Refund a customer for a charge.
-     *
-     * @param  string $amount
-     * @param  array  $options
-     *
-     * @return \App\Billing\Data\Refund
-     *
-     * @throws \Exception
+     * @inheritdoc
      */
-	public function refund($amount, $charge_id = null)
+	public function refund($provider_id, $amount = null)
     {
-        $this->verifyUser();
+    	$this->verifyPlayer();
+    	$this->verifyAmount($amount);
 
-	    $this->user()->chevrons()->create(['amount' => abs($amount)]);
+	    $transaction = null;
+	    if ($cached = array_pull($this->charges, $provider_id)) {
+		    $transaction = $cached;
+	    } else {
+		    $transaction = Transaction::where('provider_id', $provider_id)->first();
+	    }
 
-	    return tap(new Refund, function (Refund $refund) use ($amount, $charge_id) {
-		    $refund->fill([
-			    'id' => $charge_id,
-			    'amount' => $amount,
-			    'currency' => 'chevron',
-			    'status' => 'closed',
-			    'invoices' => [],
-		    ]);
+    	if (is_null($transaction)) {
+    		throw PaymentFailedException::invalidToken($provider_id);
+	    }
 
-		    $this->refunds[$charge_id] = $refund;
-	    });
+	    $amount = $amount ?: $transaction->amount;
+
+	    $this->player->forceFill(['chevron' => $this->player->chevron + $amount])->saveOrFail();
+
+	    return $this->refunds[$provider_id] = $transaction->refund($amount);
     }
 
     /**
@@ -184,4 +180,34 @@ class ChevronGateway implements PaymentGateway
     {
         throw new \Exception('Method not supported.');
     }
+
+	/**
+	 * @inheritDoc
+	 */
+	public function invoices($includePending = false, $parameters = [])
+	{
+		throw new \Exception('Method not supported.');
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function findInvoice($id)
+	{
+		throw new \Exception('Method not supported.');
+	}
+
+	private function verifyPlayer()
+	{
+		if (is_null($this->player)) {
+			throw GatewayException::missingUser();
+		}
+	}
+
+	private function verifyAmount($amount)
+	{
+		if ($amount < 0 || $amount === 0) {
+			throw GatewayException::invalidAmount($amount);
+		}
+	}
 }
