@@ -4,9 +4,6 @@ namespace Tests\Feature;
 
 use App\Channel;
 use App\Jobs\ScrapOldPhoto;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Bus;
 use Illuminate\Support\Facades\Storage;
@@ -93,7 +90,7 @@ class ChannelCoverTest extends TestCase
 	{
 		$channel = factory(Channel::class)->create();
 
-		$this->post(route('channel.cover.store', $channel))->assertRedirect('/login');
+		$this->post(route('channel.cover.store', $channel))->assertRedirect('/api/login');
 	} 
 
 	/** @test */
@@ -101,7 +98,7 @@ class ChannelCoverTest extends TestCase
 	{
 		$channel = factory(Channel::class)->create();
 
-		$this->delete(route('channel.cover.destroy', $channel))->assertRedirect('/login');
+		$this->delete(route('channel.cover.destroy', $channel))->assertRedirect('/api/login');
 	} 
 
 	/** @test */

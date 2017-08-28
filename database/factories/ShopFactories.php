@@ -27,9 +27,10 @@ $factory->state(Product::class, 'published', function () {
 
 $factory->define(Purchase::class, function (\Faker\Generator $faker) {
 	return [
-		'user_id' => factory(User::class)->lazy(),
 		'currency' => $faker->currencyCode,
 		'amount' => $faker->numberBetween(100, 10000),
+		'buyer_id' => factory(User::class)->lazy(),
+		'buyer_type' => User::class,
 		'purchasable_type' => Product::class,
 		'purchasable_id' => factory(Product::class)->lazy()
 	];

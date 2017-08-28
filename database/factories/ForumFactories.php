@@ -27,11 +27,11 @@ $factory->define(App\Channel::class, function ($faker) {
 	];
 });
 
-$factory->define(App\Thread::class, function ($faker) {
+$factory->define(App\Thread::class, function (\Faker\Generator $faker) {
 	return [
 		'user_id' => factory(User::class)->lazy(),
 		'channel_id' => factory(Channel::class)->lazy(),
-		'title' => $faker->sentence,
+		'title' => $faker->sentence(3),
 		'body'  => $faker->paragraph
 	];
 });

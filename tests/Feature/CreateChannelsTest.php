@@ -2,10 +2,8 @@
 
 namespace Tests\Feature;
 
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Tests\TestCase;
 
 class CreateChannelsTest extends TestCase
 {
@@ -36,7 +34,12 @@ class CreateChannelsTest extends TestCase
 
     	$board = create('App\Board');
 
-        $this->json('POST', route('channel.store'), ['board_id' => $board->id, 'name' => 'Space goats & high voltage weed', 'slug' => 'electric-weed'])
+	    $this->json('POST', route('channel.store'), [
+		    'board_id' => $board->id,
+		    'name' => 'Space goats & high voltage weed',
+		    'slug' => 'electric-weed',
+		    'description' => 'its Electrifying!'
+	    ])
              ->assertSuccessful()
              ->assertSee('Space goats & high voltage weed')
              ->assertSee('electric-weed');
@@ -49,7 +52,8 @@ class CreateChannelsTest extends TestCase
 
     	$board = create('App\Board');
 
-        $this->json('POST', route('channel.store'), ['board_id' => $board->id, 'name' => 'Star chasers'])
+	    $this->json('POST', route('channel.store'),
+		    ['board_id' => $board->id, 'name' => 'Star chasers', 'description' => 'random descr'])
              ->assertSuccessful()
              ->assertSee('Star chasers')
              ->assertSee('star-chasers');
