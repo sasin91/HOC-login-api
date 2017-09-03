@@ -2,84 +2,119 @@
 
 namespace App\Providers;
 
+use App\Billing\Manager;
 use App\Billing\PaymentGateway;
-use App\Billing\PaymentGatewayManager;
+use Hashids\Hashids;
+use Hashids\HashidsInterface;
 use Illuminate\Foundation\Testing\TestResponse;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
 use Laracasts\Generators\GeneratorsServiceProvider;
+use Laravel\Dusk\Browser;
+use Laravel\Dusk\DuskServiceProvider;
 use Mpociot\LaravelTestFactoryHelper\TestFactoryHelperServiceProvider;
 use PHPUnit\Framework\Assert as PHPUnit;
 
 class AppServiceProvider extends ServiceProvider
 {
-    /**
-     * Bootstrap any application services.
-     *
-     * @return void
-     */
-    public function boot()
-    {
-        Schema::defaultStringLength(191);
+	/**
+	 * Bootstrap any application services.
+	 *
+	 * @return void
+	 */
+	public function boot()
+	{
+		Schema::defaultStringLength(191);
 
-        Validator::extend('spamfree', 'App\Rules\SpamFree@passes');
-	    Validator::extend('gateway', 'App\Rules\ValidPaymentGateway@passes');
-    }
+		Validator::extend('spamfree', 'App\Rules\SpamFree@passes');
+		Validator::extend('gateway', 'App\Rules\ValidPaymentGateway@passes');
+	}
 
-    /**
-     * Register any application services.
-     *
-     * @return void
-     */
-    public function register()
-    {
-        if ($this->app->environment(['testing', 'development', 'local'])) {
-	        $this->app->register(GeneratorsServiceProvider::class);
-	        $this->app->register(TestFactoryHelperServiceProvider::class);
+	/**
+	 * Register any application services.
+	 *
+	 * @return void
+	 */
+	public function register()
+	{
+		if ($this->app->environment(['testing', 'development', 'local'])) {
+			$this->app->register(GeneratorsServiceProvider::class);
+			$this->app->register(TestFactoryHelperServiceProvider::class);
+			$this->app->register(DuskServiceProvider::class);
 
-	        $this->registerTestingMacros();
-        }
+			$this->registerTestingMacros();
+		}
 
-        $this->registerPaymentGateway();
-    }
+		$this->app->singleton(HashidsInterface::class, function ($app) {
+			/** @var \Illuminate\Contracts\Config\Repository $config */
+			$config = $app['config'];
 
-    protected function registerTestingMacros()
-    {
-        Collection::macro('assertContains', function ($item) {
-            PHPUnit::assertTrue($this->contains($item), "Collection did not contain given item.");
-        });
+			return new Hashids(
+				$config->get('hashids.salt'),
+				$config->get('hashids.length'),
+				$config->get('hashids.alphabet')
+			);
+		});
 
-        TestResponse::macro('assertCount', function ($excepted) {
-	        $response = $this->decodeResponseJson();
+		$this->registerPaymentGateway();
+	}
 
-	        if (\array_key_exists('data', $response)) {
-		        PHPUnit::assertCount($excepted, $response['data'],
-			        "Response.data count did not match expected [{$excepted}].");
-	        } else {
-		        PHPUnit::assertCount($excepted, $response, "Response.data count did not match expected [{$excepted}].");
-	        }
+	protected function registerTestingMacros()
+	{
+		Collection::macro('assertContains', function ($item) {
+			PHPUnit::assertTrue($this->contains($item), "Collection did not contain given item.");
+		});
 
-            return $this;
-        });
+		TestResponse::macro('assertCount', function ($excepted) {
+			$response = $this->decodeResponseJson();
 
-        TestResponse::macro('assertValidationErrors', function ($field) {
-            $this->assertStatus(422);
-            PHPUnit::assertArrayHasKey($field, $this->decodeResponseJson(), "Response did not contain given field : [{$field}].");
+			if (\array_key_exists('data', $response)) {
+				PHPUnit::assertCount($excepted, $response['data'],
+					"Response.data count did not match expected [{$excepted}].");
+			} else {
+				PHPUnit::assertCount($excepted, $response, "Response.data count did not match expected [{$excepted}].");
+			}
 
-            return $this;
-        });
-    }
+			return $this;
+		});
 
-    protected function registerPaymentGateway()
-    {
-	    $this->app->singleton(PaymentGatewayManager::class, function ($app) {
-		    return new PaymentGatewayManager($app);
-	    });
+		TestResponse::macro('assertValidationErrors', function ($field) {
+			$this->assertStatus(422);
+			PHPUnit::assertArrayHasKey($field, $this->decodeResponseJson(), "Response did not contain given field : [{$field}].");
 
-	    $this->app->singleton(PaymentGateway::class, function ($app) {
-		    return $app[PaymentGatewayManager::class]->driver();
-	    });
-    }
+			return $this;
+		});
+
+		TestResponse::macro('assertHost', function ($domain) {
+			$url = $this->headers->get('Location');
+			$host = parse_url($url)['host'];
+
+			PHPUnit::assertEquals($domain, $host);
+
+			return $this;
+		});
+
+		Browser::macro('debug', function () {
+			eval(\Psy\sh());
+			return $this;
+		});
+
+		TestResponse::macro('debug', function () {
+			eval(\Psy\sh());
+			return $this;
+		});
+	}
+
+	protected function registerPaymentGateway()
+	{
+		$this->app->singleton(Manager::class, function ($app) {
+			return new Manager($app);
+		});
+
+		$this->app->singleton(PaymentGateway::class, function ($app) {
+			return $app[Manager::class]->driver();
+		});
+	}
 }

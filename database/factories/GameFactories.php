@@ -39,7 +39,8 @@ $factory->define(CharacterTemplate::class, function (Faker $faker) {
 		'health' => $faker->numberBetween(100, 500),
 		'resource' => $faker->numberBetween(100, 500),
 		'stamina' => $faker->numberBetween(100, 500),
-		'cost' => $faker->numberBetween(0,1000)
+		'cost' => $faker->numberBetween(0, 1000),
+		'currency' => 'chevron'
 	];
 });
 

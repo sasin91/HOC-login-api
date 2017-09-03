@@ -12,7 +12,9 @@ class FavoritesTest extends TestCase
     /** @test */
     function guests_can_not_favorite_anything()
     {
-        $this->json('POST', '/api/replies/1/favorites')
+	    $this->enableExceptionHandling();
+
+	    $this->json('POST', '/api/replies/1/favorites')
              ->assertStatus(401);
     }
 

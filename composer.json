@@ -5,10 +5,12 @@
     "license": "MIT",
     "type": "project",
     "require": {
-        "php": ">=5.6.4",
+      "php": ">=7.0",
         "barryvdh/laravel-cors": "^0.9.2",
+      "hashids/hashids": "^2.0",
         "hootlex/laravel-friendships": "^1.0",
       "laravel/cashier-braintree": "~2.0",
+      "laravel/dusk": "^1.1.0",
         "laravel/framework": "5.4.*",
         "laravel/passport": "^3.0",
         "laravel/scout": "^3.0",
@@ -60,9 +62,6 @@
     "config": {
         "preferred-install": "dist",
         "sort-packages": true,
-        "optimize-autoloader": true,
-        "platform": {
-            "php": "5.6.4"
-        }
+      "optimize-autoloader": true
     }
 }

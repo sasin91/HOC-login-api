@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests;
 
-use App\Billing\Payment;
 use App\CharacterTemplate;
 use App\Player;
 use Illuminate\Foundation\Http\FormRequest;
@@ -27,10 +26,6 @@ class PurchaseCharacterRequest extends FormRequest
 	 */
 	public function withValidator($validator)
 	{
-		$validator->sometimes('payment_token', 'required|string', function () {
-			return Payment::requiresToken();
-		});
-
 		if ($this->id) {
 			$this['character_template'] = CharacterTemplate::find($this->id);
 		} else {

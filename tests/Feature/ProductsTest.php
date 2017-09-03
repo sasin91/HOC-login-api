@@ -26,6 +26,8 @@ class ProductsTest extends TestCase
 	/** @test */
 	public function cannot_view_unpublished_products()
 	{
+		$this->enableExceptionHandling();
+
 		$product = factory(Product::class)->create();
 
 		$this->signIn(factory(User::class)->create());

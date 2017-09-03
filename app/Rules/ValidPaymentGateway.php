@@ -3,7 +3,7 @@
 namespace App\Rules;
 
 
-use App\Billing\PaymentGatewayManager;
+use App\Billing\Manager;
 
 class ValidPaymentGateway
 {
@@ -17,7 +17,7 @@ class ValidPaymentGateway
 	public function passes($attribute, $value)
 	{
 		try {
-			resolve(PaymentGatewayManager::class)->driver($value);
+			resolve(Manager::class)->driver($value);
 		} catch (\InvalidArgumentException $e) {
 			return false;
 		}

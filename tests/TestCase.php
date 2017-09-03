@@ -3,50 +3,32 @@
 namespace Tests;
 include 'helpers.php';
 
-use App\Exceptions\Handler;
-use App\User;
 use Illuminate\Contracts\Debug\ExceptionHandler;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
-use Laravel\Passport\Passport;
-use Tests\NullExceptionHandler;
 
 abstract class TestCase extends BaseTestCase
 {
-    use CreatesApplication, DatabaseMigrations;
+	use CreatesApplication, SignIn;
 
-    protected function setUp()
-    {
-        parent::setUp();
+	public function setUp()
+	{
+		parent::setUp();
 
-        $this->seed(\PermissionsTableSeeder::class);
-    }
+		$this->app['config']->set('database.default', 'testing');
 
-    protected function signInAsModerator($user = null)
-    {
-        return $this->signInWithRole('Moderator', $user);
-    }
+		$this->setUpTraits();
 
-    protected function signInAsAdmin($user = null)
-    {
-        return $this->signInWithRole('Admin', $user);
-    }
+		$this->seedPermissions();
 
-    protected function signInWithRole($role, $user = null)
-    {
-        return tap($this->signIn($user), function () use($role){
-            auth()->user()->assignRole($role);
-        });
-    }
+		$this->disableExceptionHandling();
+	}
 
-    protected function signIn($user = null)
-    {
-        Passport::actingAs($user ? $user : factory(User::class)->create());
+	protected function enableExceptionHandling()
+	{
+		$this->app->forgetInstance(ExceptionHandler::class);
+	}
 
-        return $this;
-    }
-
-    protected function disableExceptionHandling()
+	protected function disableExceptionHandling()
     {
         $this->app->instance(ExceptionHandler::class, new NullExceptionHandler);
     }

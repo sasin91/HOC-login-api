@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Channel;
 use App\Jobs\ScrapOldPhoto;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Bus;
 use Illuminate\Support\Facades\Storage;
@@ -11,7 +12,9 @@ use Tests\TestCase;
 
 class ChannelCoverTest extends TestCase
 {
-	protected function setUp()
+	use DatabaseMigrations;
+
+	public function setUp()
 	{
 		parent::setUp();
 
@@ -88,6 +91,8 @@ class ChannelCoverTest extends TestCase
 	/** @test */
 	function a_visitor_cannot_change_a_cover_photo() 
 	{
+		$this->enableExceptionHandling();
+
 		$channel = factory(Channel::class)->create();
 
 		$this->post(route('channel.cover.store', $channel))->assertRedirect('/api/login');
@@ -96,6 +101,8 @@ class ChannelCoverTest extends TestCase
 	/** @test */
 	function a_visitor_cannot_remove_a_cover_photo() 
 	{
+		$this->enableExceptionHandling();
+
 		$channel = factory(Channel::class)->create();
 
 		$this->delete(route('channel.cover.destroy', $channel))->assertRedirect('/api/login');
@@ -104,6 +111,8 @@ class ChannelCoverTest extends TestCase
 	/** @test */
 	function a_random_user_cannot_change_a_cover_photo() 
 	{
+		$this->enableExceptionHandling();
+
 		$channel = factory(Channel::class)->create();
 
 		$this->signIn();
@@ -114,6 +123,8 @@ class ChannelCoverTest extends TestCase
 	/** @test */
 	function a_random_user_cannot_remove_a_cover_photo() 
 	{
+		$this->enableExceptionHandling();
+
 		$channel = factory(Channel::class)->create();
 
 		$this->signIn();

@@ -12,7 +12,9 @@ class CreateChannelsTest extends TestCase
    /** @test */
     function guests_may_not_create_channels()
     {
-        $this->json('POST', route('channel.store'))
+	    $this->enableExceptionHandling();
+
+	    $this->json('POST', route('channel.store'))
              ->assertStatus(401);
     }
 
@@ -62,7 +64,9 @@ class CreateChannelsTest extends TestCase
     /** @test */
     function a_channel_requires_a_name()
     {
-    	$this->signIn();
+	    $this->enableExceptionHandling();
+
+	    $this->signIn();
 
         $this->json('POST', route('channel.store'), ['name' => null])
              ->assertValidationErrors('name');
@@ -71,7 +75,9 @@ class CreateChannelsTest extends TestCase
     /** @test */
     function unauthorized_users_may_not_delete_channels()
     {
-        $channel = create('App\Channel');
+	    $this->enableExceptionHandling();
+
+	    $channel = create('App\Channel');
 
         $this->json('DELETE', $channel->path())->assertStatus(401);
 

@@ -13,7 +13,9 @@ class CreateThreadsTest extends TestCase
     /** @test */
     function guests_may_not_create_threads()
     {
-        $this->json('POST', route('threads.store'))
+	    $this->enableExceptionHandling();
+
+	    $this->json('POST', route('threads.store'))
              ->assertStatus(401);
     }
 
@@ -24,7 +26,7 @@ class CreateThreadsTest extends TestCase
 
         $thread = make('App\Thread');
 
-        $this->post('/threads', $thread->toArray())
+	    $this->post('/api/threads', $thread->toArray())
              ->assertSee($thread->title)
              ->assertSee($thread->body);
     }
@@ -32,21 +34,27 @@ class CreateThreadsTest extends TestCase
     /** @test */
     function a_thread_requires_a_title()
     {
-        $this->publishThread(['title' => null])
+	    $this->enableExceptionHandling();
+
+	    $this->publishThread(['title' => null])
             ->assertValidationErrors('title');
     }
 
     /** @test */
     function a_thread_requires_a_body()
     {
-        $this->publishThread(['body' => null])
+	    $this->enableExceptionHandling();
+
+	    $this->publishThread(['body' => null])
             ->assertValidationErrors('body');
     }
 
     /** @test */
     function a_thread_requires_a_valid_channel()
     {
-        factory('App\Channel', 2)->create();
+	    $this->enableExceptionHandling();
+
+	    factory('App\Channel', 2)->create();
 
         $this->publishThread(['channel_id' => null])
             ->assertValidationErrors('channel_id');
@@ -58,7 +66,9 @@ class CreateThreadsTest extends TestCase
     /** @test */
     function unauthorized_users_may_not_delete_threads()
     {
-        $thread = create('App\Thread');
+	    $this->enableExceptionHandling();
+
+	    $thread = create('App\Thread');
 
         $this->json('DELETE', $thread->path())->assertStatus(401);
 

@@ -2,8 +2,8 @@
 
 namespace Tests\Feature;
 
-use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Tests\TestCase;
 
 class ProfilesTest extends TestCase
 {
@@ -14,7 +14,7 @@ class ProfilesTest extends TestCase
     {
         $user = create('App\User');
 
-        $this->get("/profiles/{$user->name}")
+	    $this->get("/api/profiles/{$user->name}")
             ->assertSee($user->name);
     }
 
@@ -24,8 +24,6 @@ class ProfilesTest extends TestCase
         $this->signIn();
 
         $thread = create('App\Thread', ['user_id' => auth()->id()]);
-
-        $this->disableExceptionHandling();
 
         $this->json('GET', "/api/profiles/" . auth()->user()->name)
             ->assertSee($thread->title)

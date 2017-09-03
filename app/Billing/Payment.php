@@ -2,52 +2,59 @@
 
 namespace App\Billing;
 
-use App\Billing\Testing\FakePaymentGateway;
+use App\Billing\Quickpay\Quickpay;
 use Illuminate\Support\Facades\Facade;
 
 /**
  * Class Payment
  * @package App\Billing
  *
- * @method static PaymentGateway user($user)
- * @method static boolean requiresToken()
- * @method static string currency()
- * @method static string providerId()
- * @method static int totalCharges()
- * @method static int totalRefunds()
- * @method static \App\Transaction charge($amount, array $options = [])
- * @method static \App\Transaction refund($amount, $charge_id)
+ * @method static mixed refund($purchase)
+ * @method static mixed charge($purchase)
  */
 class Payment extends Facade
-{	
+{
 	/**
-     * Replace the bound instance with a fake.
-     *
-     * @return void
-     */
+	 * Swap the registered instance for a Fake.
+	 *
+	 * @return Fake | PaymentGateway
+	 */
 	public static function fake()
 	{
-		static::swap(new FakePaymentGateway);
+		static::swap(new Fake);
+
+		return static::getFacadeRoot();
 	}
 
 	/**
-	 * Get a payment gateway instance
+	 * Swap the default payment driver for a specific one.
 	 *
 	 * @param string $driver
 	 * @return PaymentGateway
 	 */
-	public static function gateway($driver)
+	public static function through($driver)
 	{
-		return resolve(PaymentGatewayManager::class)->driver($driver);
+		return tap(static::driver($driver), function ($driver) {
+			static::swap($driver);
+		});
 	}
 
 	/**
-     * Get the registered name of the component.
-     *
-     * @return string
-     *
-     * @throws \RuntimeException
-     */
+	 * Resolve a specific payment driver once, without swapping.
+	 *
+	 * @param string $driver
+	 * @return PaymentGateway
+	 */
+	public static function driver($driver)
+	{
+		return static::$app->make(Manager::class)->driver($driver);
+	}
+
+	/**
+	 * Get the registered name of the component.
+	 *
+	 * @return string
+	 */
 	protected static function getFacadeAccessor()
 	{
 		return PaymentGateway::class;

@@ -16,6 +16,8 @@ class AddAvatarTest extends TestCase
     /** @test */
     public function only_members_can_add_avatars()
     {
+	    $this->enableExceptionHandling();
+
         $this->json('POST', route('user.photo', 1))
             ->assertStatus(401);
     }
@@ -23,7 +25,9 @@ class AddAvatarTest extends TestCase
     /** @test */
     public function a_valid_avatar_must_be_provided()
     {
-        Passport::actingAs($user = factory(User::class)->create());
+	    $this->enableExceptionHandling();
+
+	    Passport::actingAs($user = factory(User::class)->create());
 
         $this->json('POST', route('me.photo'), [
             'avatar' => 'not-an-image'

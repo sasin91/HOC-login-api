@@ -6,8 +6,6 @@ use App\Player;
 use App\Server;
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Laravel\Passport\Passport;
 use Tests\TestCase;
 
@@ -30,6 +28,8 @@ class PlayerTest extends TestCase
 	/** @test */
 	function a_user_cannot_view_another_users_player() 
 	{
+		$this->enableExceptionHandling();
+
 		$player = factory(Player::class)->create();
 		$user = factory(User::class)->create();
 		

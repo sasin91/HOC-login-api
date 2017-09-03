@@ -10,8 +10,12 @@
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::name('product.purchase')->post('product/{product}/purchase', 'PurchaseProductController@store');
+Route::name('purchase.complete')->post('process-payment', 'ProcessPaymentController@store');
+Route::name('purchase.refund')->post('refund-purchase/{purchase}', 'RefundPurchaseController@store');
+Route::name('product.purchase')->post('purchase-product/{product}', 'PurchaseProductController@store');
+
 Route::apiResource('product', 'ProductController');
+
 Route::name('product.publish')->put('publish-product', 'PublishProductController@update');
 Route::name('character.unlock')->post('unlock-character', 'UnlockCharacterController@store');
 

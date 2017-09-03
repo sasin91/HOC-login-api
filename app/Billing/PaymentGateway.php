@@ -2,128 +2,42 @@
 
 namespace App\Billing;
 
+
+use App\Purchase;
 use Illuminate\Database\Eloquent\Model;
 
 interface PaymentGateway
 {
 	/**
-	 * Set the user being held responsible for the transactions.
+	 * Set the User object if given,
+	 * then return the current.
 	 *
-	 * @param Model $user
-	 * @return PaymentGateway
-	 */
-	public function user($user);
-
-	/**
-	 * The payment currency.
+	 * @param null|Model $user
+	 * @throws \RuntimeException
 	 *
-	 * @return string
+	 * @return null|Model
 	 */
-	public function currency();
-
-	/**
-	 * Whether the gateway requires a token to process the payment.
-	 *
-	 * @return boolean
-	 */
-	public function requiresToken();
-
-	/**
-	 * The payment provider ID.
-	 *
-	 * @return string
-	 */
-	public function providerId();
-
-	/**
-	 * Get the total amount of charges
-	 *
-	 * @return integer
-	 */
-	public function totalCharges();
-
-	/**
-	 * Get the total amount of refunds
-	 *
-	 * @return integer
-	 */
-	public function totalRefunds();
+	public function user($user = null);
 
 	/**
 	 * Make a "one off" charge on the customer for the given amount.
 	 *
-	 * @param  int  $amount
-	 * @param  array  $options
+	 * @param  Purchase $purchase
 	 *
-	 * @return \App\Transaction
+	 * @return Purchase
 	 *
 	 * @throws \Exception
 	 */
-	public function charge($amount, array $options = []);
+	public function charge($purchase);
 
 	/**
 	 * Refund a customer for a charge.
 	 *
-	 * @param  string      $id
-	 * @param  int|null    $amount
+	 * @param  Purchase $purchase
 	 *
-	 * @return \App\Transaction
+	 * @return Purchase
 	 *
 	 * @throws \Exception
 	 */
-	public function refund($id, $amount = null);
-
-	/**
-	 * Get a collection of the entity's invoices.
-	 *
-	 * @param  bool  $includePending
-	 * @param  array  $parameters
-	 * @return \Illuminate\Support\Collection
-	 */
-	public function invoices($includePending = false, $parameters = []);
-
-	/**
-	 * Find an invoice by ID.
-	 *
-	 * @param  string $id
-	 *
-	 * @return \App\Transaction|null
-	 */
-	public function findInvoice($id);
-
-	/**
-	 * Get all of the subscriptions.
-	 *
-	 * @return \Illuminate\Database\Eloquent\Collection
-	 */
-	public function subscriptions();
-
-	/**
-	 * Get a subscription instance by name.
-	 *
-	 * @param  string $subscription
-	 *
-	 * @return \App\Transaction|null
-	 */
-	public function subscription($subscription = 'default');
-
-	/**
-	 * Begin creating a new subscription.
-	 *
-	 * @param  string      $subscription
-	 * @param  string|null $plan
-	 *
-	 * @return \App\Transaction
-	 */
-	public function subscribeTo($subscription, $plan = null);
-
-	/**
-	 * Determine if there is a given subscription.
-	 *
-	 * @param  string      $subscription
-	 * @param  string|null $plan
-	 *
-	 * @return bool
-	 */
-	public function subscribed($subscription = 'default', $plan = null);
+	public function refund($purchase);
 }

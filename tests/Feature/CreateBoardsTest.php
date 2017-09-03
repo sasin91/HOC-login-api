@@ -4,16 +4,18 @@ namespace Tests\Feature;
 
 use App\Activity;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Tests\TestCase;
 
 class CreateBoardsTest extends TestCase
 {
+	use DatabaseMigrations;
+
    /** @test */
     function guests_may_not_create_boards()
     {
-        $this->json('POST', route('board.store'))
+	    $this->enableExceptionHandling();
+
+	    $this->json('POST', route('board.store'))
              ->assertStatus(401);
     }
 
@@ -32,7 +34,9 @@ class CreateBoardsTest extends TestCase
     /** @test */
     function a_board_requires_a_topic()
     {
-    	$this->signInAsModerator();
+	    $this->enableExceptionHandling();
+
+	    $this->signInAsModerator();
 
         $this->json('POST', route('board.store'), ['topic' => null])
              ->assertValidationErrors('topic');
@@ -41,7 +45,9 @@ class CreateBoardsTest extends TestCase
     /** @test */
     function a_board_requires_a_description()
     {
-    	$this->signInAsModerator();
+	    $this->enableExceptionHandling();
+
+	    $this->signInAsModerator();
 
         $this->json('POST', route('board.store'), ['description' => null])
             ->assertValidationErrors('description');
@@ -50,7 +56,9 @@ class CreateBoardsTest extends TestCase
     /** @test */
     function unauthorized_users_may_not_delete_boards()
     {
-        $board = create('App\Board');
+	    $this->enableExceptionHandling();
+
+	    $board = create('App\Board');
 
         $this->json('DELETE', $board->path())->assertStatus(401);
 

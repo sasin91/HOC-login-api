@@ -12,7 +12,9 @@ class ParticipateInThreadsTest extends TestCase
     /** @test */
     function unauthenticated_users_may_not_add_replies()
     {
-        $this->json('POST', '/api/threads/some-channel/1/replies', [])->assertStatus(401);
+	    $this->enableExceptionHandling();
+
+	    $this->json('POST', '/api/threads/some-channel/1/replies', [])->assertStatus(401);
     }
 
     /** @test */
@@ -32,7 +34,9 @@ class ParticipateInThreadsTest extends TestCase
     /** @test */
     function a_reply_requires_a_body()
     {
-        $this->signIn();
+	    $this->enableExceptionHandling();
+
+	    $this->signIn();
 
         $thread = create('App\Thread');
         $reply = make('App\Reply', ['body' => null]);
@@ -44,7 +48,9 @@ class ParticipateInThreadsTest extends TestCase
     /** @test */
     function unauthorized_users_cannot_delete_replies()
     {
-        $reply = create('App\Reply');
+	    $this->enableExceptionHandling();
+
+	    $reply = create('App\Reply');
 
         $this->json('DELETE', "/api/replies/{$reply->id}")
             ->assertStatus(401);
@@ -70,7 +76,9 @@ class ParticipateInThreadsTest extends TestCase
     /** @test */
     function unauthorized_users_cannot_update_replies()
     {
-        $reply = create('App\Reply');
+	    $this->enableExceptionHandling();
+
+	    $reply = create('App\Reply');
 
         $this->json('PATCH', "/api/replies/{$reply->id}")
             ->assertStatus(401);
@@ -97,7 +105,9 @@ class ParticipateInThreadsTest extends TestCase
     /** @test */
     function replies_that_contain_spam_may_not_be_created()
     {
-        $this->signIn();
+	    $this->enableExceptionHandling();
+
+	    $this->signIn();
 
         $thread = create('App\Thread');
         $reply = make('App\Reply', [
@@ -111,7 +121,9 @@ class ParticipateInThreadsTest extends TestCase
     /** @test */
     function users_may_only_reply_a_maximum_of_once_per_minute()
     {
-        $this->signIn();
+	    $this->enableExceptionHandling();
+
+	    $this->signIn();
 
         $thread = create('App\Thread');
         $reply = make('App\Reply');

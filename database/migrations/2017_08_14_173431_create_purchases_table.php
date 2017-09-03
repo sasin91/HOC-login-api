@@ -14,6 +14,10 @@ class CreatePurchasesTable extends Migration
 	{
 		Schema::create('purchases', function (Blueprint $table) {
 			$table->increments('id');
+			$table->string('token')->nullable();
+			$table->string('payment_type')->nullable();
+			$table->string('card_last_four', 4)->nullable();
+			$table->string('provider_id')->nullable();
 
 			$table->morphs('buyer');
 			$table->morphs('purchasable');
@@ -21,7 +25,9 @@ class CreatePurchasesTable extends Migration
 			$table->string('currency');
 			$table->decimal('amount');
 
-			$table->softDeletes();
+			$table->timestamp('completed_at')->nullable();
+
+			$table->softDeletes('refunded_at');
 			$table->timestamps();
 		});
 	}

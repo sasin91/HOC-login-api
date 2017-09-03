@@ -4,10 +4,13 @@ namespace Tests\Unit;
 
 use App\Character;
 use App\CharacterTemplate;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 
 class CharacterTest extends TestCase
 {
+	use DatabaseMigrations;
+
 	/** @test */
 	function can_scaffold_a_character_from_template()
 	{

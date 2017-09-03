@@ -6,6 +6,7 @@ use App\Billing\Payment;
 use App\CharacterTemplate;
 use App\Player;
 use App\Product;
+use App\Purchase;
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
@@ -20,20 +21,30 @@ class ShopTest extends TestCase
 	/** @test */
 	function a_player_can_unlock_characters_by_spending_chevron()
 	{
-		$template = factory(CharacterTemplate::class)->create(['name' => 'Alyssa', 'cost' => 1000]);
+		Payment::through('chevron');
+
+		$template = factory(CharacterTemplate::class)->create([
+			'name' => 'Alyssa',
+			'cost' => 1000,
+			'currency' => 'chevron'
+		]);
 		$player = factory(Player::class)->create(['chevron' => 1000]);
 
 		$this->signIn($player->user);
 
-		$this->json('POST', route('character.unlock'),
+		$id = $this->json('POST', route('character.unlock'),
 			['gateway' => 'chevron', 'name' => 'Alyssa', 'player_id' => $player->id])
-			->assertSuccessful();
+			->assertSuccessful()
+			->decodeResponseJson()['id'];
+
+		$this->completePurchase($id);
 
 		$this->assertDatabaseHas('purchases', [
 			'buyer_id' => $player->id,
 			'buyer_type' => Player::class,
 			'purchasable_id' => $template->id,
 			'purchasable_type' => CharacterTemplate::class,
+			'completed_at' => now()
 		]);
 	}
 
@@ -47,21 +58,27 @@ class ShopTest extends TestCase
 
 		$this->signIn($player->user);
 
-		$this->json('POST', route('character.unlock'),
-			['name' => 'Alyssa', 'player_id' => $player->id, 'payment_token' => Payment::getValidTestToken()])
-			->assertSuccessful();
+		$id = $this->json('POST', route('character.unlock'),
+			['name' => 'Alyssa', 'player_id' => $player->id])
+			->assertSuccessful()
+			->decodeResponseJson()['id'];
+
+		$this->completePurchase($id);
 
 		$this->assertDatabaseHas('purchases', [
 			'buyer_id' => $player->id,
 			'buyer_type' => Player::class,
 			'purchasable_id' => $template->id,
 			'purchasable_type' => CharacterTemplate::class,
+			'completed_at' => now()
 		]);
 	}
 
 	/** @test */
 	public function unlocking_characters_fails_if_player_id_is_not_specified()
 	{
+		$this->enableExceptionHandling();
+
 		$player = factory(Player::class)->create(['chevron' => 1000]);
 		$template = factory(CharacterTemplate::class)->create(['name' => 'Alyssa', 'cost' => 1000]);
 
@@ -89,9 +106,11 @@ class ShopTest extends TestCase
 
 		$this->signIn($player->user);
 
-		$this->json('POST', route('product.purchase', $boost),
-			['player_id' => $player->id, 'payment_token' => Payment::getValidTestToken()])
-			->assertSuccessful();
+		$id = $this->json('POST', route('product.purchase', $boost), ['player_id' => $player->id])
+			->assertSuccessful()
+			->decodeResponseJson()['id'];
+
+		$this->completePurchase($id);
 
 		$player->refresh();
 		$this->assertEquals('125', $player->experience_rate);
@@ -107,7 +126,7 @@ class ShopTest extends TestCase
 	/** @test */
 	public function virtual_products_require_a_player_id()
 	{
-		Payment::fake();
+		$this->enableExceptionHandling();
 
 		$player = factory(Player::class)->create();
 		$boost = factory(Product::class)->states('published')->create([
@@ -122,7 +141,7 @@ class ShopTest extends TestCase
 
 		$this->signIn($player->user);
 
-		$this->json('POST', route('product.purchase', $boost), ['payment_token' => Payment::getValidTestToken()])
+		$this->json('POST', route('product.purchase', $boost))
 			->assertValidationErrors('player_id');
 
 	}
@@ -130,11 +149,23 @@ class ShopTest extends TestCase
 	/** @test */
 	public function cannot_purchase_unpublished_products()
 	{
+		$this->enableExceptionHandling();
+
 		$product = factory(Product::class)->create();
 
 		$this->signIn(factory(User::class)->create());
 
 		$this->get(route('product.show', $product))
 			->assertStatus(404);
+	}
+
+	private function completePurchase($id)
+	{
+		$this->postJson(route('purchase.complete'), [
+			'order_id' => Purchase::find($id)->token,
+			'currency' => 'DKK',
+			'operations' => [['amount' => 100]],
+			'metadata' => ['card' => 'Visa', ' last4' => 0000]
+		])->assertSuccessful();
 	}
 }
