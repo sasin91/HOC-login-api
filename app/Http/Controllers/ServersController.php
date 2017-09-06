@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Formatters\DataStringFormatter;
 use App\Server;
-use Illuminate\Http\Request;
 
 /**
  * @resource Servers
@@ -47,7 +45,7 @@ class ServersController extends Controller
         ]);
 
         return Server::create(
-            $request->intersect(array_keys($rules))
+	        request()->intersect(array_keys($rules))
         );
     }
 
@@ -82,7 +80,7 @@ class ServersController extends Controller
         ]);
 
         return tap($server)->update(
-            $request->intersect(array_keys($rules))
+	        request()->intersect(array_keys($rules))
         );
     }
 

@@ -14,9 +14,11 @@ class DatabaseSeeder extends Seeder
         // $this->call(UsersTableSeeder::class);
         
         $this->call(PermissionsTableSeeder::class);
-        $this->call(ForumSeeder::class);
-        $this->call(RepliesTableSeeder::class);
-        $this->call(CharacterTemplateTableSeeder::class);
-	    $this->call(ProductsTableSeeder::class);
+	    if (app()->environment(['testing', 'local', 'development'])) {
+		    $this->call(ForumSeeder::class);
+		    $this->call(RepliesTableSeeder::class);
+		    $this->call(CharacterTemplateTableSeeder::class);
+		    $this->call(ProductsTableSeeder::class);
+	    }
     }
 }
