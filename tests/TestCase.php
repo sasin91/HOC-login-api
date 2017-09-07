@@ -4,6 +4,7 @@ namespace Tests;
 include 'helpers.php';
 
 use Illuminate\Contracts\Debug\ExceptionHandler;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
@@ -14,11 +15,15 @@ abstract class TestCase extends BaseTestCase
 	{
 		parent::setUp();
 
-		$this->app['config']->set('database.default', 'testing');
+		$uses = array_flip(class_uses_recursive(static::class));
 
-		$this->setUpTraits();
+		if (isset($uses[DatabaseMigrations::class])) {
+			$this->app['config']->set('database.default', 'testing');
 
-		$this->seedPermissions();
+			$this->setUpTraits();
+
+			$this->seedPermissions();
+		}
 
 		$this->disableExceptionHandling();
 	}
