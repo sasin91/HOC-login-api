@@ -50,6 +50,10 @@ class User extends Authenticatable
     {
         parent::boot();
 
+	    static::addGlobalScope('withRoles', function ($query) {
+		    $query->with('roles');
+	    });
+
         static::created(function ($user) {
             $user->assignRole('User');
         });
