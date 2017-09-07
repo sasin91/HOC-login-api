@@ -4,13 +4,12 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Auth\Events\Registered;
-use Illuminate\Contracts\Auth\Guard;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Event;
 
 class RegisterController extends Controller
 {
-    public function store(Guard $guard)
+	public function store()
     {
     	$this->validate(request(), [
             'name' => 'required|string|max:255',
@@ -26,7 +25,7 @@ class RegisterController extends Controller
 
     	Event::fire(new Registered($user));
 
-    	$guard->login($user);
+	    Auth::login($user);
 
     	$token = $user->createToken('auth')->accessToken;
         $user->withAccessToken($token);
