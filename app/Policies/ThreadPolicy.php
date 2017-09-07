@@ -20,6 +20,20 @@ class ThreadPolicy
      */
     public function update(User $user, Thread $thread)
     {
-        return $thread->user_id == $user->id;
+	    return $thread->creator->is($user) && $thread->isLockedBy($user)
+		    || $user->hasPermissionTo('edit threads');
     }
+
+	/**
+	 * Determine whether the user can delete the board.
+	 *
+	 * @param  \App\User $user
+	 * @param  \App\Thread $thread
+	 * @return mixed
+	 */
+	public function delete(User $user, Thread $thread)
+	{
+		return $thread->creator->is($user)
+			|| $user->hasPermissionTo('delete boards');
+	}
 }

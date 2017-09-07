@@ -37,6 +37,12 @@ $factory->define(App\Thread::class, function (\Faker\Generator $faker) {
 });
 
 
+$factory->state(App\Thread::class, 'locked', function () {
+	return [
+		'locked_at' => now()
+	];
+});
+
 $factory->define(App\Reply::class, function ($faker) {
 	return [
 		'thread_id' => factory(Thread::class)->lazy(),

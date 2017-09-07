@@ -19,12 +19,16 @@ class PermissionsTableSeeder extends Seeder
     protected $moderator = [
         'list inactive players', 'list offline players', 'list online players', 'list newbie players',
         'create boards', 'edit boards', 'delete boards',
-        'edit channels', 'delete channels'
+	    'edit channels',
+	    'delete channels',
+	    'edit threads',
+	    'delete threads'
     ];
 
     protected $user = [
         'list servers', 'join server', 'leave server',
 	    'create channel',
+	    'create threads',
 	    'list online players'
     ];
 

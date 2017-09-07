@@ -57,6 +57,9 @@ Route::name('channel.show')->get('channel/{channel}', 'ChannelController@show');
 Route::name('channel.update')->patch('channel/{channel}', 'ChannelController@update');
 Route::name('channel.destroy')->delete('channel/{channel}', 'ChannelController@destroy');
 
+Route::name('thread.lock')->put('lock-thread/{thread}', 'LockThreadController@update');
+Route::name('thread.unlock')->patch('unlock-thread/{thread}', 'UnlockThreadController@update');
+
 Route::name('threads.index')->get('threads', 'ThreadsController@index');
 Route::name('threads.store')->post('threads', 'ThreadsController@store');
 

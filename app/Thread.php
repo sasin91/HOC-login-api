@@ -6,7 +6,6 @@ use App\Events\ThreadReceivedNewReply;
 use App\Filters\ThreadFilters;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Laravel\Scout\Searchable;
 
 class Thread extends Model
 {
@@ -32,6 +31,13 @@ class Thread extends Model
      * @var array
      */
     protected $appends = ['isSubscribedTo', 'links'];
+
+	/**
+	 * Additional dates.
+	 *
+	 * @var array
+	 */
+	protected $dates = ['locked_at'];
 
     /**
      * Boot the model.
@@ -173,16 +179,31 @@ class Thread extends Model
             ->exists();
     }
 
-    /**
-     * Determine if the thread has been updated since the user last read it.
-     *
-     * @param  User $user
-     * @return bool
-     */
-    public function hasUpdatesFor($user)
-    {
-        $key = $user->visitedThreadCacheKey($this);
+	/**
+	 * A thread can be locked by the creator or somebody else.
+	 *
+	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+	 */
+	public function lockedBy()
+	{
+		return $this->belongsTo(User::class, 'locked_by');
+	}
 
-        return $this->updated_at > cache($key);
+	/**
+	 * Determine if the thread is locked by given user.
+	 *
+	 * @param User $user
+	 *
+	 * @return boolean
+	 */
+	public function isLockedBy($user)
+	{
+		if (is_null($this->locked_by)) {
+			return true;
+		}
+
+		return $this->lockedBy
+			? $this->lockedBy->is($user)
+			: false;
     }
 }
