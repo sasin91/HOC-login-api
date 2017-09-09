@@ -84,3 +84,16 @@ Route::name('reply.favorites.destroy')->delete('/replies/{reply}/favorites', 'Fa
 Route::name('profile')->get('/profiles/{user}', 'ProfilesController@show');
 Route::name('profile.notifications.index')->get('/profiles/{user}/notifications', 'UserNotificationsController@index');
 Route::name('profile.notifications.destroy')->delete('/profiles/{user}/notifications/{notification}', 'UserNotificationsController@destroy');
+
+Route::apiResource('roles', 'RolesController');
+Route::prefix('roles/{role}/permissions')->group(function () {
+	Route::name('roles.permissions.index')->get('/', 'RolePermissionsController@index');
+	Route::name('roles.permissions.store')->post('/', 'RolePermissionsController@store');
+	Route::name('roles.permissions.destroy')->delete('{permission}', 'RolePermissionsController@destroy');
+});
+Route::apiResource('permissions', 'PermissionsController');
+
+Route::name('user.roles.store')->post('user/{user}/roles', 'UserRolesController@store');
+Route::name('user.roles.delete')->delete('user/{user}/roles', 'UserRolesController@destroy');
+Route::name('user.permissions.store')->post('user/{user}/permissions', 'UserPermissionsController@store');
+Route::name('user.permissions.destroy')->delete('user/{user}/permissions', 'UserPermissionsController@destroy');

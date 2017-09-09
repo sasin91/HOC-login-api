@@ -3,6 +3,7 @@
 namespace Tests;
 
 
+use App\SuperUser;
 use App\User;
 use Laravel\Passport\Passport;
 
@@ -35,5 +36,12 @@ trait SignIn
 	protected function signInAsAdmin($user = null)
 	{
 		return $this->signInWithRole('Admin', $user);
+	}
+
+	protected function signInAsSuperAdmin($user = null)
+	{
+		return tap($this->signInAsAdmin($user), function () {
+			SuperUser::add(auth()->user()->email);
+		});
 	}
 }

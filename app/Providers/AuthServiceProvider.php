@@ -7,9 +7,11 @@ use App\Channel;
 use App\Player;
 use App\Policies\BoardPolicy;
 use App\Policies\ChannelPolicy;
+use App\Policies\PermissionPolicy;
 use App\Policies\PlayerPolicy;
 use App\Policies\ProductPolicy;
 use App\Policies\ReplyPolicy;
+use App\Policies\RolePolicy;
 use App\Policies\ServerPolicy;
 use App\Policies\ThreadPolicy;
 use App\Policies\UserPolicy;
@@ -21,6 +23,8 @@ use App\User;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 use Laravel\Passport\Passport;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -30,14 +34,16 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        Player::class  => PlayerPolicy::class,
-        Server::class  => ServerPolicy::class,
-        Thread::class  => ThreadPolicy::class,
-        Reply::class   => ReplyPolicy::class,
-        User::class    => UserPolicy::class,
-        Channel::class => ChannelPolicy::class,
-        Board::class   => BoardPolicy::class,
-	    Product::class => ProductPolicy::class
+	    Player::class => PlayerPolicy::class,
+	    Server::class => ServerPolicy::class,
+	    Thread::class => ThreadPolicy::class,
+	    Reply::class => ReplyPolicy::class,
+	    User::class => UserPolicy::class,
+	    Channel::class => ChannelPolicy::class,
+	    Board::class => BoardPolicy::class,
+	    Product::class => ProductPolicy::class,
+	    Role::class => RolePolicy::class,
+	    Permission::class => PermissionPolicy::class
     ];
 
     /**

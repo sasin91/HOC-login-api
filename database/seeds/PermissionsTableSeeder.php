@@ -7,16 +7,26 @@ use Spatie\Permission\Contracts\Role;
 
 class PermissionsTableSeeder extends Seeder
 {
-	protected $admin = [
+	public $admin = [
 		'create servers',
 		'edit servers',
 		'delete servers',
 		'create products',
 		'update products',
-		'delete products'
+		'delete products',
+		'create roles',
+		'edit roles',
+		'delete roles',
+		'assign roles',
+		'revoke roles',
+		'create permissions',
+		'edit permissions',
+		'delete permissions',
+		'grant permissions',
+		'revoke permissions'
 	];
 
-    protected $moderator = [
+	public $moderator = [
         'list inactive players', 'list offline players', 'list online players', 'list newbie players',
         'create boards', 'edit boards', 'delete boards',
 	    'edit channels',
@@ -25,7 +35,7 @@ class PermissionsTableSeeder extends Seeder
 	    'delete threads'
     ];
 
-    protected $user = [
+	public $user = [
         'list servers', 'join server', 'leave server',
 	    'create channel',
 	    'create threads',

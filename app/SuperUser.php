@@ -9,6 +9,11 @@ class SuperUser
 		'jonas.kerwin.hansen@gmail.com'
 	];
 
+	public static function all()
+	{
+		return static::$emails;
+	}
+
 	public static function add($email)
 	{
 		static::$emails[] = $email;

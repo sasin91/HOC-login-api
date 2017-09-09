@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use App\SuperUser;
 use Closure;
+use Illuminate\Http\Response;
 use Illuminate\Validation\UnauthorizedException;
 
 class IsSuperUser
@@ -21,6 +22,6 @@ class IsSuperUser
 			return $next($request);
 		}
 
-		throw new UnauthorizedException("Area 51. Access denied.");
+		throw new UnauthorizedException("Area 51. Access denied.", Response::HTTP_FORBIDDEN);
 	}
 }
