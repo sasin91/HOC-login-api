@@ -2,7 +2,6 @@
 
 namespace App\Billing;
 
-use App\Billing\Quickpay\Quickpay;
 use Illuminate\Support\Facades\Facade;
 
 /**
