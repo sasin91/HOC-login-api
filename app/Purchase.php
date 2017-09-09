@@ -38,13 +38,36 @@ class Purchase extends Model
 	protected $hidden = ['token'];
 
 	/**
+	 * Get gifted purchases.
+	 *
+	 * @param \Illuminate\Database\Eloquent\Builder $query
+	 */
+	public function scopeGifts($query)
+	{
+		$query->whereNotNull('owner_id')
+			->whereNotNull('owner_type');
+	}
+
+	/**
+	 * Exclude gift purchases.
+	 *
+	 * @param \Illuminate\Database\Eloquent\Builder $query
+	 */
+	public function scopeWithoutGifts($query)
+	{
+		$query->withoutGlobalScope('gifts')
+			->whereNull('owner_id')
+			->whereNull('owner_type');
+	}
+
+	/**
 	 * Get completed purchases.
 	 *
 	 * @param \Illuminate\Database\Eloquent\Builder $query
 	 */
 	public function scopeCompleted($query)
 	{
-		$query->withoutGlobalScope('refunded')->whereNotNull('completed_at');
+		$query->whereNotNull('completed_at');
 	}
 
 	/**
@@ -54,8 +77,10 @@ class Purchase extends Model
 	 */
 	public function scopeRefunded($query)
 	{
-		$query->withoutGlobalScope('completed')->whereNull('completed_at');
+		$query->whereNotNull('refunded_at');
 	}
+
+
 
 	/**
 	 * Get the purchased model.

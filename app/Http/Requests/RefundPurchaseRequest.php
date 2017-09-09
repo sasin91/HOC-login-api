@@ -15,7 +15,15 @@ class RefundPurchaseRequest extends FormRequest
 	public function authorize()
 	{
 		return !is_null($this->user())
-			&& $this->user()->purchases->contains($this->purchase);
+			&& $this->personalPurchases()->contains($this->purchase)
+			|| $this->user()->gifts->contains($this->purchase);
+	}
+
+	private function personalPurchases()
+	{
+		return $this->user()->purchases->filter(function ($purchase) {
+			return is_null($purchase->owner);
+		});
 	}
 
 	/**

@@ -25,7 +25,7 @@ class PurchaseProductRequest extends FormRequest
 	public function withValidator($validator)
 	{
 		$validator->sometimes('player_id', 'required|exists:players,id', function () {
-			return $this->product->is_virtual;
+			return !$this->has('owner') && $this->product->is_virtual;
 		});
 	}
 
@@ -37,7 +37,10 @@ class PurchaseProductRequest extends FormRequest
 	public function rules()
 	{
 		return [
-			'gateway' => 'string|gateway'
+			'gateway' => 'string|gateway',
+			'owner' => 'nullable|array',
+			'owner.type' => 'required_with:owner|string|model',
+			'owner.id' => 'required_with:owner'
 		];
 	}
 }

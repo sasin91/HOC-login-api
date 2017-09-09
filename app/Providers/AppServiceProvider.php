@@ -6,6 +6,8 @@ use App\Billing\Manager;
 use App\Billing\PaymentGateway;
 use Hashids\Hashids;
 use Hashids\HashidsInterface;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Foundation\Testing\TestResponse;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Schema;
@@ -30,6 +32,23 @@ class AppServiceProvider extends ServiceProvider
 
 		Validator::extend('spamfree', 'App\Rules\SpamFree@passes');
 		Validator::extend('gateway', 'App\Rules\ValidPaymentGateway@passes');
+		Validator::extend('model', 'App\Rules\ValidModel@passes');
+
+		Relation::morphMap([
+			'user' => 'App\User',
+			'player' => 'App\Player',
+			'product' => 'App\Product'
+		]);
+
+		MorphTo::macro('fill', function ($attributes) {
+			/** @var MorphTo $relation */
+			$relation = $this;
+
+			return $relation->getParent()->forceFill([
+				$relation->getForeignKey() => array_get($attributes, $relation->getForeignKey()),
+				$relation->getMorphType() => array_get($attributes, $relation->getMorphType())
+			]);
+		});
 	}
 
 	/**

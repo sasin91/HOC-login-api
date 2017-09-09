@@ -41,7 +41,7 @@ class ShopTest extends TestCase
 
 		$this->assertDatabaseHas('purchases', [
 			'buyer_id' => $player->id,
-			'buyer_type' => Player::class,
+			'buyer_type' => 'player',
 			'purchasable_id' => $template->id,
 			'purchasable_type' => CharacterTemplate::class,
 			'completed_at' => now()
@@ -67,7 +67,7 @@ class ShopTest extends TestCase
 
 		$this->assertDatabaseHas('purchases', [
 			'buyer_id' => $player->id,
-			'buyer_type' => Player::class,
+			'buyer_type' => 'player',
 			'purchasable_id' => $template->id,
 			'purchasable_type' => CharacterTemplate::class,
 			'completed_at' => now()
@@ -117,7 +117,7 @@ class ShopTest extends TestCase
 
 		$this->assertDatabaseHas('purchases', [
 			'buyer_id' => $player->id,
-			'buyer_type' => Player::class,
+			'buyer_type' => 'player',
 			'purchasable_id' => $boost->id,
 			'purchasable_type' => Product::class,
 		]);

@@ -23,16 +23,16 @@ class QuickpayTest extends TestCase
 
 		$product = factory(Product::class)->states('published')->create(['is_virtual' => false, 'currency' => 'DKK']);
 
-		VCR::turnOn();
-		VCR::configure()->enableLibraryHooks('curl')->setCassettePath(__DIR__ . '/../cassettes');
-		VCR::insertCassette("quickpay.purchase_product");
+		#VCR::turnOn();
+		#VCR::configure()->enableLibraryHooks('curl')->setCassettePath(__DIR__ . '/../cassettes');
+		#VCR::insertCassette("quickpay.purchase_product");
 
 		$this->post(route('product.purchase', $product))
 			->assertRedirect()
 			->assertHost('payment.quickpay.net');
 
-		VCR::eject();
-		VCR::turnOff();
+		#VCR::eject();
+		#VCR::turnOff();
 	}
 
 	/** @test */
@@ -47,7 +47,7 @@ class QuickpayTest extends TestCase
 			'amount' => 1,
 			'completed_at' => now(),
 			'provider_id' => $provider_id,
-			'buyer_type' => User::class,
+			'buyer_type' => 'user',
 			'buyer_id' => $user->id
 		]);
 
