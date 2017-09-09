@@ -1,0 +1,175 @@
+
+-
+    request:
+        method: POST
+        url: 'https://api.quickpay.net/payments'
+        headers:
+            Host: api.quickpay.net
+            Expect: null
+            Accept-Encoding: null
+            accept: application/json
+            accept-version: v10
+            Authorization: 'Basic OjQxMDFhYzBhZDhkMjZlODBmODg0NjNiN2IwMjc2ZmZkNjVjNjYzNDQyYjMyNzExM2EzZmVmYTY3Y2U1NmVmZjg='
+            User-Agent: 'GuzzleHttp/6.2.1 curl/7.54.0 PHP/7.1.8'
+            Content-Type: application/x-www-form-urlencoded
+        body: 'order_id=xIUnRpwWpTWQeTdX&currency=XAF'
+    response:
+        status:
+            http_version: '1.1'
+            code: '201'
+            message: Created
+        headers:
+            Cache-Control: 'private, no-cache, no-store'
+            Content-Type: application/json
+            Date: 'Sat, 09 Sep 2017 10:23:57 GMT'
+            Pragma: no-cache
+            Server: nginx
+            Strict-Transport-Security: 'max-age=15768000, max-age=15768000'
+            Vary: Origin
+            Content-Length: '815'
+            Connection: keep-alive
+        body: '{"id":95343546,"merchant_id":41932,"order_id":"xIUnRpwWpTWQeTdX","accepted":false,"type":"Payment","text_on_statement":null,"branding_id":null,"variables":{},"currency":"XAF","state":"initial","metadata":{"type":null,"origin":null,"brand":null,"bin":null,"last4":null,"exp_month":null,"exp_year":null,"country":null,"is_3d_secure":null,"issued_to":null,"hash":null,"number":null,"customer_ip":null,"customer_country":null,"fraud_suspected":false,"fraud_remarks":[],"nin_number":null,"nin_country_code":null,"nin_gender":null},"link":null,"shipping_address":null,"invoice_address":null,"basket":[],"shipping":null,"operations":[],"test_mode":false,"acquirer":null,"facilitator":null,"created_at":"2017-09-09T10:23:57Z","updated_at":"2017-09-09T10:23:57Z","retented_at":null,"balance":0,"fee":null,"deadline_at":null}'
+-
+    request:
+        method: POST
+        url: 'https://api.quickpay.net/payments/95343546/link'
+        headers:
+            Host: api.quickpay.net
+            Expect: null
+            Accept-Encoding: null
+            accept: application/json
+            accept-version: v10
+            Authorization: 'Basic OjQxMDFhYzBhZDhkMjZlODBmODg0NjNiN2IwMjc2ZmZkNjVjNjYzNDQyYjMyNzExM2EzZmVmYTY3Y2U1NmVmZjg='
+            User-Agent: 'GuzzleHttp/6.2.1 curl/7.54.0 PHP/7.1.8'
+            Content-Type: application/x-www-form-urlencoded
+        body: amount=2973
+    response:
+        status:
+            http_version: '1.1'
+            code: '200'
+            message: 'OK'
+        headers:
+            Cache-Control: 'private, no-cache, no-store'
+            Content-Type: application/json
+            Date: 'Sat, 09 Sep 2017 10:23:57 GMT'
+            Pragma: no-cache
+            Server: nginx
+            Strict-Transport-Security: 'max-age=15768000, max-age=15768000'
+            Vary: Origin
+            Content-Length: '815'
+            Connection: keep-alive
+        body: '{"url": "https://payment.quickpay.net/payments/1abe690aa96d561a32fc663e07c7e3bfc08cf067092d695976a262e8257cfbba"}'
+-
+    request:
+        method: POST
+        url: 'https://api.quickpay.net/payments'
+        headers:
+            Host: api.quickpay.net
+            Expect: null
+            Accept-Encoding: null
+            accept: application/json
+            accept-version: v10
+            Authorization: 'Basic OjQxMDFhYzBhZDhkMjZlODBmODg0NjNiN2IwMjc2ZmZkNjVjNjYzNDQyYjMyNzExM2EzZmVmYTY3Y2U1NmVmZjg='
+            User-Agent: 'GuzzleHttp/6.2.1 curl/7.54.0 PHP/7.1.8'
+            Content-Type: application/x-www-form-urlencoded
+        body: 'order_id=bhTMw01Q5fmGLRVS&currency=DKK'
+    response:
+        status:
+            http_version: '1.1'
+            code: '201'
+            message: Created
+        headers:
+            Cache-Control: 'private, no-cache, no-store'
+            Content-Type: application/json
+            Date: 'Sat, 09 Sep 2017 10:30:10 GMT'
+            Pragma: no-cache
+            Server: nginx
+            Strict-Transport-Security: 'max-age=15768000, max-age=15768000'
+            Vary: Origin
+            Content-Length: '815'
+            Connection: keep-alive
+        body: '{"id":95343881,"merchant_id":41932,"order_id":"bhTMw01Q5fmGLRVS","accepted":false,"type":"Payment","text_on_statement":null,"branding_id":null,"variables":{},"currency":"DKK","state":"initial","metadata":{"type":null,"origin":null,"brand":null,"bin":null,"last4":null,"exp_month":null,"exp_year":null,"country":null,"is_3d_secure":null,"issued_to":null,"hash":null,"number":null,"customer_ip":null,"customer_country":null,"fraud_suspected":false,"fraud_remarks":[],"nin_number":null,"nin_country_code":null,"nin_gender":null},"link":null,"shipping_address":null,"invoice_address":null,"basket":[],"shipping":null,"operations":[],"test_mode":false,"acquirer":null,"facilitator":null,"created_at":"2017-09-09T10:30:10Z","updated_at":"2017-09-09T10:30:10Z","retented_at":null,"balance":0,"fee":null,"deadline_at":null}'
+-
+    request:
+        method: POST
+        url: 'https://api.quickpay.net/payments/95343881/link'
+        headers:
+            Host: api.quickpay.net
+            Expect: null
+            Accept-Encoding: null
+            accept: application/json
+            accept-version: v10
+            Authorization: 'Basic OjQxMDFhYzBhZDhkMjZlODBmODg0NjNiN2IwMjc2ZmZkNjVjNjYzNDQyYjMyNzExM2EzZmVmYTY3Y2U1NmVmZjg='
+            User-Agent: 'GuzzleHttp/6.2.1 curl/7.54.0 PHP/7.1.8'
+            Content-Type: application/x-www-form-urlencoded
+        body: amount=3124
+    response:
+        status:
+            http_version: '1.1'
+            code: '400'
+            message: 'Bad Request'
+        headers:
+            Content-Type: application/json
+            Date: 'Sat, 09 Sep 2017 10:30:11 GMT'
+            Server: nginx
+            X-Content-Type-Options: nosniff
+            Content-Length: '110'
+            Connection: keep-alive
+        body: '{"message":"Validation error","errors":{"target_operation":["does not have a valid value"]},"error_code":null}'
+-
+    request:
+        method: POST
+        url: 'https://api.quickpay.net/payments'
+        headers:
+            Host: api.quickpay.net
+            Expect: null
+            Accept-Encoding: null
+            accept: application/json
+            accept-version: v10
+            Authorization: 'Basic OjQxMDFhYzBhZDhkMjZlODBmODg0NjNiN2IwMjc2ZmZkNjVjNjYzNDQyYjMyNzExM2EzZmVmYTY3Y2U1NmVmZjg='
+            User-Agent: 'GuzzleHttp/6.2.1 curl/7.54.0 PHP/7.1.8'
+            Content-Type: application/x-www-form-urlencoded
+        body: 'order_id=wjdw7MaUfis285qo&currency=DKK'
+    response:
+        status:
+            http_version: '1.1'
+            code: '201'
+            message: Created
+        headers:
+            Cache-Control: 'private, no-cache, no-store'
+            Content-Type: application/json
+            Date: 'Sat, 09 Sep 2017 10:31:43 GMT'
+            Pragma: no-cache
+            Server: nginx
+            Strict-Transport-Security: 'max-age=15768000, max-age=15768000'
+            Vary: Origin
+            Content-Length: '815'
+            Connection: keep-alive
+        body: '{"id":95343939,"merchant_id":41932,"order_id":"wjdw7MaUfis285qo","accepted":false,"type":"Payment","text_on_statement":null,"branding_id":null,"variables":{},"currency":"DKK","state":"initial","metadata":{"type":null,"origin":null,"brand":null,"bin":null,"last4":null,"exp_month":null,"exp_year":null,"country":null,"is_3d_secure":null,"issued_to":null,"hash":null,"number":null,"customer_ip":null,"customer_country":null,"fraud_suspected":false,"fraud_remarks":[],"nin_number":null,"nin_country_code":null,"nin_gender":null},"link":null,"shipping_address":null,"invoice_address":null,"basket":[],"shipping":null,"operations":[],"test_mode":false,"acquirer":null,"facilitator":null,"created_at":"2017-09-09T10:31:43Z","updated_at":"2017-09-09T10:31:43Z","retented_at":null,"balance":0,"fee":null,"deadline_at":null}'
+-
+    request:
+        method: POST
+        url: 'https://api.quickpay.net/payments/95343939/link'
+        headers:
+            Host: api.quickpay.net
+            Expect: null
+            Accept-Encoding: null
+            accept: application/json
+            accept-version: v10
+            Authorization: 'Basic OjQxMDFhYzBhZDhkMjZlODBmODg0NjNiN2IwMjc2ZmZkNjVjNjYzNDQyYjMyNzExM2EzZmVmYTY3Y2U1NmVmZjg='
+            User-Agent: 'GuzzleHttp/6.2.1 curl/7.54.0 PHP/7.1.8'
+            Content-Type: application/x-www-form-urlencoded
+        body: amount=233
+    response:
+        status:
+            http_version: '1.1'
+            code: '400'
+            message: 'Bad Request'
+        headers:
+            Content-Type: application/json
+            Date: 'Sat, 09 Sep 2017 10:31:43 GMT'
+            Server: nginx
+            X-Content-Type-Options: nosniff
+            Content-Length: '110'
+            Connection: keep-alive
+        body: '{"message":"Validation error","errors":{"target_operation":["does not have a valid value"]},"error_code":null}'

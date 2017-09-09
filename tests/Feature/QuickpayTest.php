@@ -8,6 +8,7 @@ use App\User;
 use Faker\Generator;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
+use VCR\VCR;
 
 class QuickpayTest extends TestCase
 {
@@ -20,11 +21,18 @@ class QuickpayTest extends TestCase
 		$faker = $this->app[Generator::class];
 		$this->signIn($user = factory(User::class)->create());
 
-		$product = factory(Product::class)->states('published')->create(['is_virtual' => false]);
+		$product = factory(Product::class)->states('published')->create(['is_virtual' => false, 'currency' => 'DKK']);
+
+		VCR::turnOn();
+		VCR::configure()->enableLibraryHooks('curl')->setCassettePath(__DIR__ . '/../cassettes');
+		VCR::insertCassette("quickpay.purchase_product");
 
 		$this->post(route('product.purchase', $product))
 			->assertRedirect()
 			->assertHost('payment.quickpay.net');
+
+		VCR::eject();
+		VCR::turnOff();
 	}
 
 	/** @test */
@@ -43,8 +51,15 @@ class QuickpayTest extends TestCase
 			'buyer_id' => $user->id
 		]);
 
+		VCR::turnOn();
+		VCR::configure()->enableLibraryHooks('curl')->setCassettePath(__DIR__ . '/../cassettes');
+		VCR::insertCassette("quickpay.refund_product");
+
 		$this->post(route('purchase.refund', $purchase))
 			->assertSuccessful();
+
+		VCR::eject();
+		VCR::turnOff();
 
 		$this->assertDatabaseHas('purchases', [
 			'id' => $purchase->id,
