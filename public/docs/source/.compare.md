@@ -26,7 +26,7 @@ Welcome to the generated API reference.
 > Example request:
 
 ```bash
-curl -X GET "http://localhost/api/servers" \
+curl -X GET "http://heraldsofcosmos.dev/api/servers" \
 -H "Accept: application/json"
 ```
 
@@ -34,7 +34,7 @@ curl -X GET "http://localhost/api/servers" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/servers",
+    "url": "http://heraldsofcosmos.dev/api/servers",
     "method": "GET",
     "headers": {
         "accept": "application/json"
@@ -49,7 +49,73 @@ $.ajax(settings).done(function (response) {
 > Example response:
 
 ```json
-null
+[
+    {
+        "id": 1,
+        "name": "Magnus Beahan",
+        "ip": "17.161.135.225",
+        "game_type": "dolore",
+        "map": "quasi",
+        "players_limit": 32,
+        "MNP": "nam",
+        "created_at": "2017-09-03 09:31:41",
+        "updated_at": "2017-09-03 09:31:41",
+        "players_count": 1,
+        "is_full": false
+    },
+    {
+        "id": 2,
+        "name": "Courtney Klein",
+        "ip": "224.184.214.33",
+        "game_type": "sint",
+        "map": "enim",
+        "players_limit": 66,
+        "MNP": "quidem",
+        "created_at": "2017-09-03 09:31:41",
+        "updated_at": "2017-09-03 09:31:41",
+        "players_count": 1,
+        "is_full": false
+    },
+    {
+        "id": 3,
+        "name": "Corrine Lindgren",
+        "ip": "239.172.126.1",
+        "game_type": "suscipit",
+        "map": "temporibus",
+        "players_limit": 82,
+        "MNP": "blanditiis",
+        "created_at": "2017-09-03 09:31:41",
+        "updated_at": "2017-09-03 09:31:41",
+        "players_count": 1,
+        "is_full": false
+    },
+    {
+        "id": 4,
+        "name": "Mr. Nigel Shanahan",
+        "ip": "57.64.126.232",
+        "game_type": "qui",
+        "map": "non",
+        "players_limit": 57,
+        "MNP": "rem",
+        "created_at": "2017-09-03 09:31:41",
+        "updated_at": "2017-09-03 09:31:41",
+        "players_count": 1,
+        "is_full": false
+    },
+    {
+        "id": 5,
+        "name": "Ora Breitenberg",
+        "ip": "123.68.55.231",
+        "game_type": "similique",
+        "map": "in",
+        "players_limit": 59,
+        "MNP": "dicta",
+        "created_at": "2017-09-03 09:31:42",
+        "updated_at": "2017-09-03 09:31:42",
+        "players_count": 1,
+        "is_full": false
+    }
+]
 ```
 
 ### HTTP Request
@@ -66,7 +132,7 @@ null
 > Example request:
 
 ```bash
-curl -X POST "http://localhost/api/servers" \
+curl -X POST "http://heraldsofcosmos.dev/api/servers" \
 -H "Accept: application/json"
 ```
 
@@ -74,7 +140,7 @@ curl -X POST "http://localhost/api/servers" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/servers",
+    "url": "http://heraldsofcosmos.dev/api/servers",
     "method": "POST",
     "headers": {
         "accept": "application/json"
@@ -99,7 +165,7 @@ $.ajax(settings).done(function (response) {
 > Example request:
 
 ```bash
-curl -X GET "http://localhost/api/servers/{server}" \
+curl -X GET "http://heraldsofcosmos.dev/api/servers/{server}" \
 -H "Accept: application/json"
 ```
 
@@ -107,7 +173,7 @@ curl -X GET "http://localhost/api/servers/{server}" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/servers/{server}",
+    "url": "http://heraldsofcosmos.dev/api/servers/{server}",
     "method": "GET",
     "headers": {
         "accept": "application/json"
@@ -122,7 +188,9 @@ $.ajax(settings).done(function (response) {
 > Example response:
 
 ```json
-null
+{
+    "error": "Unauthenticated."
+}
 ```
 
 ### HTTP Request
@@ -139,7 +207,7 @@ null
 > Example request:
 
 ```bash
-curl -X PUT "http://localhost/api/servers/{server}" \
+curl -X PUT "http://heraldsofcosmos.dev/api/servers/{server}" \
 -H "Accept: application/json"
 ```
 
@@ -147,7 +215,7 @@ curl -X PUT "http://localhost/api/servers/{server}" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/servers/{server}",
+    "url": "http://heraldsofcosmos.dev/api/servers/{server}",
     "method": "PUT",
     "headers": {
         "accept": "application/json"
@@ -174,7 +242,7 @@ $.ajax(settings).done(function (response) {
 > Example request:
 
 ```bash
-curl -X DELETE "http://localhost/api/servers/{server}" \
+curl -X DELETE "http://heraldsofcosmos.dev/api/servers/{server}" \
 -H "Accept: application/json"
 ```
 
@@ -182,7 +250,7 @@ curl -X DELETE "http://localhost/api/servers/{server}" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/servers/{server}",
+    "url": "http://heraldsofcosmos.dev/api/servers/{server}",
     "method": "DELETE",
     "headers": {
         "accept": "application/json"
@@ -202,15 +270,18 @@ $.ajax(settings).done(function (response) {
 <!-- END_16e8d37a7058dc61c4f433ace69b1001 -->
 
 #general
-<!-- START_2bf3b21d470d7918f0cba687050e782b -->
-## api/product/{product}/purchase
+<!-- START_4f58d00a9c157d18c2d5ab5267e46ab4 -->
+## api/process-payment
 
 > Example request:
 
 ```bash
-curl -X POST "http://localhost/api/product/{product}/purchase" \
+curl -X POST "http://heraldsofcosmos.dev/api/process-payment" \
 -H "Accept: application/json" \
-    -d "player_id"="qui" \
+    -d "order_id"="rem" \
+    -d "currency"="rem" \
+    -d "operations"="rem" \
+    -d "metadata"="rem" \
 
 ```
 
@@ -218,10 +289,13 @@ curl -X POST "http://localhost/api/product/{product}/purchase" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/product/{product}/purchase",
+    "url": "http://heraldsofcosmos.dev/api/process-payment",
     "method": "POST",
     "data": {
-        "player_id": "qui"
+        "order_id": "rem",
+        "currency": "rem",
+        "operations": "rem",
+        "metadata": "rem"
 },
     "headers": {
         "accept": "application/json"
@@ -235,15 +309,107 @@ $.ajax(settings).done(function (response) {
 
 
 ### HTTP Request
-`POST api/product/{product}/purchase`
+`POST api/process-payment`
 
 #### Parameters
 
 Parameter | Type | Status | Description
 --------- | ------- | ------- | ------- | -----------
-    player_id | string |  optional  | Valid player id
+    order_id | string |  required  | Minimum: `4` Maximum: `20` Valid purchase token
+    currency | string |  required  | 
+    operations | array |  required  | 
+    metadata | array |  required  | 
 
-<!-- END_2bf3b21d470d7918f0cba687050e782b -->
+<!-- END_4f58d00a9c157d18c2d5ab5267e46ab4 -->
+
+<!-- START_684534a84983aab00b529dcbdedd2a50 -->
+## api/refund-purchase/{purchase}
+
+> Example request:
+
+```bash
+curl -X POST "http://heraldsofcosmos.dev/api/refund-purchase/{purchase}" \
+-H "Accept: application/json" \
+    -d "amount"="6754" \
+    -d "currency"="ut" \
+
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://heraldsofcosmos.dev/api/refund-purchase/{purchase}",
+    "method": "POST",
+    "data": {
+        "amount": 6754,
+        "currency": "ut"
+},
+    "headers": {
+        "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});
+```
+
+
+### HTTP Request
+`POST api/refund-purchase/{purchase}`
+
+#### Parameters
+
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+    amount | numeric |  optional  | 
+    currency | string |  optional  | 
+
+<!-- END_684534a84983aab00b529dcbdedd2a50 -->
+
+<!-- START_afdbba33cd17dc44e892b3ba68e7bbd3 -->
+## api/purchase-product/{product}
+
+> Example request:
+
+```bash
+curl -X POST "http://heraldsofcosmos.dev/api/purchase-product/{product}" \
+-H "Accept: application/json" \
+    -d "gateway"="quaerat" \
+
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://heraldsofcosmos.dev/api/purchase-product/{product}",
+    "method": "POST",
+    "data": {
+        "gateway": "quaerat"
+},
+    "headers": {
+        "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});
+```
+
+
+### HTTP Request
+`POST api/purchase-product/{product}`
+
+#### Parameters
+
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+    gateway | string |  optional  | 
+
+<!-- END_afdbba33cd17dc44e892b3ba68e7bbd3 -->
 
 <!-- START_d50127a607e403449e988ed24cc511e3 -->
 ## Display a listing of the resource.
@@ -251,7 +417,7 @@ Parameter | Type | Status | Description
 > Example request:
 
 ```bash
-curl -X GET "http://localhost/api/product" \
+curl -X GET "http://heraldsofcosmos.dev/api/product" \
 -H "Accept: application/json"
 ```
 
@@ -259,7 +425,7 @@ curl -X GET "http://localhost/api/product" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/product",
+    "url": "http://heraldsofcosmos.dev/api/product",
     "method": "GET",
     "headers": {
         "accept": "application/json"
@@ -274,7 +440,18 @@ $.ajax(settings).done(function (response) {
 > Example response:
 
 ```json
-null
+{
+    "current_page": 1,
+    "data": [],
+    "from": null,
+    "last_page": 0,
+    "next_page_url": null,
+    "path": "http:\/\/localhostapi\/product",
+    "per_page": 15,
+    "prev_page_url": null,
+    "to": null,
+    "total": 0
+}
 ```
 
 ### HTTP Request
@@ -291,7 +468,7 @@ null
 > Example request:
 
 ```bash
-curl -X POST "http://localhost/api/product" \
+curl -X POST "http://heraldsofcosmos.dev/api/product" \
 -H "Accept: application/json"
 ```
 
@@ -299,7 +476,7 @@ curl -X POST "http://localhost/api/product" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/product",
+    "url": "http://heraldsofcosmos.dev/api/product",
     "method": "POST",
     "headers": {
         "accept": "application/json"
@@ -324,7 +501,7 @@ $.ajax(settings).done(function (response) {
 > Example request:
 
 ```bash
-curl -X GET "http://localhost/api/product/{product}" \
+curl -X GET "http://heraldsofcosmos.dev/api/product/{product}" \
 -H "Accept: application/json"
 ```
 
@@ -332,7 +509,7 @@ curl -X GET "http://localhost/api/product/{product}" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/product/{product}",
+    "url": "http://heraldsofcosmos.dev/api/product/{product}",
     "method": "GET",
     "headers": {
         "accept": "application/json"
@@ -364,7 +541,7 @@ null
 > Example request:
 
 ```bash
-curl -X PUT "http://localhost/api/product/{product}" \
+curl -X PUT "http://heraldsofcosmos.dev/api/product/{product}" \
 -H "Accept: application/json"
 ```
 
@@ -372,7 +549,7 @@ curl -X PUT "http://localhost/api/product/{product}" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/product/{product}",
+    "url": "http://heraldsofcosmos.dev/api/product/{product}",
     "method": "PUT",
     "headers": {
         "accept": "application/json"
@@ -399,7 +576,7 @@ $.ajax(settings).done(function (response) {
 > Example request:
 
 ```bash
-curl -X DELETE "http://localhost/api/product/{product}" \
+curl -X DELETE "http://heraldsofcosmos.dev/api/product/{product}" \
 -H "Accept: application/json"
 ```
 
@@ -407,7 +584,7 @@ curl -X DELETE "http://localhost/api/product/{product}" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/product/{product}",
+    "url": "http://heraldsofcosmos.dev/api/product/{product}",
     "method": "DELETE",
     "headers": {
         "accept": "application/json"
@@ -432,7 +609,7 @@ $.ajax(settings).done(function (response) {
 > Example request:
 
 ```bash
-curl -X PUT "http://localhost/api/publish-product" \
+curl -X PUT "http://heraldsofcosmos.dev/api/publish-product" \
 -H "Accept: application/json"
 ```
 
@@ -440,7 +617,7 @@ curl -X PUT "http://localhost/api/publish-product" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/publish-product",
+    "url": "http://heraldsofcosmos.dev/api/publish-product",
     "method": "PUT",
     "headers": {
         "accept": "application/json"
@@ -465,12 +642,12 @@ $.ajax(settings).done(function (response) {
 > Example request:
 
 ```bash
-curl -X POST "http://localhost/api/unlock-character" \
+curl -X POST "http://heraldsofcosmos.dev/api/unlock-character" \
 -H "Accept: application/json" \
-    -d "gateway"="provident" \
-    -d "player_id"="provident" \
-    -d "id"="provident" \
-    -d "name"="provident" \
+    -d "gateway"="eaque" \
+    -d "player_id"="eaque" \
+    -d "id"="eaque" \
+    -d "name"="eaque" \
 
 ```
 
@@ -478,13 +655,13 @@ curl -X POST "http://localhost/api/unlock-character" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/unlock-character",
+    "url": "http://heraldsofcosmos.dev/api/unlock-character",
     "method": "POST",
     "data": {
-        "gateway": "provident",
-        "player_id": "provident",
-        "id": "provident",
-        "name": "provident"
+        "gateway": "eaque",
+        "player_id": "eaque",
+        "id": "eaque",
+        "name": "eaque"
 },
     "headers": {
         "accept": "application/json"
@@ -517,10 +694,10 @@ Parameter | Type | Status | Description
 > Example request:
 
 ```bash
-curl -X POST "http://localhost/api/login" \
+curl -X POST "http://heraldsofcosmos.dev/api/login" \
 -H "Accept: application/json" \
-    -d "email"="repellat" \
-    -d "password"="repellat" \
+    -d "email"="rerum" \
+    -d "password"="rerum" \
 
 ```
 
@@ -528,11 +705,11 @@ curl -X POST "http://localhost/api/login" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/login",
+    "url": "http://heraldsofcosmos.dev/api/login",
     "method": "POST",
     "data": {
-        "email": "repellat",
-        "password": "repellat"
+        "email": "rerum",
+        "password": "rerum"
 },
     "headers": {
         "accept": "application/json"
@@ -563,7 +740,7 @@ Parameter | Type | Status | Description
 > Example request:
 
 ```bash
-curl -X POST "http://localhost/api/logout" \
+curl -X POST "http://heraldsofcosmos.dev/api/logout" \
 -H "Accept: application/json"
 ```
 
@@ -571,7 +748,7 @@ curl -X POST "http://localhost/api/logout" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/logout",
+    "url": "http://heraldsofcosmos.dev/api/logout",
     "method": "POST",
     "headers": {
         "accept": "application/json"
@@ -596,7 +773,7 @@ $.ajax(settings).done(function (response) {
 > Example request:
 
 ```bash
-curl -X POST "http://localhost/api/register" \
+curl -X POST "http://heraldsofcosmos.dev/api/register" \
 -H "Accept: application/json"
 ```
 
@@ -604,7 +781,7 @@ curl -X POST "http://localhost/api/register" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/register",
+    "url": "http://heraldsofcosmos.dev/api/register",
     "method": "POST",
     "headers": {
         "accept": "application/json"
@@ -629,7 +806,7 @@ $.ajax(settings).done(function (response) {
 > Example request:
 
 ```bash
-curl -X GET "http://localhost/api/me" \
+curl -X GET "http://heraldsofcosmos.dev/api/me" \
 -H "Accept: application/json"
 ```
 
@@ -637,7 +814,7 @@ curl -X GET "http://localhost/api/me" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/me",
+    "url": "http://heraldsofcosmos.dev/api/me",
     "method": "GET",
     "headers": {
         "accept": "application/json"
@@ -671,7 +848,7 @@ $.ajax(settings).done(function (response) {
 > Example request:
 
 ```bash
-curl -X POST "http://localhost/api/photo" \
+curl -X POST "http://heraldsofcosmos.dev/api/photo" \
 -H "Accept: application/json"
 ```
 
@@ -679,7 +856,7 @@ curl -X POST "http://localhost/api/photo" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/photo",
+    "url": "http://heraldsofcosmos.dev/api/photo",
     "method": "POST",
     "headers": {
         "accept": "application/json"
@@ -704,7 +881,7 @@ $.ajax(settings).done(function (response) {
 > Example request:
 
 ```bash
-curl -X POST "http://localhost/api/users/{user}/photo" \
+curl -X POST "http://heraldsofcosmos.dev/api/users/{user}/photo" \
 -H "Accept: application/json"
 ```
 
@@ -712,7 +889,7 @@ curl -X POST "http://localhost/api/users/{user}/photo" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/users/{user}/photo",
+    "url": "http://heraldsofcosmos.dev/api/users/{user}/photo",
     "method": "POST",
     "headers": {
         "accept": "application/json"
@@ -737,7 +914,7 @@ $.ajax(settings).done(function (response) {
 > Example request:
 
 ```bash
-curl -X GET "http://localhost/api/users-search" \
+curl -X GET "http://heraldsofcosmos.dev/api/users-search" \
 -H "Accept: application/json"
 ```
 
@@ -745,7 +922,7 @@ curl -X GET "http://localhost/api/users-search" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/users-search",
+    "url": "http://heraldsofcosmos.dev/api/users-search",
     "method": "GET",
     "headers": {
         "accept": "application/json"
@@ -781,7 +958,7 @@ $.ajax(settings).done(function (response) {
 > Example request:
 
 ```bash
-curl -X GET "http://localhost/api/server/{server}/players" \
+curl -X GET "http://heraldsofcosmos.dev/api/server/{server}/players" \
 -H "Accept: application/json"
 ```
 
@@ -789,7 +966,7 @@ curl -X GET "http://localhost/api/server/{server}/players" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/server/{server}/players",
+    "url": "http://heraldsofcosmos.dev/api/server/{server}/players",
     "method": "GET",
     "headers": {
         "accept": "application/json"
@@ -823,7 +1000,7 @@ $.ajax(settings).done(function (response) {
 > Example request:
 
 ```bash
-curl -X POST "http://localhost/api/server/{server}/join" \
+curl -X POST "http://heraldsofcosmos.dev/api/server/{server}/join" \
 -H "Accept: application/json"
 ```
 
@@ -831,7 +1008,7 @@ curl -X POST "http://localhost/api/server/{server}/join" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/server/{server}/join",
+    "url": "http://heraldsofcosmos.dev/api/server/{server}/join",
     "method": "POST",
     "headers": {
         "accept": "application/json"
@@ -856,7 +1033,7 @@ $.ajax(settings).done(function (response) {
 > Example request:
 
 ```bash
-curl -X POST "http://localhost/api/server/{server}/leave" \
+curl -X POST "http://heraldsofcosmos.dev/api/server/{server}/leave" \
 -H "Accept: application/json"
 ```
 
@@ -864,7 +1041,7 @@ curl -X POST "http://localhost/api/server/{server}/leave" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/server/{server}/leave",
+    "url": "http://heraldsofcosmos.dev/api/server/{server}/leave",
     "method": "POST",
     "headers": {
         "accept": "application/json"
@@ -889,7 +1066,7 @@ $.ajax(settings).done(function (response) {
 > Example request:
 
 ```bash
-curl -X GET "http://localhost/api/player/{player}" \
+curl -X GET "http://heraldsofcosmos.dev/api/player/{player}" \
 -H "Accept: application/json"
 ```
 
@@ -897,7 +1074,7 @@ curl -X GET "http://localhost/api/player/{player}" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/player/{player}",
+    "url": "http://heraldsofcosmos.dev/api/player/{player}",
     "method": "GET",
     "headers": {
         "accept": "application/json"
@@ -931,7 +1108,7 @@ $.ajax(settings).done(function (response) {
 > Example request:
 
 ```bash
-curl -X DELETE "http://localhost/api/player/{player}" \
+curl -X DELETE "http://heraldsofcosmos.dev/api/player/{player}" \
 -H "Accept: application/json"
 ```
 
@@ -939,7 +1116,7 @@ curl -X DELETE "http://localhost/api/player/{player}" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/player/{player}",
+    "url": "http://heraldsofcosmos.dev/api/player/{player}",
     "method": "DELETE",
     "headers": {
         "accept": "application/json"
@@ -964,7 +1141,7 @@ $.ajax(settings).done(function (response) {
 > Example request:
 
 ```bash
-curl -X PUT "http://localhost/api/player/{player}" \
+curl -X PUT "http://heraldsofcosmos.dev/api/player/{player}" \
 -H "Accept: application/json"
 ```
 
@@ -972,7 +1149,7 @@ curl -X PUT "http://localhost/api/player/{player}" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/player/{player}",
+    "url": "http://heraldsofcosmos.dev/api/player/{player}",
     "method": "PUT",
     "headers": {
         "accept": "application/json"
@@ -999,7 +1176,7 @@ $.ajax(settings).done(function (response) {
 > Example request:
 
 ```bash
-curl -X GET "http://localhost/api/inactive-players" \
+curl -X GET "http://heraldsofcosmos.dev/api/inactive-players" \
 -H "Accept: application/json"
 ```
 
@@ -1007,7 +1184,7 @@ curl -X GET "http://localhost/api/inactive-players" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/inactive-players",
+    "url": "http://heraldsofcosmos.dev/api/inactive-players",
     "method": "GET",
     "headers": {
         "accept": "application/json"
@@ -1041,7 +1218,7 @@ $.ajax(settings).done(function (response) {
 > Example request:
 
 ```bash
-curl -X GET "http://localhost/api/offline-players" \
+curl -X GET "http://heraldsofcosmos.dev/api/offline-players" \
 -H "Accept: application/json"
 ```
 
@@ -1049,7 +1226,7 @@ curl -X GET "http://localhost/api/offline-players" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/offline-players",
+    "url": "http://heraldsofcosmos.dev/api/offline-players",
     "method": "GET",
     "headers": {
         "accept": "application/json"
@@ -1083,7 +1260,7 @@ $.ajax(settings).done(function (response) {
 > Example request:
 
 ```bash
-curl -X GET "http://localhost/api/online-players" \
+curl -X GET "http://heraldsofcosmos.dev/api/online-players" \
 -H "Accept: application/json"
 ```
 
@@ -1091,7 +1268,7 @@ curl -X GET "http://localhost/api/online-players" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/online-players",
+    "url": "http://heraldsofcosmos.dev/api/online-players",
     "method": "GET",
     "headers": {
         "accept": "application/json"
@@ -1125,7 +1302,7 @@ $.ajax(settings).done(function (response) {
 > Example request:
 
 ```bash
-curl -X GET "http://localhost/api/newbie-players" \
+curl -X GET "http://heraldsofcosmos.dev/api/newbie-players" \
 -H "Accept: application/json"
 ```
 
@@ -1133,7 +1310,7 @@ curl -X GET "http://localhost/api/newbie-players" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/newbie-players",
+    "url": "http://heraldsofcosmos.dev/api/newbie-players",
     "method": "GET",
     "headers": {
         "accept": "application/json"
@@ -1167,7 +1344,7 @@ $.ajax(settings).done(function (response) {
 > Example request:
 
 ```bash
-curl -X GET "http://localhost/api/board" \
+curl -X GET "http://heraldsofcosmos.dev/api/board" \
 -H "Accept: application/json"
 ```
 
@@ -1175,7 +1352,7 @@ curl -X GET "http://localhost/api/board" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/board",
+    "url": "http://heraldsofcosmos.dev/api/board",
     "method": "GET",
     "headers": {
         "accept": "application/json"
@@ -1190,7 +1367,18 @@ $.ajax(settings).done(function (response) {
 > Example response:
 
 ```json
-null
+{
+    "current_page": 1,
+    "data": [],
+    "from": null,
+    "last_page": 0,
+    "next_page_url": null,
+    "path": "http:\/\/localhostapi\/board",
+    "per_page": 15,
+    "prev_page_url": null,
+    "to": null,
+    "total": 0
+}
 ```
 
 ### HTTP Request
@@ -1207,7 +1395,7 @@ null
 > Example request:
 
 ```bash
-curl -X POST "http://localhost/api/board" \
+curl -X POST "http://heraldsofcosmos.dev/api/board" \
 -H "Accept: application/json"
 ```
 
@@ -1215,7 +1403,7 @@ curl -X POST "http://localhost/api/board" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/board",
+    "url": "http://heraldsofcosmos.dev/api/board",
     "method": "POST",
     "headers": {
         "accept": "application/json"
@@ -1240,7 +1428,7 @@ $.ajax(settings).done(function (response) {
 > Example request:
 
 ```bash
-curl -X GET "http://localhost/api/board/{board}" \
+curl -X GET "http://heraldsofcosmos.dev/api/board/{board}" \
 -H "Accept: application/json"
 ```
 
@@ -1248,7 +1436,7 @@ curl -X GET "http://localhost/api/board/{board}" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/board/{board}",
+    "url": "http://heraldsofcosmos.dev/api/board/{board}",
     "method": "GET",
     "headers": {
         "accept": "application/json"
@@ -1280,7 +1468,7 @@ null
 > Example request:
 
 ```bash
-curl -X PUT "http://localhost/api/board/{board}" \
+curl -X PUT "http://heraldsofcosmos.dev/api/board/{board}" \
 -H "Accept: application/json"
 ```
 
@@ -1288,7 +1476,7 @@ curl -X PUT "http://localhost/api/board/{board}" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/board/{board}",
+    "url": "http://heraldsofcosmos.dev/api/board/{board}",
     "method": "PUT",
     "headers": {
         "accept": "application/json"
@@ -1315,7 +1503,7 @@ $.ajax(settings).done(function (response) {
 > Example request:
 
 ```bash
-curl -X DELETE "http://localhost/api/board/{board}" \
+curl -X DELETE "http://heraldsofcosmos.dev/api/board/{board}" \
 -H "Accept: application/json"
 ```
 
@@ -1323,7 +1511,7 @@ curl -X DELETE "http://localhost/api/board/{board}" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/board/{board}",
+    "url": "http://heraldsofcosmos.dev/api/board/{board}",
     "method": "DELETE",
     "headers": {
         "accept": "application/json"
@@ -1348,7 +1536,7 @@ $.ajax(settings).done(function (response) {
 > Example request:
 
 ```bash
-curl -X GET "http://localhost/api/board/{board}/channels" \
+curl -X GET "http://heraldsofcosmos.dev/api/board/{board}/channels" \
 -H "Accept: application/json"
 ```
 
@@ -1356,7 +1544,7 @@ curl -X GET "http://localhost/api/board/{board}/channels" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/board/{board}/channels",
+    "url": "http://heraldsofcosmos.dev/api/board/{board}/channels",
     "method": "GET",
     "headers": {
         "accept": "application/json"
@@ -1388,7 +1576,7 @@ null
 > Example request:
 
 ```bash
-curl -X POST "http://localhost/api/channel" \
+curl -X POST "http://heraldsofcosmos.dev/api/channel" \
 -H "Accept: application/json"
 ```
 
@@ -1396,7 +1584,7 @@ curl -X POST "http://localhost/api/channel" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/channel",
+    "url": "http://heraldsofcosmos.dev/api/channel",
     "method": "POST",
     "headers": {
         "accept": "application/json"
@@ -1421,7 +1609,7 @@ $.ajax(settings).done(function (response) {
 > Example request:
 
 ```bash
-curl -X GET "http://localhost/api/channel/{channel}" \
+curl -X GET "http://heraldsofcosmos.dev/api/channel/{channel}" \
 -H "Accept: application/json"
 ```
 
@@ -1429,7 +1617,7 @@ curl -X GET "http://localhost/api/channel/{channel}" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/channel/{channel}",
+    "url": "http://heraldsofcosmos.dev/api/channel/{channel}",
     "method": "GET",
     "headers": {
         "accept": "application/json"
@@ -1461,7 +1649,7 @@ null
 > Example request:
 
 ```bash
-curl -X PATCH "http://localhost/api/channel/{channel}" \
+curl -X PATCH "http://heraldsofcosmos.dev/api/channel/{channel}" \
 -H "Accept: application/json"
 ```
 
@@ -1469,7 +1657,7 @@ curl -X PATCH "http://localhost/api/channel/{channel}" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/channel/{channel}",
+    "url": "http://heraldsofcosmos.dev/api/channel/{channel}",
     "method": "PATCH",
     "headers": {
         "accept": "application/json"
@@ -1494,7 +1682,7 @@ $.ajax(settings).done(function (response) {
 > Example request:
 
 ```bash
-curl -X DELETE "http://localhost/api/channel/{channel}" \
+curl -X DELETE "http://heraldsofcosmos.dev/api/channel/{channel}" \
 -H "Accept: application/json"
 ```
 
@@ -1502,7 +1690,7 @@ curl -X DELETE "http://localhost/api/channel/{channel}" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/channel/{channel}",
+    "url": "http://heraldsofcosmos.dev/api/channel/{channel}",
     "method": "DELETE",
     "headers": {
         "accept": "application/json"
@@ -1521,13 +1709,13 @@ $.ajax(settings).done(function (response) {
 
 <!-- END_d5e4eed35e9e93fdfcbb618c4300eaea -->
 
-<!-- START_72a7bcbc6a54996096f0ed1f8616f73f -->
-## Display a listing of the resource.
+<!-- START_6e8c74d24b36be660875ea9f4c4bb487 -->
+## api/lock-thread/{thread}
 
 > Example request:
 
 ```bash
-curl -X GET "http://localhost/api/threads" \
+curl -X PUT "http://heraldsofcosmos.dev/api/lock-thread/{thread}" \
 -H "Accept: application/json"
 ```
 
@@ -1535,7 +1723,73 @@ curl -X GET "http://localhost/api/threads" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/threads",
+    "url": "http://heraldsofcosmos.dev/api/lock-thread/{thread}",
+    "method": "PUT",
+    "headers": {
+        "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});
+```
+
+
+### HTTP Request
+`PUT api/lock-thread/{thread}`
+
+
+<!-- END_6e8c74d24b36be660875ea9f4c4bb487 -->
+
+<!-- START_d4124008a1b31cce13780f16255629cd -->
+## api/unlock-thread/{thread}
+
+> Example request:
+
+```bash
+curl -X PATCH "http://heraldsofcosmos.dev/api/unlock-thread/{thread}" \
+-H "Accept: application/json"
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://heraldsofcosmos.dev/api/unlock-thread/{thread}",
+    "method": "PATCH",
+    "headers": {
+        "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});
+```
+
+
+### HTTP Request
+`PATCH api/unlock-thread/{thread}`
+
+
+<!-- END_d4124008a1b31cce13780f16255629cd -->
+
+<!-- START_72a7bcbc6a54996096f0ed1f8616f73f -->
+## Display a listing of the resource.
+
+> Example request:
+
+```bash
+curl -X GET "http://heraldsofcosmos.dev/api/threads" \
+-H "Accept: application/json"
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://heraldsofcosmos.dev/api/threads",
     "method": "GET",
     "headers": {
         "accept": "application/json"
@@ -1550,7 +1804,18 @@ $.ajax(settings).done(function (response) {
 > Example response:
 
 ```json
-null
+{
+    "current_page": 1,
+    "data": [],
+    "from": null,
+    "last_page": 0,
+    "next_page_url": null,
+    "path": "http:\/\/localhostapi\/threads",
+    "per_page": 25,
+    "prev_page_url": null,
+    "to": null,
+    "total": 0
+}
 ```
 
 ### HTTP Request
@@ -1567,7 +1832,7 @@ null
 > Example request:
 
 ```bash
-curl -X POST "http://localhost/api/threads" \
+curl -X POST "http://heraldsofcosmos.dev/api/threads" \
 -H "Accept: application/json"
 ```
 
@@ -1575,7 +1840,7 @@ curl -X POST "http://localhost/api/threads" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/threads",
+    "url": "http://heraldsofcosmos.dev/api/threads",
     "method": "POST",
     "headers": {
         "accept": "application/json"
@@ -1600,7 +1865,7 @@ $.ajax(settings).done(function (response) {
 > Example request:
 
 ```bash
-curl -X GET "http://localhost/api/threads/{channel}/{thread}" \
+curl -X GET "http://heraldsofcosmos.dev/api/threads/{channel}/{thread}" \
 -H "Accept: application/json"
 ```
 
@@ -1608,7 +1873,7 @@ curl -X GET "http://localhost/api/threads/{channel}/{thread}" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/threads/{channel}/{thread}",
+    "url": "http://heraldsofcosmos.dev/api/threads/{channel}/{thread}",
     "method": "GET",
     "headers": {
         "accept": "application/json"
@@ -1640,7 +1905,7 @@ null
 > Example request:
 
 ```bash
-curl -X DELETE "http://localhost/api/threads/{channel}/{thread}" \
+curl -X DELETE "http://heraldsofcosmos.dev/api/threads/{channel}/{thread}" \
 -H "Accept: application/json"
 ```
 
@@ -1648,7 +1913,7 @@ curl -X DELETE "http://localhost/api/threads/{channel}/{thread}" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/threads/{channel}/{thread}",
+    "url": "http://heraldsofcosmos.dev/api/threads/{channel}/{thread}",
     "method": "DELETE",
     "headers": {
         "accept": "application/json"
@@ -1673,7 +1938,7 @@ $.ajax(settings).done(function (response) {
 > Example request:
 
 ```bash
-curl -X GET "http://localhost/api/threads/{channel}" \
+curl -X GET "http://heraldsofcosmos.dev/api/threads/{channel}" \
 -H "Accept: application/json"
 ```
 
@@ -1681,7 +1946,7 @@ curl -X GET "http://localhost/api/threads/{channel}" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/threads/{channel}",
+    "url": "http://heraldsofcosmos.dev/api/threads/{channel}",
     "method": "GET",
     "headers": {
         "accept": "application/json"
@@ -1713,7 +1978,7 @@ null
 > Example request:
 
 ```bash
-curl -X GET "http://localhost/api/threads/{channel}/{thread}/replies" \
+curl -X GET "http://heraldsofcosmos.dev/api/threads/{channel}/{thread}/replies" \
 -H "Accept: application/json"
 ```
 
@@ -1721,7 +1986,7 @@ curl -X GET "http://localhost/api/threads/{channel}/{thread}/replies" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/threads/{channel}/{thread}/replies",
+    "url": "http://heraldsofcosmos.dev/api/threads/{channel}/{thread}/replies",
     "method": "GET",
     "headers": {
         "accept": "application/json"
@@ -1753,7 +2018,7 @@ null
 > Example request:
 
 ```bash
-curl -X POST "http://localhost/api/threads/{channel}/{thread}/replies" \
+curl -X POST "http://heraldsofcosmos.dev/api/threads/{channel}/{thread}/replies" \
 -H "Accept: application/json"
 ```
 
@@ -1761,7 +2026,7 @@ curl -X POST "http://localhost/api/threads/{channel}/{thread}/replies" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/threads/{channel}/{thread}/replies",
+    "url": "http://heraldsofcosmos.dev/api/threads/{channel}/{thread}/replies",
     "method": "POST",
     "headers": {
         "accept": "application/json"
@@ -1786,7 +2051,7 @@ $.ajax(settings).done(function (response) {
 > Example request:
 
 ```bash
-curl -X PUT "http://localhost/api/replies/{reply}" \
+curl -X PUT "http://heraldsofcosmos.dev/api/replies/{reply}" \
 -H "Accept: application/json"
 ```
 
@@ -1794,7 +2059,7 @@ curl -X PUT "http://localhost/api/replies/{reply}" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/replies/{reply}",
+    "url": "http://heraldsofcosmos.dev/api/replies/{reply}",
     "method": "PUT",
     "headers": {
         "accept": "application/json"
@@ -1821,7 +2086,7 @@ $.ajax(settings).done(function (response) {
 > Example request:
 
 ```bash
-curl -X DELETE "http://localhost/api/replies/{reply}" \
+curl -X DELETE "http://heraldsofcosmos.dev/api/replies/{reply}" \
 -H "Accept: application/json"
 ```
 
@@ -1829,7 +2094,7 @@ curl -X DELETE "http://localhost/api/replies/{reply}" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/replies/{reply}",
+    "url": "http://heraldsofcosmos.dev/api/replies/{reply}",
     "method": "DELETE",
     "headers": {
         "accept": "application/json"
@@ -1854,7 +2119,7 @@ $.ajax(settings).done(function (response) {
 > Example request:
 
 ```bash
-curl -X POST "http://localhost/api/channel/{channel}/cover" \
+curl -X POST "http://heraldsofcosmos.dev/api/channel/{channel}/cover" \
 -H "Accept: application/json"
 ```
 
@@ -1862,7 +2127,7 @@ curl -X POST "http://localhost/api/channel/{channel}/cover" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/channel/{channel}/cover",
+    "url": "http://heraldsofcosmos.dev/api/channel/{channel}/cover",
     "method": "POST",
     "headers": {
         "accept": "application/json"
@@ -1887,7 +2152,7 @@ $.ajax(settings).done(function (response) {
 > Example request:
 
 ```bash
-curl -X DELETE "http://localhost/api/channel/{channel}/cover" \
+curl -X DELETE "http://heraldsofcosmos.dev/api/channel/{channel}/cover" \
 -H "Accept: application/json"
 ```
 
@@ -1895,7 +2160,7 @@ curl -X DELETE "http://localhost/api/channel/{channel}/cover" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/channel/{channel}/cover",
+    "url": "http://heraldsofcosmos.dev/api/channel/{channel}/cover",
     "method": "DELETE",
     "headers": {
         "accept": "application/json"
@@ -1920,7 +2185,7 @@ $.ajax(settings).done(function (response) {
 > Example request:
 
 ```bash
-curl -X POST "http://localhost/api/threads/{channel}/{thread}/subscriptions" \
+curl -X POST "http://heraldsofcosmos.dev/api/threads/{channel}/{thread}/subscriptions" \
 -H "Accept: application/json"
 ```
 
@@ -1928,7 +2193,7 @@ curl -X POST "http://localhost/api/threads/{channel}/{thread}/subscriptions" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/threads/{channel}/{thread}/subscriptions",
+    "url": "http://heraldsofcosmos.dev/api/threads/{channel}/{thread}/subscriptions",
     "method": "POST",
     "headers": {
         "accept": "application/json"
@@ -1953,7 +2218,7 @@ $.ajax(settings).done(function (response) {
 > Example request:
 
 ```bash
-curl -X DELETE "http://localhost/api/threads/{channel}/{thread}/subscriptions" \
+curl -X DELETE "http://heraldsofcosmos.dev/api/threads/{channel}/{thread}/subscriptions" \
 -H "Accept: application/json"
 ```
 
@@ -1961,7 +2226,7 @@ curl -X DELETE "http://localhost/api/threads/{channel}/{thread}/subscriptions" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/threads/{channel}/{thread}/subscriptions",
+    "url": "http://heraldsofcosmos.dev/api/threads/{channel}/{thread}/subscriptions",
     "method": "DELETE",
     "headers": {
         "accept": "application/json"
@@ -1986,7 +2251,7 @@ $.ajax(settings).done(function (response) {
 > Example request:
 
 ```bash
-curl -X POST "http://localhost/api/replies/{reply}/favorites" \
+curl -X POST "http://heraldsofcosmos.dev/api/replies/{reply}/favorites" \
 -H "Accept: application/json"
 ```
 
@@ -1994,7 +2259,7 @@ curl -X POST "http://localhost/api/replies/{reply}/favorites" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/replies/{reply}/favorites",
+    "url": "http://heraldsofcosmos.dev/api/replies/{reply}/favorites",
     "method": "POST",
     "headers": {
         "accept": "application/json"
@@ -2019,7 +2284,7 @@ $.ajax(settings).done(function (response) {
 > Example request:
 
 ```bash
-curl -X DELETE "http://localhost/api/replies/{reply}/favorites" \
+curl -X DELETE "http://heraldsofcosmos.dev/api/replies/{reply}/favorites" \
 -H "Accept: application/json"
 ```
 
@@ -2027,7 +2292,7 @@ curl -X DELETE "http://localhost/api/replies/{reply}/favorites" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/replies/{reply}/favorites",
+    "url": "http://heraldsofcosmos.dev/api/replies/{reply}/favorites",
     "method": "DELETE",
     "headers": {
         "accept": "application/json"
@@ -2052,7 +2317,7 @@ $.ajax(settings).done(function (response) {
 > Example request:
 
 ```bash
-curl -X GET "http://localhost/api/profiles/{user}" \
+curl -X GET "http://heraldsofcosmos.dev/api/profiles/{user}" \
 -H "Accept: application/json"
 ```
 
@@ -2060,7 +2325,7 @@ curl -X GET "http://localhost/api/profiles/{user}" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/profiles/{user}",
+    "url": "http://heraldsofcosmos.dev/api/profiles/{user}",
     "method": "GET",
     "headers": {
         "accept": "application/json"
@@ -2075,7 +2340,30 @@ $.ajax(settings).done(function (response) {
 > Example response:
 
 ```json
-null
+{
+    "user": {
+        "id": 1,
+        "name": "Miss Kiara Dooley",
+        "email": "mokon@example.net",
+        "photo_path": null,
+        "created_at": "2017-09-03 09:31:09",
+        "updated_at": "2017-09-03 09:31:09",
+        "token": null,
+        "roles": [
+            {
+                "id": 3,
+                "name": "User",
+                "created_at": "2017-09-03 09:31:09",
+                "updated_at": "2017-09-03 09:31:09",
+                "pivot": {
+                    "user_id": 1,
+                    "role_id": 3
+                }
+            }
+        ]
+    },
+    "activities": []
+}
 ```
 
 ### HTTP Request
@@ -2092,7 +2380,7 @@ null
 > Example request:
 
 ```bash
-curl -X GET "http://localhost/api/profiles/{user}/notifications" \
+curl -X GET "http://heraldsofcosmos.dev/api/profiles/{user}/notifications" \
 -H "Accept: application/json"
 ```
 
@@ -2100,7 +2388,7 @@ curl -X GET "http://localhost/api/profiles/{user}/notifications" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/profiles/{user}/notifications",
+    "url": "http://heraldsofcosmos.dev/api/profiles/{user}/notifications",
     "method": "GET",
     "headers": {
         "accept": "application/json"
@@ -2134,7 +2422,7 @@ $.ajax(settings).done(function (response) {
 > Example request:
 
 ```bash
-curl -X DELETE "http://localhost/api/profiles/{user}/notifications/{notification}" \
+curl -X DELETE "http://heraldsofcosmos.dev/api/profiles/{user}/notifications/{notification}" \
 -H "Accept: application/json"
 ```
 
@@ -2142,7 +2430,7 @@ curl -X DELETE "http://localhost/api/profiles/{user}/notifications/{notification
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/profiles/{user}/notifications/{notification}",
+    "url": "http://heraldsofcosmos.dev/api/profiles/{user}/notifications/{notification}",
     "method": "DELETE",
     "headers": {
         "accept": "application/json"
@@ -2160,4 +2448,627 @@ $.ajax(settings).done(function (response) {
 
 
 <!-- END_51523827e6591e394ab74ff19d6f224b -->
+
+<!-- START_0a74816f6409e89e5fc8538015f2b907 -->
+## Display the available roles
+
+> Example request:
+
+```bash
+curl -X GET "http://heraldsofcosmos.dev/api/roles" \
+-H "Accept: application/json"
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://heraldsofcosmos.dev/api/roles",
+    "method": "GET",
+    "headers": {
+        "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});
+```
+
+> Example response:
+
+```json
+{
+    "error": "Unauthenticated."
+}
+```
+
+### HTTP Request
+`GET api/roles`
+
+`HEAD api/roles`
+
+
+<!-- END_0a74816f6409e89e5fc8538015f2b907 -->
+
+<!-- START_90c780acaefab9740431579512d07101 -->
+## Create a new role
+
+> Example request:
+
+```bash
+curl -X POST "http://heraldsofcosmos.dev/api/roles" \
+-H "Accept: application/json" \
+    -d "name"="sint" \
+    -d "permissions"="sint" \
+
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://heraldsofcosmos.dev/api/roles",
+    "method": "POST",
+    "data": {
+        "name": "sint",
+        "permissions": "sint"
+},
+    "headers": {
+        "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});
+```
+
+
+### HTTP Request
+`POST api/roles`
+
+#### Parameters
+
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+    name | string |  required  | 
+    permissions | array |  optional  | 
+
+<!-- END_90c780acaefab9740431579512d07101 -->
+
+<!-- START_729c0798319f1e2189d3b992301e43c3 -->
+## Display the specified resource.
+
+> Example request:
+
+```bash
+curl -X GET "http://heraldsofcosmos.dev/api/roles/{role}" \
+-H "Accept: application/json"
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://heraldsofcosmos.dev/api/roles/{role}",
+    "method": "GET",
+    "headers": {
+        "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});
+```
+
+> Example response:
+
+```json
+{
+    "error": "Unauthenticated."
+}
+```
+
+### HTTP Request
+`GET api/roles/{role}`
+
+`HEAD api/roles/{role}`
+
+
+<!-- END_729c0798319f1e2189d3b992301e43c3 -->
+
+<!-- START_cccebfff0074c9c5f499e215eee84e86 -->
+## Update the specified resource in storage.
+
+> Example request:
+
+```bash
+curl -X PUT "http://heraldsofcosmos.dev/api/roles/{role}" \
+-H "Accept: application/json"
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://heraldsofcosmos.dev/api/roles/{role}",
+    "method": "PUT",
+    "headers": {
+        "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});
+```
+
+
+### HTTP Request
+`PUT api/roles/{role}`
+
+`PATCH api/roles/{role}`
+
+
+<!-- END_cccebfff0074c9c5f499e215eee84e86 -->
+
+<!-- START_9aab750214722ffceebef64f24a2e175 -->
+## Remove the specified resource from storage.
+
+> Example request:
+
+```bash
+curl -X DELETE "http://heraldsofcosmos.dev/api/roles/{role}" \
+-H "Accept: application/json"
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://heraldsofcosmos.dev/api/roles/{role}",
+    "method": "DELETE",
+    "headers": {
+        "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});
+```
+
+
+### HTTP Request
+`DELETE api/roles/{role}`
+
+
+<!-- END_9aab750214722ffceebef64f24a2e175 -->
+
+<!-- START_b741d788ee091deb96b16ee28f4c0bef -->
+## List the permissions of the current role.
+
+> Example request:
+
+```bash
+curl -X GET "http://heraldsofcosmos.dev/api/roles/{role}/permissions" \
+-H "Accept: application/json"
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://heraldsofcosmos.dev/api/roles/{role}/permissions",
+    "method": "GET",
+    "headers": {
+        "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});
+```
+
+> Example response:
+
+```json
+{
+    "error": "Unauthenticated."
+}
+```
+
+### HTTP Request
+`GET api/roles/{role}/permissions`
+
+`HEAD api/roles/{role}/permissions`
+
+
+<!-- END_b741d788ee091deb96b16ee28f4c0bef -->
+
+<!-- START_2d70379c2bc2d12f30eec9ea0ca8ad73 -->
+## Attach some new permissions to a role.
+
+> Example request:
+
+```bash
+curl -X POST "http://heraldsofcosmos.dev/api/roles/{role}/permissions" \
+-H "Accept: application/json"
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://heraldsofcosmos.dev/api/roles/{role}/permissions",
+    "method": "POST",
+    "headers": {
+        "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});
+```
+
+
+### HTTP Request
+`POST api/roles/{role}/permissions`
+
+
+<!-- END_2d70379c2bc2d12f30eec9ea0ca8ad73 -->
+
+<!-- START_de4c8d517ce95782061d99243f1cb8b2 -->
+## Detach some permissions from given role.
+
+> Example request:
+
+```bash
+curl -X DELETE "http://heraldsofcosmos.dev/api/roles/{role}/permissions/{permission}" \
+-H "Accept: application/json"
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://heraldsofcosmos.dev/api/roles/{role}/permissions/{permission}",
+    "method": "DELETE",
+    "headers": {
+        "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});
+```
+
+
+### HTTP Request
+`DELETE api/roles/{role}/permissions/{permission}`
+
+
+<!-- END_de4c8d517ce95782061d99243f1cb8b2 -->
+
+<!-- START_be4838d817ca0dcbda905d3e97b3ed94 -->
+## Display available permissions
+
+> Example request:
+
+```bash
+curl -X GET "http://heraldsofcosmos.dev/api/permissions" \
+-H "Accept: application/json"
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://heraldsofcosmos.dev/api/permissions",
+    "method": "GET",
+    "headers": {
+        "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});
+```
+
+> Example response:
+
+```json
+{
+    "error": "Unauthenticated."
+}
+```
+
+### HTTP Request
+`GET api/permissions`
+
+`HEAD api/permissions`
+
+
+<!-- END_be4838d817ca0dcbda905d3e97b3ed94 -->
+
+<!-- START_d513e82f79d47649a14d2e59fda93073 -->
+## Create a new Permission.
+
+> Example request:
+
+```bash
+curl -X POST "http://heraldsofcosmos.dev/api/permissions" \
+-H "Accept: application/json"
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://heraldsofcosmos.dev/api/permissions",
+    "method": "POST",
+    "headers": {
+        "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});
+```
+
+
+### HTTP Request
+`POST api/permissions`
+
+
+<!-- END_d513e82f79d47649a14d2e59fda93073 -->
+
+<!-- START_eb587fdee0d7d9067d7cbc4910720b9c -->
+## Display a permission.
+
+> Example request:
+
+```bash
+curl -X GET "http://heraldsofcosmos.dev/api/permissions/{permission}" \
+-H "Accept: application/json"
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://heraldsofcosmos.dev/api/permissions/{permission}",
+    "method": "GET",
+    "headers": {
+        "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});
+```
+
+> Example response:
+
+```json
+{
+    "error": "Unauthenticated."
+}
+```
+
+### HTTP Request
+`GET api/permissions/{permission}`
+
+`HEAD api/permissions/{permission}`
+
+
+<!-- END_eb587fdee0d7d9067d7cbc4910720b9c -->
+
+<!-- START_cbdd1fce06181b5d5d8d0f3ae85ed0ee -->
+## Update a Permission with request parameters.
+
+> Example request:
+
+```bash
+curl -X PUT "http://heraldsofcosmos.dev/api/permissions/{permission}" \
+-H "Accept: application/json"
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://heraldsofcosmos.dev/api/permissions/{permission}",
+    "method": "PUT",
+    "headers": {
+        "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});
+```
+
+
+### HTTP Request
+`PUT api/permissions/{permission}`
+
+`PATCH api/permissions/{permission}`
+
+
+<!-- END_cbdd1fce06181b5d5d8d0f3ae85ed0ee -->
+
+<!-- START_58309983000c47ce901812498144165a -->
+## Delete a permission.
+
+> Example request:
+
+```bash
+curl -X DELETE "http://heraldsofcosmos.dev/api/permissions/{permission}" \
+-H "Accept: application/json"
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://heraldsofcosmos.dev/api/permissions/{permission}",
+    "method": "DELETE",
+    "headers": {
+        "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});
+```
+
+
+### HTTP Request
+`DELETE api/permissions/{permission}`
+
+
+<!-- END_58309983000c47ce901812498144165a -->
+
+<!-- START_aca4c7d1097ae6ac1276214822273d5c -->
+## api/user/{user}/roles
+
+> Example request:
+
+```bash
+curl -X POST "http://heraldsofcosmos.dev/api/user/{user}/roles" \
+-H "Accept: application/json"
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://heraldsofcosmos.dev/api/user/{user}/roles",
+    "method": "POST",
+    "headers": {
+        "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});
+```
+
+
+### HTTP Request
+`POST api/user/{user}/roles`
+
+
+<!-- END_aca4c7d1097ae6ac1276214822273d5c -->
+
+<!-- START_35f3b46f0f4f65205b95bfb5e5f7cfa2 -->
+## api/user/{user}/roles
+
+> Example request:
+
+```bash
+curl -X DELETE "http://heraldsofcosmos.dev/api/user/{user}/roles" \
+-H "Accept: application/json"
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://heraldsofcosmos.dev/api/user/{user}/roles",
+    "method": "DELETE",
+    "headers": {
+        "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});
+```
+
+
+### HTTP Request
+`DELETE api/user/{user}/roles`
+
+
+<!-- END_35f3b46f0f4f65205b95bfb5e5f7cfa2 -->
+
+<!-- START_9f8023949dfe34a20ad59f484bccc733 -->
+## api/user/{user}/permissions
+
+> Example request:
+
+```bash
+curl -X POST "http://heraldsofcosmos.dev/api/user/{user}/permissions" \
+-H "Accept: application/json"
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://heraldsofcosmos.dev/api/user/{user}/permissions",
+    "method": "POST",
+    "headers": {
+        "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});
+```
+
+
+### HTTP Request
+`POST api/user/{user}/permissions`
+
+
+<!-- END_9f8023949dfe34a20ad59f484bccc733 -->
+
+<!-- START_dd3c4444426a5f6b0408536b21fa7334 -->
+## api/user/{user}/permissions
+
+> Example request:
+
+```bash
+curl -X DELETE "http://heraldsofcosmos.dev/api/user/{user}/permissions" \
+-H "Accept: application/json"
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://heraldsofcosmos.dev/api/user/{user}/permissions",
+    "method": "DELETE",
+    "headers": {
+        "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});
+```
+
+
+### HTTP Request
+`DELETE api/user/{user}/permissions`
+
+
+<!-- END_dd3c4444426a5f6b0408536b21fa7334 -->
 
