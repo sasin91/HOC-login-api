@@ -26,9 +26,7 @@ Route::name('register')->post('register', 'RegisterController@store');
 
 Route::name('me')->get('me', 'MeController@show');
 Route::name('me.photo')->post('photo', 'Me\PhotoController@store');
-Route::name('user.photo')->post('users/{user}/photo', 'User\PhotoController@store');
-
-Route::name('users.search')->get('users-search', 'UserSearchController@show');
+Route::name('me.verify-email')->get('verify-email', 'Me\VerifyEmailController@show');
 
 Route::apiResource('servers', 'ServersController');
 
@@ -97,3 +95,5 @@ Route::name('user.roles.store')->post('user/{user}/roles', 'UserRolesController@
 Route::name('user.roles.delete')->delete('user/{user}/roles', 'UserRolesController@destroy');
 Route::name('user.permissions.store')->post('user/{user}/permissions', 'UserPermissionsController@store');
 Route::name('user.permissions.destroy')->delete('user/{user}/permissions', 'UserPermissionsController@destroy');
+Route::name('user.photo')->post('users/{user}/photo', 'User\PhotoController@store');
+Route::name('users.search')->get('users-search', 'UserSearchController@show');

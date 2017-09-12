@@ -62,6 +62,7 @@ class Kernel extends HttpKernel
 	    'permission' => \App\Http\Middleware\PermissionMiddleware::class,
         'scopes' => \Laravel\Passport\Http\Middleware\CheckScopes::class,
         'scope' => \Laravel\Passport\Http\Middleware\CheckForAnyScope::class,
-	    'super_user' => \App\Http\Middleware\IsSuperUser::class
+	    'super_user' => \App\Http\Middleware\IsSuperUser::class,
+	    'verified' => \App\Http\Middleware\RedirectIfVerified::class
     ];
 }

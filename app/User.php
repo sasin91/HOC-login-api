@@ -31,7 +31,9 @@ class User extends Authenticatable
         'email',
         'online',
         'photo_path',
-        'password'
+	    'password',
+	    'verification_token',
+	    'verified_at'
     ];
 
     /**
@@ -44,7 +46,15 @@ class User extends Authenticatable
         'remember_token'
     ];
 
+	/**
+	 * @inheritdoc
+	 */
     protected $appends = ['token'];
+
+	/**
+	 * @inheritdoc
+	 */
+	protected $dates = ['verified_at'];
 
     protected static function boot()
     {
@@ -52,6 +62,10 @@ class User extends Authenticatable
 
 	    static::addGlobalScope('withRoles', function ($query) {
 		    $query->with('roles');
+	    });
+
+	    static::creating(function ($user) {
+		    $user->verification_token = EmailVerification::token();
 	    });
 
         static::created(function ($user) {

@@ -7,6 +7,8 @@ use App\Events\ThreadReceivedNewReply;
 use App\Listeners\GeneratePurchaseToken;
 use App\Listeners\NotifyMentionedUsers;
 use App\Listeners\NotifySubscribers;
+use App\Listeners\SendEmailVerification;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 class EventServiceProvider extends ServiceProvider
@@ -24,6 +26,10 @@ class EventServiceProvider extends ServiceProvider
 
 		CreatedPurchase::class => [
 			GeneratePurchaseToken::class
+		],
+
+		Registered::class => [
+			SendEmailVerification::class
 		]
 	];
 
