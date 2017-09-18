@@ -7,9 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Channel extends Model
 {
-    protected $fillable = [
-        'name', 'description', 'slug', 'photo_path'
-    ];
+    protected $guarded = [];
 
     protected $appends = ['photo_url'];
 
