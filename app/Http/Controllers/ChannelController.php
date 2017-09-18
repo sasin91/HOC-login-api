@@ -36,7 +36,7 @@ class ChannelController extends Controller
         ]);
 
         return Channel::create([
-            'creator_id'  =>  request()->user()->id, 
+            'creator_id'  =>  request()->user() ? request()->user()->id : auth()->id(), 
             'board_id'    =>  request('board_id'),
             'name'        =>  request('name'),
             'slug'        =>  request('slug'),
