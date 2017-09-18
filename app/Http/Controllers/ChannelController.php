@@ -56,11 +56,12 @@ class ChannelController extends Controller
         $this->authorize('update', $channel);
 
         $this->validate(request(), [
-            'name' => 'required|string|max:50|min:3|spamfree',
-            'description' => 'string|max:255|spamfree'
+            'board_id' => 'exists:boards,id',
+            'name' => 'string|max:50|min:3|spamfree',
+            'description' => 'string|max:255|spamfree',
         ]);
 
-        return tap($channel)->update(request('name', 'description'));
+        return tap($channel)->update(request('board_id', 'name', 'description'));
     }
 
     /**
