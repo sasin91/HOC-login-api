@@ -30,6 +30,11 @@ class Channel extends Model
         });
     }
 
+    /**
+     * Get the links attribute.
+     * 
+     * @return array
+     */
     public function getLinksAttribute()
     {
         return [
@@ -50,10 +55,9 @@ class Channel extends Model
         return route('channel.show', [$this]);
     }
 
-
     /**
-     * Get the profile photo URL attribute.
-     *
+     * Get the channel photo_url attribute.
+     * 
      * @return string
      */
     public function getPhotoUrlAttribute()
@@ -65,6 +69,11 @@ class Channel extends Model
         return $this->defaultPhotoUrl();
     }
 
+    /**
+     * Get the default photo url.
+     * 
+     * @return string
+     */
     public function defaultPhotoUrl()
     {
         return 'http://via.placeholder.com/800x600';
