@@ -62,6 +62,13 @@ return [
             'visibility' => 'public',
         ],
 
+        'boards' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/boards'),
+            'url' => env('APP_URL').'/boards',
+            'visibility' => 'public',
+        ],
+
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),

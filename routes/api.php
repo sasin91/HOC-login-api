@@ -48,6 +48,8 @@ Route::name('players.online')->get('online-players', 'Players\OnlineController@i
 Route::name('players.newbies')->get('newbie-players', 'Players\NewbiesController@index');
 
 Route::apiResource('board', 'BoardController');
+Route::name('board.cover.store')->post('board/{board}/cover', 'BoardCoverController@store');
+Route::name('board.cover.destroy')->delete('board/{board}/cover', 'BoardCoverController@destroy');
 
 Route::name('board.channels.index')->get('board/{board}/channels', 'BoardChannelsController@index');
 Route::name('channel.store')->post('channel', 'ChannelController@store');

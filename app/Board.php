@@ -2,15 +2,29 @@
 
 namespace App;
 
+use App\Jobs\ScrapOldPhoto;
 use Illuminate\Database\Eloquent\Model;
 
 class Board extends Model
 {
-    protected $fillable = [
-    	'creator_id', 'topic', 'description'
-    ];
+    protected $guarded = [];
 
     protected $appends = [];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::saving(function ($channel) {
+            if ($channel->isDirty('photo_path')) {
+                ScrapOldPhoto::dispatch($channel, 'boards');
+            }
+        });
+
+        static::deleting(function ($channel) {
+            ScrapOldPhoto::dispatch($channel, 'boards');
+        });
+    }
     
     public function getLinksAttribute()
     {
@@ -19,6 +33,20 @@ class Board extends Model
             'creator' => route('profile', $this->creator),
             'channels' => route('board.channels.index', $this),
         ];
+    }
+
+    public function getPhotoUrlAttribute()
+    {
+        if ($value = $this->photo_path) {
+            return url("{$value}");
+        }
+
+        return $this->defaultPhotoUrl();
+    }
+
+    public function defaultPhotoUrl()
+    {
+        return 'http://via.placeholder.com/800x600';
     }
 
     /**
