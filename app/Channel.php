@@ -63,7 +63,9 @@ class Channel extends Model
     public function getPhotoUrlAttribute()
     {
         if ($value = $this->photo_path) {
-            return url("{$value}");
+            return filter_var($value, FILTER_VALIDATE_URL)
+            ? url($value) 
+            : $value;
         }
 
         return $this->defaultPhotoUrl();

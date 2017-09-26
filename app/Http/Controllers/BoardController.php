@@ -40,12 +40,14 @@ class BoardController extends Controller
         $this->validate(request(), [    
             'topic'         =>  'required|string|max:255|min:6|spamfree',
             'description'   =>  'required|string|max:255|min:6|spamfree',
+            'photo'         =>  'string|max:255'
         ]); 
 
         return Board::create([
             'creator_id' => request()->user()->id,
             'topic' => request('topic'),
-            'description' => request('description')
+            'description' => request('description'),
+            'photo' =>  request('photo')
         ]);
     }
 

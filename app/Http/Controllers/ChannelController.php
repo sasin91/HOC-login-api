@@ -32,7 +32,8 @@ class ChannelController extends Controller
             'board_id' => 'required|exists:boards,id',
             'name' => 'required|string|max:50|min:3|spamfree',
             'slug' => 'string|max:50|min:3|spamfree',
-            'description' => 'string|max:255|spamfree'
+            'description' => 'string|max:255|spamfree',
+            'photo' =>  'string|max:255'
         ]);
 
         return Channel::create([
@@ -40,7 +41,8 @@ class ChannelController extends Controller
             'board_id'    =>  request('board_id'),
             'name'        =>  request('name'),
             'slug'        =>  request('slug'),
-            'description' =>  request('description')
+            'description' =>  request('description'),
+            'photo'       =>  request('photo')
         ]);
     }
 
