@@ -10,6 +10,9 @@
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+Route::name('password-reset.send')->post('send-password-reset', 'SendPasswordResetController@store');
+Route::name('password-reset.store')->post('reset-password', 'ResetPasswordController@store');
+
 Route::name('purchase.complete')->post('process-payment', 'ProcessPaymentController@store');
 Route::name('purchase.refund')->post('refund-purchase/{purchase}', 'RefundPurchaseController@store');
 Route::name('product.purchase')->post('purchase-product/{product}', 'PurchaseProductController@store');

@@ -17,7 +17,7 @@ class PlayerController extends Controller
 
     public function show(Player $player)
     {
-    	return $player->load(['server', 'user']);
+    	return $player->load(['server', 'user', 'characters']);
     }
 
     public function update(Player $player)

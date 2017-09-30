@@ -3,7 +3,13 @@
 namespace Tests\Feature;
 
 use App\User;
+use Illuminate\Auth\Notifications\ResetPassword;
+use Illuminate\Auth\Passwords\TokenRepositoryInterface;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\Password;
 use Tests\TestCase;
 
 class AuthTest extends TestCase
@@ -48,5 +54,39 @@ class AuthTest extends TestCase
 			 ->assertSuccessful();
 
 		$this->assertFalse(auth()->check());
+	}
+
+	/** @test */
+	function registered_user_request_a_password_reset() 
+	{	
+		Notification::fake();
+
+		$user = factory(User::class)->create(['email' => 'john@example.com']);
+
+		$this->json('post', '/api/send-password-reset', ['email' => 'john@example.com'])
+			 ->assertSuccessful();
+
+		Notification::assertSentTo($user, ResetPassword::class);
+	}
+
+	/** @test */
+	function registered_user_can_reset_their_password() 
+	{
+		$this->enableExceptionHandling();
+
+		$user = factory(User::class)->create(['email' => 'john@example.com']);
+		$token = Password::broker()->getRepository()->create($user);
+
+		$this->json('post', '/api/reset-password', [
+			'email' => 'john@example.com', 
+			'token' => $token, 
+			'password' => 'secret',
+			'password_confirmation' => 'secret'
+		])
+			 ->assertSuccessful();
+
+		$this->assertTrue(
+			Auth::attempt(['email' => 'john@example.com', 'password' => 'secret'])
+		);
 	} 
 }
