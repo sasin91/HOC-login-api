@@ -18,6 +18,8 @@ class VerifyEmailController extends Controller
 		$user = User::where('verification_token', $request->token)->firstOrFail();
 
 		$this->validateToken($request->token, $user);
+
+		return redirect()->to('/')->with('status', 'Email verified!');
 	}
 
 	/**

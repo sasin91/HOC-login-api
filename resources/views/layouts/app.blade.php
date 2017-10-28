@@ -71,6 +71,13 @@
             </div>
         </nav>
 
+        @if(session('status'))
+            <div class="alert alert-info">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                {{ session('status') }}
+            </div>
+        @endif
+
         @yield('content')
     </div>
 
