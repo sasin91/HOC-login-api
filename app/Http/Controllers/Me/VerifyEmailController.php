@@ -4,26 +4,34 @@ namespace App\Http\Controllers\Me;
 
 use App\EmailVerification;
 use App\Http\Controllers\Controller;
+use App\User;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
 class VerifyEmailController extends Controller
 {
-	public function __construct()
-	{
-		$this->middleware('auth:api');
-	}
-
 	public function show(Request $request)
 	{
-		if (is_null($request->user()->verified_at)) {
-			$valid = EmailVerification::check($request->token, $request->user());
+		$this->validate($request, [
+			'token' => 'required|string|exists:users,verification_token'
+		]);
 
-			throw_unless($valid, \InvalidArgumentException::class, "Invalid verification token.");
+		$user = User::where('verification_token', $request->token)->firstOrFail();
 
-			$request->user()->update(['verified_at' => now()]);
-		}
+		$this->validateToken($request->token, $user);
+	}
 
-		return response('', Response::HTTP_NO_CONTENT);
+	/**
+	 * Validate the verification token
+	 *
+	 * @param string $token
+	 * @param User $user
+	 */
+	protected function validateToken($token, $user)
+	{
+		$valid = EmailVerification::check($token, $user);
+
+		throw_unless($valid, \InvalidArgumentException::class, "Invalid verification token.");
+
+		$user->update(['verified_at' => now()]);
 	}
 }

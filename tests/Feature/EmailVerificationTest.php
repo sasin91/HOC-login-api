@@ -21,9 +21,9 @@ class EmailVerificationTest extends TestCase
 	}
 
 	/** @test */
-	public function a_registered_user_can_verify_their_email()
+	public function can_verify_the_token()
 	{
-		$this->signIn($user = create(User::class));
+		$user = create(User::class);
 
 		$this->get(route('me.verify-email', ['token' => $user->verification_token]))
 			->assertSuccessful();

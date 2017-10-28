@@ -44,7 +44,7 @@ class EmailVerification extends Notification implements ShouldQueue
 	{
 		return (new MailMessage)
 			->line('Please verify your email!')
-			->action('Verify!', route('me.verify-email', $this->token))
+			->action('Verify!', route('me.verify-email', ['token' => $this->token]))
 			->line('Thank you for using our application!');
 	}
 
