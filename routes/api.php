@@ -29,7 +29,6 @@ Route::name('register')->post('register', 'RegisterController@store');
 
 Route::name('me')->get('me', 'MeController@show');
 Route::name('me.photo')->post('photo', 'Me\PhotoController@store');
-Route::name('me.verify-email')->get('verify-email', 'Me\VerifyEmailController@show');
 
 Route::apiResource('servers', 'ServersController');
 

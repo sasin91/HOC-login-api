@@ -14,3 +14,5 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::name('me.verify-email')->get('verify-email', 'Me\VerifyEmailController@show');
