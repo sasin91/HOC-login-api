@@ -8,7 +8,7 @@ class EmailVerification
 {
 	public static function notify($user)
 	{
-		return $user->notify(new EmailVerificationNotification(static::token()));
+		return $user->notify(new EmailVerificationNotification($user->verification_token));
 	}
 
 	public static function token()
