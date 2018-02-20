@@ -6,12 +6,12 @@ use App\SuperUser;
 
 trait BypassedByAdmins
 {
-	public function before($user, $ability)
-	{
-		if (SuperUser::has($user) || $user->hasRole('Admin')) {
-			return true;
-		}
+    public function before($user, $ability)
+    {
+        if (SuperUser::has($user) || $user->hasRole('Admin')) {
+            return true;
+        }
 
-		return null;
-	}
+        return null;
+    }
 }

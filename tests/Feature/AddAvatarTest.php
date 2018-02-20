@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Laravel\Passport\Passport;
@@ -11,12 +12,12 @@ use Tests\TestCase;
 
 class AddAvatarTest extends TestCase
 {
-    use DatabaseMigrations;
+    use RefreshDatabase;
 
     /** @test */
     public function only_members_can_add_avatars()
     {
-	    $this->enableExceptionHandling();
+        $this->enableExceptionHandling();
 
         $this->json('POST', route('user.photo', 1))
             ->assertStatus(401);
@@ -25,9 +26,9 @@ class AddAvatarTest extends TestCase
     /** @test */
     public function a_valid_avatar_must_be_provided()
     {
-	    $this->enableExceptionHandling();
+        $this->enableExceptionHandling();
 
-	    Passport::actingAs($user = factory(User::class)->create());
+        Passport::actingAs($user = factory(User::class)->create());
 
         $this->json('POST', route('me.photo'), [
             'avatar' => 'not-an-image'

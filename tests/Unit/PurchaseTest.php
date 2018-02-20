@@ -9,75 +9,76 @@ use App\Product;
 use App\Purchase;
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
 use Tests\TestCase;
 
 class PurchaseTest extends TestCase
 {
-	use DatabaseMigrations;
+    use RefreshDatabase;
 
-	/** @test */
-	public function it_generates_a_token_when_created()
-	{
-		Event::fake();
+    /** @test */
+    public function it_generates_a_token_when_created()
+    {
+        Event::fake();
 
-		factory(Purchase::class)->create();
+        factory(Purchase::class)->create();
 
-		Event::assertDispatched(CreatedPurchase::class, function ($e) {
-			$this->app->make(GeneratePurchaseToken::class)->handle($e);
+        Event::assertDispatched(CreatedPurchase::class, function ($e) {
+            $this->app->make(GeneratePurchaseToken::class)->handle($e);
 
-			return !is_null($e->purchase->token);
-		});
-	}
+            return !is_null($e->purchase->token);
+        });
+    }
 
-	/** @test */
-	public function user_can_purchase_a_product_for_a_player()
-	{
-		$product = create(Product::class);
+    /** @test */
+    public function user_can_purchase_a_product_for_a_player()
+    {
+        $product = create(Product::class);
 
-		$user = create(User::class);
-		$player = $user->players()->save(make(Player::class));
+        $user = create(User::class);
+        $player = $user->players()->save(make(Player::class));
 
-		$purchase = $user->purchase($product, $player);
+        $purchase = $user->purchase($product, $player);
 
-		$this->assertTrue($purchase->buyer->is($user));
-		$this->assertTrue($purchase->owner->is($player));
+        $this->assertTrue($purchase->buyer->is($user));
+        $this->assertTrue($purchase->owner->is($player));
 
-		$this->assertTrue($player->gifts->contains($purchase));
-	}
+        $this->assertTrue($player->gifts->contains($purchase));
+    }
 
-	/** @test */
-	public function user_can_purchase_a_product_for_another_user()
-	{
-		$product = create(Product::class);
+    /** @test */
+    public function user_can_purchase_a_product_for_another_user()
+    {
+        $product = create(Product::class);
 
-		$john = create(User::class);
-		$jane = create(User::class);
+        $john = create(User::class);
+        $jane = create(User::class);
 
-		$purchase = $john->purchase($product, $jane);
+        $purchase = $john->purchase($product, $jane);
 
-		$this->assertTrue($purchase->buyer->is($john));
-		$this->assertTrue($purchase->owner->is($jane));
+        $this->assertTrue($purchase->buyer->is($john));
+        $this->assertTrue($purchase->owner->is($jane));
 
-		$this->assertTrue($jane->gifts->contains($purchase));
-	}
+        $this->assertTrue($jane->gifts->contains($purchase));
+    }
 
-	/** @test */
-	public function user_can_gift_a_purchase_to_another_user()
-	{
-		$product = create(Product::class);
+    /** @test */
+    public function user_can_gift_a_purchase_to_another_user()
+    {
+        $product = create(Product::class);
 
-		$john = create(User::class);
-		$jane = create(User::class);
+        $john = create(User::class);
+        $jane = create(User::class);
 
-		$purchase = $john->purchase($product);
-		$this->assertNull($purchase->owner, "Purchase has an unexpected owner.");
+        $purchase = $john->purchase($product);
+        $this->assertNull($purchase->owner, "Purchase has an unexpected owner.");
 
-		$gift = $john->gift($purchase, $jane);
+        $gift = $john->gift($purchase, $jane);
 
-		$this->assertTrue($gift->buyer->is($john));
-		$this->assertTrue($gift->owner->is($jane));
+        $this->assertTrue($gift->buyer->is($john));
+        $this->assertTrue($gift->owner->is($jane));
 
-		$this->assertTrue($jane->gifts->contains($gift));
-	}
+        $this->assertTrue($jane->gifts->contains($gift));
+    }
 }

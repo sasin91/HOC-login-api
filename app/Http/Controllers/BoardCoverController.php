@@ -22,7 +22,7 @@ class BoardCoverController extends Controller
     {
         $this->authorize('update', $board);
 
-        $this->validate(request(), [
+        $request->validate([
             'photo' =>  ['required', 'image']
         ]);
 

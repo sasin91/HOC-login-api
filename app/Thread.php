@@ -32,12 +32,12 @@ class Thread extends Model
      */
     protected $appends = ['isSubscribedTo', 'links'];
 
-	/**
-	 * Additional dates.
-	 *
-	 * @var array
-	 */
-	protected $dates = ['locked_at'];
+    /**
+     * Additional dates.
+     *
+     * @var array
+     */
+    protected $dates = ['locked_at'];
 
     /**
      * Boot the model.
@@ -179,31 +179,31 @@ class Thread extends Model
             ->exists();
     }
 
-	/**
-	 * A thread can be locked by the creator or somebody else.
-	 *
-	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-	 */
-	public function lockedBy()
-	{
-		return $this->belongsTo(User::class, 'locked_by');
-	}
+    /**
+     * A thread can be locked by the creator or somebody else.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function lockedBy()
+    {
+        return $this->belongsTo(User::class, 'locked_by');
+    }
 
-	/**
-	 * Determine if the thread is locked by given user.
-	 *
-	 * @param User $user
-	 *
-	 * @return boolean
-	 */
-	public function isLockedBy($user)
-	{
-		if (is_null($this->locked_by)) {
-			return true;
-		}
+    /**
+     * Determine if the thread is locked by given user.
+     *
+     * @param User $user
+     *
+     * @return boolean
+     */
+    public function isLockedBy($user)
+    {
+        if (is_null($this->locked_by)) {
+            return true;
+        }
 
-		return $this->lockedBy
-			? $this->lockedBy->is($user)
-			: false;
+        return $this->lockedBy
+            ? $this->lockedBy->is($user)
+            : false;
     }
 }

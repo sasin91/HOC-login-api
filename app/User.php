@@ -19,7 +19,7 @@ use Spatie\Permission\Traits\HasRoles;
  */
 class User extends Authenticatable
 {
-	use HasPurchases, HasRoles, HasApiTokens, Notifiable, Friendable, Billable;
+    use HasPurchases, HasRoles, HasApiTokens, Notifiable, Friendable, Billable;
 
     /**
      * The attributes that are mass assignable.
@@ -31,9 +31,9 @@ class User extends Authenticatable
         'email',
         'online',
         'photo_path',
-	    'password',
-	    'verification_token',
-	    'verified_at'
+        'password',
+        'verification_token',
+        'verified_at'
     ];
 
     /**
@@ -46,27 +46,27 @@ class User extends Authenticatable
         'remember_token'
     ];
 
-	/**
-	 * @inheritdoc
-	 */
+    /**
+     * @inheritdoc
+     */
     protected $appends = ['token'];
 
-	/**
-	 * @inheritdoc
-	 */
-	protected $dates = ['verified_at'];
+    /**
+     * @inheritdoc
+     */
+    protected $dates = ['verified_at'];
 
     protected static function boot()
     {
         parent::boot();
 
-	    static::addGlobalScope('withRoles', function ($query) {
-		    $query->with('roles');
-	    });
+        static::addGlobalScope('withRoles', function ($query) {
+            $query->with('roles');
+        });
 
-	    static::creating(function ($user) {
-		    $user->verification_token = EmailVerification::token();
-	    });
+        static::creating(function ($user) {
+            $user->verification_token = EmailVerification::token();
+        });
 
         static::created(function ($user) {
             $user->assignRole('User');

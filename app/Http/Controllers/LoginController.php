@@ -9,11 +9,11 @@ use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
-	use ThrottlesLogins;
+    use ThrottlesLogins;
 
     public function store(LoginRequest $request, Guard $guard)
     {
-    	if ($this->hasTooManyLoginAttempts($request)) {
+        if ($this->hasTooManyLoginAttempts($request)) {
             $this->fireLockoutEvent($request);
 
             return $this->sendLockoutResponse($request);
@@ -46,8 +46,8 @@ class LoginController extends Controller
 
     protected function sendFailureResponse($request)
     {
-    	$this->incrementLoginAttempts($request);
+        $this->incrementLoginAttempts($request);
 
-		return response()->json(['password' => trans('auth.failed')], 422);	
+        return response()->json(['password' => trans('auth.failed')], 422);
     }
 }

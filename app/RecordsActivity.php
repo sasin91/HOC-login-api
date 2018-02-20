@@ -2,7 +2,6 @@
 
 namespace App;
 
-
 trait RecordsActivity
 {
     /**
@@ -10,7 +9,9 @@ trait RecordsActivity
      */
     protected static function bootRecordsActivity()
     {
-        if (auth()->guest()) return;
+        if (auth()->guest()) {
+            return;
+        }
 
         foreach (static::getActivitiesToRecord() as $event) {
             static::$event(function ($model) use ($event) {
@@ -53,7 +54,7 @@ trait RecordsActivity
      */
     public function activity()
     {
-        return $this->morphMany('App\Activity', 'subject');
+        return $this->morphMany(\App\Activity::class, 'subject');
     }
 
     /**

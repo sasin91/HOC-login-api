@@ -56,7 +56,7 @@ class BoardPolicy
      */
     public function delete(User $user, Board $board)
     {
-        return $user->hasPermissionTo('delete boards') 
+        return $user->hasPermissionTo('delete boards')
         || $board->creator->is($user);
     }
 }

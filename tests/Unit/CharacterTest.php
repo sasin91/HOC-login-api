@@ -5,36 +5,37 @@ namespace Tests\Unit;
 use App\Character;
 use App\CharacterTemplate;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class CharacterTest extends TestCase
 {
-	use DatabaseMigrations;
+    use RefreshDatabase;
 
-	/** @test */
-	function can_scaffold_a_character_from_template()
-	{
-		$template = factory(CharacterTemplate::class)->create();
+    /** @test */
+    function can_scaffold_a_character_from_template()
+    {
+        $template = factory(CharacterTemplate::class)->create();
 
-		$character = Character::scaffold($template);
+        $character = Character::scaffold($template);
 
-		$this->assertEquals($template->health, $character->health);
-		$this->assertEquals($template->name, $character->name);
-		$this->assertEquals($template->resource_type, $character->resource_type);
-		$this->assertEquals($template->resource, $character->resource);
-		$this->assertEquals($template->stamina, $character->stamina);
-		$this->assertEquals($template->melee, $character->melee);
-		$this->assertEquals($template->ranged, $character->ranged);
-		$this->assertEquals($template->role, $character->role);
-	}
+        $this->assertEquals($template->health, $character->health);
+        $this->assertEquals($template->name, $character->name);
+        $this->assertEquals($template->resource_type, $character->resource_type);
+        $this->assertEquals($template->resource, $character->resource);
+        $this->assertEquals($template->stamina, $character->stamina);
+        $this->assertEquals($template->melee, $character->melee);
+        $this->assertEquals($template->ranged, $character->ranged);
+        $this->assertEquals($template->role, $character->role);
+    }
 
-	/** @test */
-	public function scaffolding_only_overrides_empty_attributes()
-	{
-		$template = factory(CharacterTemplate::class)->create();
+    /** @test */
+    public function scaffolding_only_overrides_empty_attributes()
+    {
+        $template = factory(CharacterTemplate::class)->create();
 
-		$character = (new Character(['name' => 'John Doe']))->inheritTemplateAttributes($template);
+        $character = (new Character(['name' => 'John Doe']))->inheritTemplateAttributes($template);
 
-		$this->assertEquals('John Doe', $character->name);
-	}
+        $this->assertEquals('John Doe', $character->name);
+    }
 }

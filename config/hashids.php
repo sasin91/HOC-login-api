@@ -2,7 +2,7 @@
 
 return [
 
-	/*
+    /*
 	|--------------------------------------------------------------------------
 	| Custom  Salt
 	|--------------------------------------------------------------------------
@@ -13,9 +13,9 @@ return [
 	|
 	*/
 
-	'salt' => 'Av2eqQbPDgKuJx0WapmA6nJP5VZVOqcr',
+    'salt' => 'Av2eqQbPDgKuJx0WapmA6nJP5VZVOqcr',
 
-	/*
+    /*
 	|--------------------------------------------------------------------------
 	| Hash Length
 	|--------------------------------------------------------------------------
@@ -26,9 +26,9 @@ return [
 	|
 	*/
 
-	'length' => 4,
+    'length' => 4,
 
-	/*
+    /*
 	|--------------------------------------------------------------------------
 	| Custom alphabet
 	|--------------------------------------------------------------------------
@@ -40,6 +40,6 @@ return [
 	| default: 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890'
 	*/
 
-	'alphabet' => 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890',
+    'alphabet' => 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890',
 
 ];

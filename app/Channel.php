@@ -32,7 +32,7 @@ class Channel extends Model
 
     /**
      * Get the links attribute.
-     * 
+     *
      * @return array
      */
     public function getLinksAttribute()
@@ -57,14 +57,14 @@ class Channel extends Model
 
     /**
      * Get the channel photo_url attribute.
-     * 
+     *
      * @return string
      */
     public function getPhotoUrlAttribute()
     {
         if ($value = $this->photo_path) {
             return filter_var($value, FILTER_VALIDATE_URL)
-            ? url($value) 
+            ? url($value)
             : $value;
         }
 
@@ -73,7 +73,7 @@ class Channel extends Model
 
     /**
      * Get the default photo url.
-     * 
+     *
      * @return string
      */
     public function defaultPhotoUrl()
@@ -93,20 +93,20 @@ class Channel extends Model
 
     /**
      * A Channel belongs on a board.
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function board() 
+    public function board()
     {
         return $this->belongsTo(Board::class);
     }
 
     /**
      * A channel has a creator.
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function creator() 
+    public function creator()
     {
         return $this->belongsTo(User::class, 'creator_id');
     }

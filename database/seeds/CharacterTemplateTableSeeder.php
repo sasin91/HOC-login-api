@@ -5,7 +5,7 @@ use Illuminate\Database\Seeder;
 
 class CharacterTemplateTableSeeder extends Seeder
 {
-	/*
+    /*
 	Alandia        (DPS)        (Range)             (Mana)
     Corrupt        (DPS)        (Range/Melee)    (Energy)
     Gunther        (Tank)        (Melee)         (Mana)
@@ -149,7 +149,7 @@ class CharacterTemplateTableSeeder extends Seeder
             'health' => 100,
             'resource' => 100,
             'stamina' => 100,
-	        'cost' => 100
+            'cost' => 100
         ];
     }
 }

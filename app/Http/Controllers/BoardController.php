@@ -10,7 +10,7 @@ class BoardController extends Controller
 {
     public function __construct()
     {
-       $this->middleware('auth:api')->except(['index', 'show']);
+        $this->middleware('auth:api')->except(['index', 'show']);
     }
 
     /**
@@ -37,11 +37,11 @@ class BoardController extends Controller
     {
         $this->authorize('create', new Board);
 
-        $this->validate(request(), [    
+        request()->validate([
             'topic'         =>  'required|string|max:255|min:6|spamfree',
             'description'   =>  'required|string|max:255|min:6|spamfree',
             'photo'         =>  'string|max:255'
-        ]); 
+        ]);
 
         return Board::create([
             'creator_id' => request()->user()->id,

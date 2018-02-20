@@ -8,19 +8,19 @@ use Illuminate\Http\Request;
 
 class OnlineController extends Controller
 {
-	public function __construct()
-	{
-		$this->middleware('auth:api');
-	}
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+    }
 
-	public function index()
-	{
-		abort_unless(
-			request()->user()->hasPermissionTo('list online players'),
-			403,
-			'Insufficient permissions.'
-		);
+    public function index()
+    {
+        abort_unless(
+            request()->user()->hasPermissionTo('list online players'),
+            403,
+            'Insufficient permissions.'
+        );
 
-		return Player::online()->get();
-	}
+        return Player::online()->get();
+    }
 }

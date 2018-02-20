@@ -4,14 +4,14 @@ namespace App\Policies\Concerns;
 
 trait BypassedByRoles
 {
-	protected $roles = [];
+    protected $roles = [];
 
-	public function before($user, $ability)
-	{
-		if ($user->hasRole($this->roles)) {
-			return true;
-		}
+    public function before($user, $ability)
+    {
+        if ($user->hasRole($this->roles)) {
+            return true;
+        }
 
-		return null;
-	}
+        return null;
+    }
 }

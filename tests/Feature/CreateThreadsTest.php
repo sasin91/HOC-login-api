@@ -4,18 +4,19 @@ namespace Tests\Feature;
 
 use App\Activity;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class CreateThreadsTest extends TestCase
 {
-    use DatabaseMigrations;
+    use RefreshDatabase;
 
     /** @test */
     function guests_may_not_create_threads()
     {
-	    $this->enableExceptionHandling();
+        $this->enableExceptionHandling();
 
-	    $this->json('POST', route('threads.store'))
+        $this->json('POST', route('threads.store'))
              ->assertStatus(401);
     }
 
@@ -24,51 +25,51 @@ class CreateThreadsTest extends TestCase
     {
         $this->signIn();
 
-        $thread = make('App\Thread');
+        $thread = make(\App\Thread::class);
 
-	    $this->post('/api/threads', $thread->toArray())
-             ->assertSee($thread->title)
-             ->assertSee($thread->body);
+        $response = $this->postJson('/api/threads', $thread->toArray());
+        $response->assertStatus(201);
     }
 
     /** @test */
     function a_thread_requires_a_title()
     {
-	    $this->enableExceptionHandling();
+        $this->enableExceptionHandling();
 
-	    $this->publishThread(['title' => null])
-            ->assertValidationErrors('title');
+        $response = $this->publishThread(['title' => null]);
+        $response->assertJsonValidationErrors('title');
     }
 
     /** @test */
     function a_thread_requires_a_body()
     {
-	    $this->enableExceptionHandling();
+        $this->enableExceptionHandling();
 
-	    $this->publishThread(['body' => null])
-            ->assertValidationErrors('body');
+        $response = $this->publishThread(['body' => null]);
+        $response->assertJsonValidationErrors('body');
     }
 
     /** @test */
     function a_thread_requires_a_valid_channel()
     {
-	    $this->enableExceptionHandling();
+        $this->enableExceptionHandling();
 
-	    factory('App\Channel', 2)->create();
+        factory(\App\Channel::class, 2)->create();
 
-        $this->publishThread(['channel_id' => null])
-            ->assertValidationErrors('channel_id');
+        $response = $this->publishThread(['channel_id' => null]);
 
-        $this->publishThread(['channel_id' => 999])
-            ->assertValidationErrors('channel_id');
+        $response->assertJsonValidationErrors('channel_id');
+
+        $response = $this->publishThread(['channel_id' => 999]);
+        $response->assertJsonValidationErrors('channel_id');
     }
 
     /** @test */
     function unauthorized_users_may_not_delete_threads()
     {
-	    $this->enableExceptionHandling();
+        $this->enableExceptionHandling();
 
-	    $thread = create('App\Thread');
+        $thread = factory(\App\Thread::class)->create();
 
         $this->json('DELETE', $thread->path())->assertStatus(401);
 
@@ -81,12 +82,12 @@ class CreateThreadsTest extends TestCase
     {
         $this->signIn();
 
-        $thread = create('App\Thread', ['user_id' => auth()->id()]);
-        $reply = create('App\Reply', ['thread_id' => $thread->id]);
+        $thread = factory(\App\Thread::class)->create(['user_id' => auth()->id()]);
+        $reply = factory(\App\Reply::class)->create(['thread_id' => $thread->id]);
 
         $response = $this->json('DELETE', $thread->path());
 
-	    $response->assertStatus(200);
+        $response->assertStatus(200);
 
         $this->assertDatabaseMissing('threads', ['id' => $thread->id]);
         $this->assertDatabaseMissing('replies', ['id' => $reply->id]);
@@ -98,7 +99,7 @@ class CreateThreadsTest extends TestCase
     {
         $this->signIn();
 
-        $thread = make('App\Thread', $overrides);
+        $thread = make(\App\Thread::class, $overrides);
 
         return $this->json('POST', route('threads.store'), $thread->toArray());
     }

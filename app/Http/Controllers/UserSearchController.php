@@ -9,15 +9,11 @@ class UserSearchController extends Controller
 {
     public function show()
     {
-    	$this->validate(request(), [
-    		'query' => 'required|string'
-    	]);
+        $search = request('query', '');
 
-    	$search = request('query');
-
-    	// return User::search($search)->get();
+        // return User::search($search)->get();
    
-      	return User::where('name', 'LIKE', "%$search%")
+        return User::where('name', 'LIKE', "%$search%")
             ->take(5)
             ->pluck('name');
     }

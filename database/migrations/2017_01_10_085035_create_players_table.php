@@ -22,7 +22,7 @@ class CreatePlayersTable extends Migration
 
             $table->decimal('chevron')->nullable();
             $table->integer('experience_rate')->default(100);
-	        $table->integer('experience')->nullable();
+            $table->integer('experience')->nullable();
 
             $table->timestamp('online_at')->nullable();
             $table->timestamp('last_seen_at')->nullable();

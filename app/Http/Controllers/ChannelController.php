@@ -28,7 +28,7 @@ class ChannelController extends Controller
     {
         $this->authorize('create', new Channel);
 
-        $this->validate(request(), [
+        request()->validate([
             'board_id' => 'required|exists:boards,id',
             'name' => 'required|string|max:50|min:3|spamfree',
             'slug' => 'string|max:50|min:3|spamfree',
@@ -37,7 +37,7 @@ class ChannelController extends Controller
         ]);
 
         return Channel::create([
-            'creator_id'  =>  request()->user() ? request()->user()->id : auth()->id(), 
+            'creator_id'  =>  request()->user() ? request()->user()->id : auth()->id(),
             'board_id'    =>  request('board_id'),
             'name'        =>  request('name'),
             'slug'        =>  request('slug'),

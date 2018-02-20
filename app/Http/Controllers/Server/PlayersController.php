@@ -10,13 +10,13 @@ class PlayersController extends Controller
 {
     public function __construct()
     {
-    	$this->middleware('auth:api');
+        $this->middleware('auth:api');
     }
 
     public function index(Server $server)
     {
-    	$this->authorize('list players on server', $server);
+        $this->authorize('list players on server', $server);
 
-    	return $server->players;
+        return $server->players;
     }
 }

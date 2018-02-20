@@ -2,46 +2,45 @@
 
 namespace Tests;
 
-
 use App\SuperUser;
 use App\User;
 use Laravel\Passport\Passport;
 
 trait SignIn
 {
-	protected function seedPermissions()
-	{
-		$this->seed(\PermissionsTableSeeder::class);
-	}
+    protected function seedPermissions()
+    {
+        $this->seed(\PermissionsTableSeeder::class);
+    }
 
-	protected function signInAsModerator($user = null)
-	{
-		return $this->signInWithRole('Moderator', $user);
-	}
+    protected function signInAsModerator($user = null)
+    {
+        return $this->signInWithRole('Moderator', $user);
+    }
 
-	protected function signInWithRole($role, $user = null)
-	{
-		return tap($this->signIn($user), function () use ($role) {
-			auth()->user()->assignRole($role);
-		});
-	}
+    protected function signInWithRole($role, $user = null)
+    {
+        return tap($this->signIn($user), function () use ($role) {
+            auth()->user()->assignRole($role);
+        });
+    }
 
-	protected function signIn($user = null)
-	{
-		Passport::actingAs($user ? $user : factory(User::class)->create());
+    protected function signIn($user = null)
+    {
+        Passport::actingAs($user ? $user : factory(User::class)->create());
 
-		return $this;
-	}
+        return $this;
+    }
 
-	protected function signInAsAdmin($user = null)
-	{
-		return $this->signInWithRole('Admin', $user);
-	}
+    protected function signInAsAdmin($user = null)
+    {
+        return $this->signInWithRole('Admin', $user);
+    }
 
-	protected function signInAsSuperAdmin($user = null)
-	{
-		return tap($this->signInAsAdmin($user), function () {
-			SuperUser::add(auth()->user()->email);
-		});
-	}
+    protected function signInAsSuperAdmin($user = null)
+    {
+        return tap($this->signIn($user), function () {
+            SuperUser::add(auth()->user()->email);
+        });
+    }
 }

@@ -170,9 +170,8 @@ return [
         Laravel\Passport\PassportServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
         Laravel\Scout\ScoutServiceProvider::class,
-        Laravel\Tinker\TinkerServiceProvider::class,
-	    Laravel\Cashier\CashierServiceProvider::class,
-	    ScoutEngines\Elasticsearch\ElasticsearchProvider::class,
+        Laravel\Cashier\CashierServiceProvider::class,
+        ScoutEngines\Elasticsearch\ElasticsearchProvider::class,
         Barryvdh\Cors\ServiceProvider::class,
         Mpociot\ApiDoc\ApiDocGeneratorServiceProvider::class,
 

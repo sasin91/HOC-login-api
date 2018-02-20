@@ -2,29 +2,28 @@
 
 namespace App;
 
-
 class SuperUser
 {
-	private static $emails = [
-		'jonas.kerwin.hansen@gmail.com'
-	];
+    private static $emails = [
+        'jonas.kerwin.hansen@gmail.com'
+    ];
 
-	public static function all()
-	{
-		return static::$emails;
-	}
+    public static function all()
+    {
+        return static::$emails;
+    }
 
-	public static function add($email)
-	{
-		static::$emails[] = $email;
-	}
+    public static function add($email)
+    {
+        static::$emails[] = $email;
+    }
 
-	public static function has($user)
-	{
-		if (is_object($user)) {
-			$user = $user->email;
-		}
+    public static function has($user)
+    {
+        if (is_object($user)) {
+            $user = $user->email;
+        }
 
-		return in_array($user, static::$emails);
-	}
+        return in_array($user, static::$emails);
+    }
 }

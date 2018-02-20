@@ -27,9 +27,9 @@ class RepliesController extends Controller
             'Calm yet tits. Too much, too soon.'
         );
 
-    	$this->authorize('create', new Reply);
+        $this->authorize('create', new Reply);
 
-    	$this->validate(request(), ['body' => 'required|spamfree']);
+        $this->validate(request(), ['body' => 'required|spamfree']);
 
         return $thread->addReply([
             'body' => request('body'),

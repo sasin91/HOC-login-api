@@ -15,7 +15,7 @@ class ForumSeeder extends Seeder
     {
         $threads = factory(Thread::class)->times(10)->create();
         $threads->each(function ($thread) {
-        	$thread->replies()->saveMany(factory(Reply::class)->times(range(3,5))->make());
+            $thread->replies()->saveMany(factory(Reply::class)->times(range(3, 5))->make());
         });
     }
 }

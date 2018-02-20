@@ -9,26 +9,26 @@ use Illuminate\Http\Request;
 
 class JoinServerController extends Controller
 {
-	use FindsPlayer;
+    use FindsPlayer;
 
     public function __construct()
     {
-    	$this->middleware('auth:api');
+        $this->middleware('auth:api');
     }
 
     public function store(Server $server)
     {
-    	if ($server->is_full) {
-    		return response('Server is full.', 503);
-    	}
+        if ($server->is_full) {
+            return response('Server is full.', 503);
+        }
 
-    	if (request()->user()->servers->contains($server)) {
-    		return response(tap($this->findPlayer($server))->update(['online_at' => now()]), 304);
-    	}
+        if (request()->user()->servers->contains($server)) {
+            return response(tap($this->findPlayer($server))->update(['online_at' => now()]), 304);
+        }
 
-    	return request()->user()->players()->create([
-    		'server_id' => $server->id,
-    		'online_at' => now()
-    	]);
+        return request()->user()->players()->create([
+            'server_id' => $server->id,
+            'online_at' => now()
+        ]);
     }
 }

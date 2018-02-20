@@ -1,40 +1,32 @@
 <?php
 
 namespace Tests;
-include 'helpers.php';
 
-use Illuminate\Contracts\Debug\ExceptionHandler;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
 {
-	use CreatesApplication, SignIn;
+    use CreatesApplication, SignIn;
 
-	public function setUp()
-	{
-		parent::setUp();
-
-		$uses = array_flip(class_uses_recursive(static::class));
-
-		if (isset($uses[DatabaseMigrations::class])) {
-			$this->app['config']->set('database.default', 'testing');
-
-			$this->setUpTraits();
-
-			$this->seedPermissions();
-		}
-
-		$this->disableExceptionHandling();
-	}
-
-	protected function enableExceptionHandling()
-	{
-		$this->app->forgetInstance(ExceptionHandler::class);
-	}
-
-	protected function disableExceptionHandling()
+    public function setUp()
     {
-        $this->app->instance(ExceptionHandler::class, new NullExceptionHandler);
+        parent::setUp();
+
+        $uses = array_flip(class_uses_recursive(static::class));
+
+        if (isset($uses[RefreshDatabase::class])) {
+            $this->seedPermissions();
+        }
+    }
+
+    public function disableExceptionHandling($except = [])
+    {
+        return $this->withoutExceptionHandling($except);
+    }
+
+    public function enableExceptionHandling()
+    {
+        return $this->withExceptionHandling();
     }
 }

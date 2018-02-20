@@ -3,11 +3,12 @@
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class SubscribeToThreadsTest extends TestCase
 {
-    use DatabaseMigrations;
+    use RefreshDatabase;
 
     /** @test */
     public function a_user_can_subscribe_to_threads()
@@ -15,7 +16,7 @@ class SubscribeToThreadsTest extends TestCase
         $this->signIn();
 
         // Given we have a thread...
-        $thread = create('App\Thread');
+        $thread = create(\App\Thread::class);
         
         // And the user subscribes to the thread...
         $this->post($thread->path() . '/subscriptions')->assertSuccessful();
@@ -28,7 +29,7 @@ class SubscribeToThreadsTest extends TestCase
     {
         $this->signIn();
 
-        $thread = create('App\Thread');
+        $thread = create(\App\Thread::class);
 
         $thread->subscribe();
 

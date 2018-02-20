@@ -9,19 +9,19 @@ use Illuminate\Http\Request;
 
 class LeaveServerController extends Controller
 {
-	use FindsPlayer;
+    use FindsPlayer;
 
     public function __construct()
     {
-    	$this->middleware('auth:api');
+        $this->middleware('auth:api');
     }
 
     public function store(Server $server)
     {
-    	if (! request()->user()->servers->contains($server)) {
-    		return response(304);
-    	}
+        if (! request()->user()->servers->contains($server)) {
+            return response(304);
+        }
 
-    	$this->findPlayer($server)->delete();
+        $this->findPlayer($server)->delete();
     }
 }

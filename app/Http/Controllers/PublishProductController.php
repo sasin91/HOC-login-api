@@ -6,21 +6,21 @@ use App\Product;
 
 class PublishProductController extends Controller
 {
-	public function __construct()
-	{
-		$this->middleware('auth:api');
-	}
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+    }
 
-	public function update()
-	{
-		$this->validate(request(), [
-			'id' => 'required|exists:products,id',
-			'date' => 'nullable|date'
-		]);
+    public function update()
+    {
+        $this->validate(request(), [
+            'id' => 'required|exists:products,id',
+            'date' => 'nullable|date'
+        ]);
 
-		$product = Product::unpublished()->find(request('id'));
-		$this->authorize('update', $product);
+        $product = Product::unpublished()->find(request('id'));
+        $this->authorize('update', $product);
 
-		return $product->publish(request('date'));
-	}
+        return $product->publish(request('date'));
+    }
 }

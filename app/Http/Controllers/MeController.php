@@ -8,11 +8,11 @@ class MeController extends Controller
 {
     public function __construct()
     {
-    	$this->middleware('auth:api');
+        $this->middleware('auth:api');
     }
 
     public function show()
     {
-    	return request()->user()->load(['players', 'servers']);
+        return request()->user()->load(['players', 'servers']);
     }
 }

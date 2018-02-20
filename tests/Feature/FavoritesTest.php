@@ -3,18 +3,19 @@
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class FavoritesTest extends TestCase
 {
-    use DatabaseMigrations;
+    use RefreshDatabase;
 
     /** @test */
     function guests_can_not_favorite_anything()
     {
-	    $this->enableExceptionHandling();
+        $this->enableExceptionHandling();
 
-	    $this->json('POST', '/api/replies/1/favorites')
+        $this->json('POST', '/api/replies/1/favorites')
              ->assertStatus(401);
     }
 
@@ -23,7 +24,7 @@ class FavoritesTest extends TestCase
     {
         $this->signIn();
 
-        $reply = create('App\Reply');
+        $reply = factory(\App\Reply::class)->create();
 
         $this->json('POST', '/api/replies/' . $reply->id . '/favorites');
 
@@ -35,7 +36,7 @@ class FavoritesTest extends TestCase
     {
         $this->signIn();
 
-        $reply = create('App\Reply');
+        $reply = factory(\App\Reply::class)->create();
 
         $reply->favorite();
 
@@ -49,7 +50,7 @@ class FavoritesTest extends TestCase
     {
         $this->signIn();
 
-        $reply = create('App\Reply');
+        $reply = factory(\App\Reply::class)->create();
 
         try {
             $this->json('POST', '/api/replies/' . $reply->id . '/favorites');

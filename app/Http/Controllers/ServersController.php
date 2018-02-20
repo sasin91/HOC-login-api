@@ -10,7 +10,7 @@ use App\Server;
 class ServersController extends Controller
 {
     public function __construct()
-    {        
+    {
         $this->middleware('auth:api')->except(['index', 'show']);
 
 
@@ -45,7 +45,7 @@ class ServersController extends Controller
         ]);
 
         return Server::create(
-	        request()->intersect(array_keys($rules))
+            request()->intersect(array_keys($rules))
         );
     }
 
@@ -80,7 +80,7 @@ class ServersController extends Controller
         ]);
 
         return tap($server)->update(
-	        request()->intersect(array_keys($rules))
+            request()->intersect(array_keys($rules))
         );
     }
 

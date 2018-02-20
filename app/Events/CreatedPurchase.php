@@ -9,20 +9,20 @@ use Illuminate\Queue\SerializesModels;
 
 class CreatedPurchase
 {
-	use Dispatchable, InteractsWithSockets, SerializesModels;
+    use Dispatchable, InteractsWithSockets, SerializesModels;
 
-	/**
-	 * @var Purchase
-	 */
-	public $purchase;
+    /**
+     * @var Purchase
+     */
+    public $purchase;
 
-	/**
-	 * Create a new event instance.
-	 *
-	 * @return void
-	 */
-	public function __construct($purchase)
-	{
-		$this->purchase = $purchase;
-	}
+    /**
+     * Create a new event instance.
+     *
+     * @return void
+     */
+    public function __construct($purchase)
+    {
+        $this->purchase = $purchase;
+    }
 }

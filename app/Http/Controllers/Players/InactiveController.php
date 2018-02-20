@@ -8,19 +8,19 @@ use Illuminate\Http\Request;
 
 class InactiveController extends Controller
 {
-	public function __construct()
-	{
-		$this->middleware('auth:api');
-	}
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+    }
 
-	public function index()
-	{
-		abort_unless(
-			request()->user()->hasPermissionTo('list inactive players'),
-			403,
-			'Insufficient permissions.'
-		);
+    public function index()
+    {
+        abort_unless(
+            request()->user()->hasPermissionTo('list inactive players'),
+            403,
+            'Insufficient permissions.'
+        );
 
-		return Player::inactive()->get();
-	}
+        return Player::inactive()->get();
+    }
 }

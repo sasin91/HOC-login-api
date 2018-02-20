@@ -7,39 +7,39 @@ use Spatie\Permission\Contracts\Role;
 
 class PermissionsTableSeeder extends Seeder
 {
-	public $admin = [
-		'create servers',
-		'edit servers',
-		'delete servers',
-		'create products',
-		'update products',
-		'delete products',
-		'create roles',
-		'edit roles',
-		'delete roles',
-		'assign roles',
-		'revoke roles',
-		'create permissions',
-		'edit permissions',
-		'delete permissions',
-		'grant permissions',
-		'revoke permissions'
-	];
-
-	public $moderator = [
-        'list inactive players', 'list offline players', 'list online players', 'list newbie players',
-        'create boards', 'edit boards', 'delete boards',
-	    'edit channels',
-	    'delete channels',
-	    'edit threads',
-	    'delete threads'
+    public $admin = [
+        'create servers',
+        'edit servers',
+        'delete servers',
+        'create products',
+        'update products',
+        'delete products',
+        'create roles',
+        'edit roles',
+        'delete roles',
+        'assign roles',
+        'revoke roles',
+        'create permissions',
+        'edit permissions',
+        'delete permissions',
+        'grant permissions',
+        'revoke permissions'
     ];
 
-	public $user = [
+    public $moderator = [
+        'list inactive players', 'list offline players', 'list online players', 'list newbie players',
+        'create boards', 'edit boards', 'delete boards',
+        'edit channels',
+        'delete channels',
+        'edit threads',
+        'delete threads'
+    ];
+
+    public $user = [
         'list servers', 'join server', 'leave server',
-	    'create channel',
-	    'create threads',
-	    'list online players'
+        'create channel',
+        'create threads',
+        'list online players'
     ];
 
 
@@ -53,22 +53,22 @@ class PermissionsTableSeeder extends Seeder
         Cache::forget('spatie.permission.cache');
 
         $this->permissions()
-        	 ->map(function ($permissions) use($permission_model) {
-       			return collect(array_fill_keys($permissions, 'name'))
-	       			->chunk(1)
-	       			->map(function ($chunk) use($permission_model) {
-	       				return $permission_model->firstOrCreate(
-	       					$chunk
-		       					->flip()
-		       					->toArray()
-	       				);
-	       			});
-        	})
-        	->each(function ($permissions, $role) use($role_model) {
-        		tap($role_model->firstOrCreate(['name' => $role]), function ($role) use($permissions) {
-        			$role->syncPermissions($permissions);
-        		});
-        	});
+             ->map(function ($permissions) use ($permission_model) {
+                return collect(array_fill_keys($permissions, 'name'))
+                    ->chunk(1)
+                    ->map(function ($chunk) use ($permission_model) {
+                        return $permission_model->firstOrCreate(
+                            $chunk
+                                ->flip()
+                                ->toArray()
+                        );
+                    });
+             })
+            ->each(function ($permissions, $role) use ($role_model) {
+                tap($role_model->firstOrCreate(['name' => $role]), function ($role) use ($permissions) {
+                    $role->syncPermissions($permissions);
+                });
+            });
     }
 
     protected function permissions()

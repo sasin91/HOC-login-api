@@ -8,45 +8,45 @@ use App\User;
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
 $factory->define(App\Board::class, function ($faker) {
-	return [
-		'creator_id' => factory(User::class)->lazy(),
-		'topic' => $faker->sentence,
-		'description' => $faker->bs
-	];
+    return [
+        'creator_id' => factory(User::class)->lazy(),
+        'topic' => $faker->sentence,
+        'description' => $faker->bs
+    ];
 });
 
 $factory->define(App\Channel::class, function ($faker) {
-	$name = $faker->word;
+    $name = $faker->word;
 
-	return [
-		'board_id' => factory(Board::class)->lazy(),
-		'creator_id' => factory(User::class)->lazy(),
-		'name' => $name,
-		'slug' => $name,
-		'description' => $faker->bs
-	];
+    return [
+        'board_id' => factory(Board::class)->lazy(),
+        'creator_id' => factory(User::class)->lazy(),
+        'name' => $name,
+        'slug' => $name,
+        'description' => $faker->bs
+    ];
 });
 
 $factory->define(App\Thread::class, function (\Faker\Generator $faker) {
-	return [
-		'user_id' => factory(User::class)->lazy(),
-		'channel_id' => factory(Channel::class)->lazy(),
-		'title' => $faker->sentence(3),
-		'body'  => $faker->paragraph
-	];
+    return [
+        'user_id' => factory(User::class)->lazy(),
+        'channel_id' => factory(Channel::class)->lazy(),
+        'title' => $faker->sentence(3),
+        'body'  => $faker->paragraph
+    ];
 });
 
 
 $factory->state(App\Thread::class, 'locked', function () {
-	return [
-		'locked_at' => now()
-	];
+    return [
+        'locked_at' => now()
+    ];
 });
 
 $factory->define(App\Reply::class, function ($faker) {
-	return [
-		'thread_id' => factory(Thread::class)->lazy(),
-		'user_id' => factory(User::class)->lazy(),
-		'body'  => $faker->paragraph
-	];
+    return [
+        'thread_id' => factory(Thread::class)->lazy(),
+        'user_id' => factory(User::class)->lazy(),
+        'body'  => $faker->paragraph
+    ];
 });

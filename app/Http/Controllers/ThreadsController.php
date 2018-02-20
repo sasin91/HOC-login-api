@@ -34,18 +34,18 @@ class ThreadsController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
+        $request->validate([
             'title' => 'required|spamfree',
             'body' => 'required|spamfree',
             'channel_id' => 'required|exists:channels,id'
         ]);
 
-        return Thread::create([
+        return response()->json(Thread::create([
             'user_id' => request()->user()->id,
             'channel_id' => request('channel_id'),
             'title' => request('title'),
             'body' => request('body')
-        ]);
+        ])->toArray(), 201);
     }
 
     /**
@@ -73,7 +73,7 @@ class ThreadsController extends Controller
      */
     public function destroy($channel, Thread $thread)
     {
-	    $this->authorize('delete', $thread);
+        $this->authorize('delete', $thread);
 
         $thread->delete();
     }

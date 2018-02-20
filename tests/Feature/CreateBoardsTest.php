@@ -4,18 +4,19 @@ namespace Tests\Feature;
 
 use App\Activity;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class CreateBoardsTest extends TestCase
 {
-	use DatabaseMigrations;
+    use RefreshDatabase;
 
    /** @test */
     function guests_may_not_create_boards()
     {
-	    $this->enableExceptionHandling();
+        $this->enableExceptionHandling();
 
-	    $this->json('POST', route('board.store'))
+        $this->json('POST', route('board.store'))
              ->assertStatus(401);
     }
 
@@ -24,7 +25,7 @@ class CreateBoardsTest extends TestCase
     {
         $this->signInAsModerator();
 
-        $board = make('App\Board');
+        $board = make(\App\Board::class);
 
         $this->post(route('board.store'), $board->toArray())
              ->assertSee($board->topic)
@@ -34,33 +35,34 @@ class CreateBoardsTest extends TestCase
     /** @test */
     function a_board_requires_a_topic()
     {
-	    $this->enableExceptionHandling();
+        $this->enableExceptionHandling();
 
-	    $this->signInAsModerator();
+        $this->signInAsModerator();
 
-        $this->json('POST', route('board.store'), ['topic' => null])
-             ->assertValidationErrors('topic');
+        $this->postJson(route('board.store'),
+            ['topic' => null, 'description' => 'some-description']
+        )->assertJsonValidationErrors('topic');
     }
 
     /** @test */
     function a_board_requires_a_description()
     {
-	    $this->enableExceptionHandling();
+        $this->enableExceptionHandling();
 
-	    $this->signInAsModerator();
+        $this->signInAsModerator();
 
-        $this->json('POST', route('board.store'), ['description' => null])
-            ->assertValidationErrors('description');
+        $this->json('POST', route('board.store'), ['description' => null, 'topic' => 'testing'])
+            ->assertJsonValidationErrors('description');
     }
 
     /** @test */
     function unauthorized_users_may_not_delete_boards()
     {
-	    $this->enableExceptionHandling();
+        $this->enableExceptionHandling();
 
-	    $board = create('App\Board');
+        $board = factory(\App\Board::class)->create();
 
-        $this->json('DELETE', $board->path())->assertStatus(401);
+        $this->deleteJson($board->path())->assertStatus(401);
 
         $this->signIn();
         $this->delete($board->path())->assertStatus(403);
@@ -71,7 +73,7 @@ class CreateBoardsTest extends TestCase
     {
         $this->signInAsModerator();
 
-        $board = create('App\Board');
+        $board = factory(\App\Board::class)->create();
 
         $response = $this->json('DELETE', $board->path());
 
@@ -81,11 +83,11 @@ class CreateBoardsTest extends TestCase
     }
 
     /** @test */
-    function creator_can_delete_their_boards() 
+    function creator_can_delete_their_boards()
     {
-    	$this->signIn();
+        $this->signIn();
 
-        $board = create('App\Board', ['creator_id' => auth()->id()]);
+        $board = factory(\App\Board::class)->create(['creator_id' => auth()->id()]);
 
         $response = $this->json('DELETE', $board->path());
 
@@ -94,5 +96,5 @@ class CreateBoardsTest extends TestCase
         $this->assertDatabaseMissing('boards', ['id' => $board->id]);
 
         $this->assertEquals(0, Activity::count());
-    } 
+    }
 }

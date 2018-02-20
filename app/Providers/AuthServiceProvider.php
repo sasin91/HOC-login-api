@@ -34,16 +34,16 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-	    Player::class => PlayerPolicy::class,
-	    Server::class => ServerPolicy::class,
-	    Thread::class => ThreadPolicy::class,
-	    Reply::class => ReplyPolicy::class,
-	    User::class => UserPolicy::class,
-	    Channel::class => ChannelPolicy::class,
-	    Board::class => BoardPolicy::class,
-	    Product::class => ProductPolicy::class,
-	    Role::class => RolePolicy::class,
-	    Permission::class => PermissionPolicy::class
+        Player::class => PlayerPolicy::class,
+        Server::class => ServerPolicy::class,
+        Thread::class => ThreadPolicy::class,
+        Reply::class => ReplyPolicy::class,
+        User::class => UserPolicy::class,
+        Channel::class => ChannelPolicy::class,
+        Board::class => BoardPolicy::class,
+        Product::class => ProductPolicy::class,
+        Role::class => RolePolicy::class,
+        Permission::class => PermissionPolicy::class
     ];
 
     /**
@@ -61,7 +61,7 @@ class AuthServiceProvider extends ServiceProvider
 
         Gate::define('list players on server', function ($user, $server) {
             return $user->hasRole('Admin')
-            || $user->players()->whereHas('server', function ($query) use($server) {
+            || $user->players()->whereHas('server', function ($query) use ($server) {
                 return $query->where('server_id', $server->id);
             });
         });

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Player extends Model
 {
-	use HasPurchases;
+    use HasPurchases;
 
     const INACTIVE_AFTER_DAYS = 30;
 
@@ -14,9 +14,9 @@ class Player extends Model
         'user_id',
         'server_id',
         'online_at',
-	    'last_seen_at',
-	    'experience_rate',
-	    'experience'
+        'last_seen_at',
+        'experience_rate',
+        'experience'
     ];
 
     protected $dates = ['online_at', 'last_seen_at'];
@@ -32,17 +32,17 @@ class Player extends Model
         });
     }
 
-	/**
+    /**
      * Scope only offline Players.
      *
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeOffline($query) 
+    public function scopeOffline($query)
     {
         return $query->whereNull('online_at');
-    } 
+    }
 
     /**
      * Scope only online Players.
@@ -58,53 +58,53 @@ class Player extends Model
 
     /**
      * Scope only inactive players
-     * 
+     *
      * @param  \Illuminate\Database\Eloquent\Builder $query
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeInactive($query) 
+    public function scopeInactive($query)
     {
         return $query->WhereDate('last_seen_at', '<=', $this->freshTimestamp()->subDays(static::INACTIVE_AFTER_DAYS));
     }
 
     /**
      * Scope only inactive players
-     * 
+     *
      * @param  \Illuminate\Database\Eloquent\Builder $query
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeNewbies($query) 
+    public function scopeNewbies($query)
     {
         return $query->whereNull('last_seen_at');
     }
 
-	/**
-	 * The server the player is on.
-	 *
-	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-	 */
+    /**
+     * The server the player is on.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function server()
     {
         return $this->belongsTo(Server::class);
     }
 
-	/**
-	 * The authenticatable user the player belongs to.
-	 *
-	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-	 */
+    /**
+     * The authenticatable user the player belongs to.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-	/**
-	 * A player have many characters.
-	 *
-	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
-	 */
-	public function characters()
-	{
-		return $this->hasMany(Character::class);
-	}
+    /**
+     * A player have many characters.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function characters()
+    {
+        return $this->hasMany(Character::class);
+    }
 }

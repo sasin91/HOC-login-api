@@ -1,5 +1,5 @@
 <?php
-
+/*
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -10,6 +10,7 @@
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
 Route::name('password.send')->post('send-password-reset', 'SendPasswordResetController@store');
 Route::name('password.reset')->post('reset-password', 'ResetPasswordController@store');
 
@@ -33,15 +34,15 @@ Route::name('me.photo')->post('photo', 'Me\PhotoController@store');
 Route::apiResource('servers', 'ServersController');
 
 Route::prefix('server/{server}')->namespace('Server')->group(function () {
-	Route::name('server.players')->get('players', 'PlayersController@index');
-	Route::name('server.join')->post('join', 'JoinServerController@store');
-	Route::name('server.leave')->post('leave', 'LeaveServerController@store');
+    Route::name('server.players')->get('players', 'PlayersController@index');
+    Route::name('server.join')->post('join', 'JoinServerController@store');
+    Route::name('server.leave')->post('leave', 'LeaveServerController@store');
 });
 
 Route::prefix('player/{player}')->group(function () {
-	Route::name('player.show')->get('/', 'PlayerController@show');
-	Route::name('player.delete')->delete('/', 'PlayerController@destroy');
-	Route::name('player.update')->match(['PUT', 'PATCH'], '/', 'PlayerController@update');
+    Route::name('player.show')->get('/', 'PlayerController@show');
+    Route::name('player.delete')->delete('/', 'PlayerController@destroy');
+    Route::name('player.update')->match(['PUT', 'PATCH'], '/', 'PlayerController@update');
 });
 
 Route::name('players.inactive')->get('inactive-players', 'Players\InactiveController@index');
@@ -71,7 +72,7 @@ Route::name('threads.destroy')->delete('threads/{channel}/{thread}', 'ThreadsCon
 Route::name('channel.threads.index')->get('threads/{channel}', 'ThreadsController@index');
 Route::name('thread.replies.index')->get('/threads/{channel}/{thread}/replies', 'RepliesController@index');
 Route::name('thread.replies.store')->post('/threads/{channel}/{thread}/replies', 'RepliesController@store');
-Route::name('replies.update')->match(['PUT','PATCH'],'/replies/{reply}', 'RepliesController@update');
+Route::name('replies.update')->match(['PUT','PATCH'], '/replies/{reply}', 'RepliesController@update');
 Route::name('replies.destroy')->delete('/replies/{reply}', 'RepliesController@destroy');
 
 Route::name('channel.cover.store')->post('channel/{channel}/cover', 'ChannelCoverController@store');
@@ -89,9 +90,9 @@ Route::name('profile.notifications.destroy')->delete('/profiles/{user}/notificat
 
 Route::apiResource('roles', 'RolesController');
 Route::prefix('roles/{role}/permissions')->group(function () {
-	Route::name('roles.permissions.index')->get('/', 'RolePermissionsController@index');
-	Route::name('roles.permissions.store')->post('/', 'RolePermissionsController@store');
-	Route::name('roles.permissions.destroy')->delete('{permission}', 'RolePermissionsController@destroy');
+    Route::name('roles.permissions.index')->get('/', 'RolePermissionsController@index');
+    Route::name('roles.permissions.store')->post('/', 'RolePermissionsController@store');
+    Route::name('roles.permissions.destroy')->delete('{permission}', 'RolePermissionsController@destroy');
 });
 Route::apiResource('permissions', 'PermissionsController');
 

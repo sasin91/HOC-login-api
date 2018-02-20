@@ -14,7 +14,7 @@ class Board extends Model
     /**
      * Boot the Model.
      * This model run once per lifecycle.
-     * 
+     *
      * @return void
      */
     protected static function boot()
@@ -34,7 +34,7 @@ class Board extends Model
     
     /**
      * Get the links attribute
-     * 
+     *
      * @return array
      */
     public function getLinksAttribute()
@@ -48,14 +48,14 @@ class Board extends Model
 
     /**
      * Get the photo_url attribute
-     * 
+     *
      * @return string
      */
     public function getPhotoUrlAttribute()
     {
         if ($value = $this->photo_path) {
             return filter_var($value, FILTER_VALIDATE_URL)
-            ? url($value) 
+            ? url($value)
             : $value;
         }
 
@@ -64,7 +64,7 @@ class Board extends Model
 
     /**
      * Default photo url
-     * 
+     *
      * @return string
      */
     public function defaultPhotoUrl()
@@ -84,21 +84,21 @@ class Board extends Model
 
     /**
      * A Board has a creator.
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function creator() 
+    public function creator()
     {
-    	return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class);
     }
 
     /**
      * A Board has many channels below it.
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function channels() 
+    public function channels()
     {
-    	return $this->hasMany(Channel::class);
+        return $this->hasMany(Channel::class);
     }
 }

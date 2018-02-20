@@ -6,87 +6,91 @@ use App\User;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Auth\Passwords\TokenRepositoryInterface;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Password;
 use Tests\TestCase;
 
 class AuthTest extends TestCase
 {
-	use DatabaseMigrations;
+    use RefreshDatabase;
 
-	public function setUp()
-	{
-		parent::setUp();
+    public function setUp()
+    {
+        parent::setUp();
 
-		$this->artisan('passport:install');
-	}
+        Mail::fake();
 
-	/** @test */
-	function a_visitor_can_register() 
-	{
-		$this->disableExceptionHandling();
+        $this->artisan('passport:install');
+    }
 
-		$this->json('POST', '/api/register', ['name' => 'John doe', 'email' => 'john@example.com', 'password' => 'secret', 'password_confirmation' => 'secret'])
-			 ->assertSuccessful();
-	} 
+    /** @test */
+    function a_visitor_can_register()
+    {
+        $this->disableExceptionHandling();
 
-	/** @test */
-	function an_api_user_can_login() 
-	{
-		$this->disableExceptionHandling();
+        $this->json('POST', '/api/register', ['name' => 'John doe', 'email' => 'john@example.com', 'password' => 'secret', 'password_confirmation' => 'secret'])
+             ->assertSuccessful();
+    }
 
-		$user = factory(User::class)->create(['email' => 'john@example.com', 'password' => bcrypt('secret')]);
+    /** @test */
+    function an_api_user_can_login()
+    {
+        $this->disableExceptionHandling();
 
-		$this->json('POST', '/api/login', ['email' => 'john@example.com', 'password' => 'secret'])
-			 ->assertSuccessful();
+        $user = factory(User::class)->create(['email' => 'john@example.com', 'password' => bcrypt('secret')]);
 
-		$this->assertNotEmpty($user->tokens);
-	}
+        $this->json('POST', '/api/login', ['email' => 'john@example.com', 'password' => 'secret'])
+             ->assertSuccessful();
 
-	/** @test */
-	function authenticated_user_can_logout() 
-	{
-		auth()->login($user = factory(User::class)->create());
+        $this->assertNotEmpty($user->tokens);
+    }
 
-		$this->json('POST', '/api/logout')
-			 ->assertSuccessful();
+    /** @test */
+    function authenticated_user_can_logout()
+    {
+        auth()->login($user = factory(User::class)->create());
 
-		$this->assertFalse(auth()->check());
-	}
+        $this->json('POST', '/api/logout')
+             ->assertSuccessful();
 
-	/** @test */
-	function registered_user_request_a_password_reset() 
-	{	
-		Notification::fake();
+        $this->assertFalse(auth()->check());
+    }
 
-		$user = factory(User::class)->create(['email' => 'john@example.com']);
+    /** @test */
+    function registered_user_request_a_password_reset()
+    {
+        Notification::fake();
 
-		$this->json('post', '/api/send-password-reset', ['email' => 'john@example.com'])
-			 ->assertSuccessful();
+        $user = factory(User::class)->create(['email' => 'john@example.com']);
 
-		Notification::assertSentTo($user, ResetPassword::class);
-	}
+        $this->json('post', '/api/send-password-reset', ['email' => 'john@example.com'])
+             ->assertSuccessful();
 
-	/** @test */
-	function registered_user_can_reset_their_password() 
-	{
-		$this->enableExceptionHandling();
+        Notification::assertSentTo($user, ResetPassword::class);
+    }
 
-		$user = factory(User::class)->create(['email' => 'john@example.com']);
-		$token = Password::broker()->getRepository()->create($user);
+    /** @test */
+    function registered_user_can_reset_their_password()
+    {
+        $this->enableExceptionHandling();
 
-		$this->json('post', '/api/reset-password', [
-			'email' => 'john@example.com', 
-			'token' => $token, 
-			'password' => 'secret',
-			'password_confirmation' => 'secret'
-		])
-			 ->assertSuccessful();
+        $user = factory(User::class)->create(['email' => 'john@example.com']);
+        $token = Password::broker()->getRepository()->create($user);
 
-		$this->assertTrue(
-			Auth::attempt(['email' => 'john@example.com', 'password' => 'secret'])
-		);
-	} 
+        $this->json('post', '/api/reset-password', [
+            'email' => 'john@example.com',
+            'token' => $token,
+            'password' => 'secret',
+            'password_confirmation' => 'secret'
+        ])
+             ->assertSuccessful();
+
+        $this->assertTrue(
+            Auth::attempt(['email' => 'john@example.com', 'password' => 'secret'])
+        );
+    }
 }

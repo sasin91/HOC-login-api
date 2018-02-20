@@ -11,9 +11,9 @@ class UserNotificationsController extends Controller
         $this->middleware('auth:api');
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        return request()->user()->unreadNotifications;
+        return $request->user()->unreadNotifications;
     }
 
     /**

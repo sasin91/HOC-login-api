@@ -9,31 +9,27 @@ use Illuminate\Http\Request;
 
 class VerifyEmailController extends Controller
 {
-	public function show(Request $request)
-	{
-		$this->validate($request, [
-			'token' => 'required|string|exists:users,verification_token'
-		]);
+    public function show(Request $request)
+    {
+        $user = User::where('verification_token', $request->token)->firstOrFail();
 
-		$user = User::where('verification_token', $request->token)->firstOrFail();
+        $this->validateToken($request->token, $user);
 
-		$this->validateToken($request->token, $user);
+        return response()->json([], 200);
+    }
 
-		return redirect()->to('/')->with('status', 'Email verified!');
-	}
+    /**
+     * Validate the verification token
+     *
+     * @param string $token
+     * @param User $user
+     */
+    protected function validateToken($token, $user)
+    {
+        $valid = EmailVerification::check($token, $user);
 
-	/**
-	 * Validate the verification token
-	 *
-	 * @param string $token
-	 * @param User $user
-	 */
-	protected function validateToken($token, $user)
-	{
-		$valid = EmailVerification::check($token, $user);
+        throw_unless($valid, \InvalidArgumentException::class, "Invalid verification token.");
 
-		throw_unless($valid, \InvalidArgumentException::class, "Invalid verification token.");
-
-		$user->update(['verified_at' => now()]);
-	}
+        $user->update(['verified_at' => now()]);
+    }
 }

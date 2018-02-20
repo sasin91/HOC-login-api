@@ -8,18 +8,18 @@ use App\Purchase;
 
 class RefundPurchaseController extends Controller
 {
-	public function store(RefundPurchaseRequest $request, Purchase $purchase, PaymentGateway $gateway)
-	{
-		$purchase->fill($request->intersect(['amount', 'currency']));
+    public function store(RefundPurchaseRequest $request, Purchase $purchase, PaymentGateway $gateway)
+    {
+        $purchase->fill($request->intersect(['amount', 'currency']));
 
-		try {
-			$gateway->refund($purchase);
+        try {
+            $gateway->refund($purchase);
 
-			$purchase->refund();
+            $purchase->refund();
 
-			return response()->json([$purchase->delete()]);
-		} catch (\RuntimeException $e) {
-			abort($e->getCode(), $e->getMessage());
-		}
-	}
+            return response()->json([$purchase->delete()]);
+        } catch (\RuntimeException $e) {
+            abort($e->getCode(), $e->getMessage());
+        }
+    }
 }

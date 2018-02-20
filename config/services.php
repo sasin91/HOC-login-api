@@ -35,7 +35,7 @@ return [
         'secret' => env('STRIPE_SECRET'),
     ],
 
-	'quickpay' => [
-		'key' => ':' . env('QUICKPAY_KEY')
-	]
+    'quickpay' => [
+        'key' => ':' . env('QUICKPAY_KEY')
+    ]
 ];
